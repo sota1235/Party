@@ -1,0 +1,6 @@
+# for All
+*.swp
+*~
+
+# OS X
+DS_Store
