@@ -19,6 +19,12 @@ All Star Thanksgiving
 
 ### Install
 
+Install ruby gems. You need [bundler](https://github.com/bundler/bundler).
+
+```
+$ bundle install --path vendor/bundle
+```
+
 ### Contribution
 
 ### Licence
