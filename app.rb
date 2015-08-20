@@ -6,9 +6,14 @@ require 'sass'
 require 'coffee-script'
 
 class AllStarThanksGiving < Sinatra::Base
-  configure :development do
+  configure do
+    set :public_folder, File.dirname(__FILE__) + '/public'
     register Sinatra::Reloader
     register Sinatra::AssetPack
+  end
+
+  configure :development do
+    register Sinatra::Reloader
   end
 
   get '/' do

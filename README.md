@@ -19,10 +19,22 @@ All Star Thanksgiving
 
 ### Install
 
+- Rubygems
+
 Install ruby gems. You need [bundler](https://github.com/bundler/bundler).
 
 ```
 $ bundle install --path vendor/bundle
+```
+
+- Bower
+
+Next, you need to install some frontend packages. You need [bower](https://www.npmjs.com/package/bower).
+
+```
+$ npm i -g bower
+
+$ bower install
 ```
 
 ### Contribution

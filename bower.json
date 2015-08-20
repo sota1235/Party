@@ -1,0 +1,26 @@
+{
+  "name": "All Star Thanksgiving",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sota1235/All-Star-Thanksgiving",
+  "description": "lunch map",
+  "main": "app.rb",
+  "keywords": [
+    "quiz",
+    "real time"
+  ],
+  "authors": [
+    "sota1235"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "~3.0.3",
+    "jQuery": "~2.1.4"
+  }
+}
