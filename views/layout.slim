@@ -6,6 +6,8 @@ html
     script src='/js/test.js'
     link rel='stylesheet' href='/lib/normalize.css/normalize.css'
     link rel='stylesheet' href='/css/test.css'
+    == yield_content :addCss
 
   body
     == yield
+    == yield_content :addJs

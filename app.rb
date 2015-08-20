@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/assetpack'
 require 'sinatra/reloader'
+require 'sinatra/content_for'
 require 'slim'
 require 'sass'
 require 'coffee-script'
@@ -10,6 +11,7 @@ class AllStarThanksGiving < Sinatra::Base
     set :public_folder, File.dirname(__FILE__) + '/public'
     register Sinatra::Reloader
     register Sinatra::AssetPack
+    helpers Sinatra::ContentFor
   end
 
   configure :development do

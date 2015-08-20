@@ -1,1 +1,10 @@
 h1 Hello, All-Star
+
+div#chat-text
+
+form#input-form
+  input#input-text type='text' placeholder='Enter chat text here!'
+  input type='submit'
+
+- content_for :addJs do
+  script src='/js/index.js'
