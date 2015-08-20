@@ -37,6 +37,16 @@ $ npm i -g bower
 $ bower install
 ```
 
+- Puma
+
+You can run the application by below command.
+
+```
+$ bundle exec puma -p 9292
+```
+
+And you can access `http://localhost:9292`.
+
 ### Contribution
 
 ### Licence
