@@ -22,6 +22,11 @@ class AllStarThanksGiving < Sinatra::Base
     slim :index
   end
 
+  # send message to websocket clients
+  post '/vote' do
+    # send message to clients by websocket
+  end
+
   # js and css
   assets do
     serve '/js', :from => 'assets/js'
