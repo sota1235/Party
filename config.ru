@@ -1,6 +1,6 @@
 require './app'
-require './middlewares/chat_backend'
+require './middlewares/real_vote_backend'
 
-use ChatDemo::ChatBackend
+use RealVote::RealVoteBackend
 
 run AllStarThanksGiving

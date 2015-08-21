@@ -1,7 +1,7 @@
 require 'faye/websocket'
 
-module ChatDemo
-  class ChatBackend
+module RealVote
+  class RealVoteBackend
     KEEPALIVE_TIME = 15 # in seconds
 
     def initialize(app)
@@ -11,7 +11,7 @@ module ChatDemo
 
     def call(env)
       if Faye::WebSocket.websocket?(env)
-        ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
+        ws = Faye::WebSocket.new(env, nil, ping: KEEPALIVE_TIME)
 
         # 接続開始
         ws.on :open do |event|
