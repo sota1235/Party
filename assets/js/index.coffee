@@ -17,7 +17,17 @@ ws.onmessage = (message) ->
 $('#input-form').on 'submit', (event) ->
   event.preventDefault()
   text   = $('#input-text')[0].value
+  console.log 'send comment'
   ws.send JSON.stringify
     type: 'comment'
     text: text
   $('#input-text')[0].value = ''
+
+$('#input-quiz-form').on 'submit', (event) ->
+  event.preventDefault()
+  num = $('#input-quiz')[0].value
+  console.log 'send quiz num'
+  ws.send JSON.stringify
+    type: 'vote'
+    num : num
+  $('#input-quiz')[0].value = ''

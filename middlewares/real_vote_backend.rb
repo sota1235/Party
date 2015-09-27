@@ -8,6 +8,7 @@ module RealVote
     def initialize(app)
       @app     = app
       @clients = []
+      @masters = [] # list of ws id its quiz master
       @score   = [ 0, 0, 0, 0 ] # score of quiz
     end
 
@@ -26,12 +27,11 @@ module RealVote
           # get type of message
           json = JSON.parse(event.data)
           type = json['type']
-          if type == 'vote'
-            puts 'vote' + event.data
-            # send score to master server
-          elsif type == 'comment'
-            puts 'comment' + event.data
-            @clients.each {|client| client.send(event.data) }
+          puts json
+          @masters.each {|master| master.send(JSON.pretty_generate json) }
+
+          if type == 'master'
+            @masters << ws
           end
         end
 

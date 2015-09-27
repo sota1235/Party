@@ -6,7 +6,8 @@ form#input-form
   input#input-text type='text' placeholder='Enter chat text here!'
   input type='submit'
 
-form method='POST' action='/vote'
+form#input-quiz-form
+  input#input-quiz type='text' placeholder='Enter quiz number!'
   input type='submit'
 
 - content_for :addJs do
