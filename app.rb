@@ -17,13 +17,14 @@ class AllStarThanksGiving < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  # page to vote for quiz
   get '/' do
     slim :index
   end
 
-  # send message to websocket clients
-  post '/vote' do
-    # send message to clients by websocket
+  # page to set questions
+  get '/quiz' do
+    slim :quiz
   end
 
   # js and css
