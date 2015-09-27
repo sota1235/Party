@@ -18,5 +18,6 @@ $('#input-form').on 'submit', (event) ->
   event.preventDefault()
   text   = $('#input-text')[0].value
   ws.send JSON.stringify
+    type: 'comment'
     text: text
   $('#input-text')[0].value = ''

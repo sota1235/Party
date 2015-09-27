@@ -1,4 +1,5 @@
 require 'faye/websocket'
+require 'json'
 
 module RealVote
   class RealVoteBackend
@@ -7,6 +8,7 @@ module RealVote
     def initialize(app)
       @app     = app
       @clients = []
+      @score   = [ 0, 0, 0, 0 ] # score of quiz
     end
 
     def call(env)
@@ -21,8 +23,16 @@ module RealVote
 
         # 通信受信
         ws.on :message do |event|
-          p [:message, event.data]
-          @clients.each {|client| client.send(event.data) }
+          # get type of message
+          json = JSON.parse(event.data)
+          type = json['type']
+          if type == 'vote'
+            puts 'vote' + event.data
+            # send score to master server
+          elsif type == 'comment'
+            puts 'comment' + event.data
+            @clients.each {|client| client.send(event.data) }
+          end
         end
 
         # 通信終了
