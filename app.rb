@@ -9,7 +9,6 @@ require 'coffee-script'
 class AllStarThanksGiving < Sinatra::Base
   configure do
     set :public_folder, File.dirname(__FILE__) + '/public'
-    register Sinatra::Reloader
     register Sinatra::AssetPack
     helpers Sinatra::ContentFor
   end
