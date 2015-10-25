@@ -23,11 +23,11 @@ $('#input-form').on 'submit', (event) ->
     text: text
   $('#input-text')[0].value = ''
 
-$('#input-quiz-form').on 'submit', (event) ->
+$('.a, .b, .c, .d').on 'click', (event) ->
+  console.log this
   event.preventDefault()
-  num = $('#input-quiz')[0].value
-  console.log 'send quiz num'
+  num = $(this).attr 'value'
+  console.log 'send quiz num ' + num
   ws.send JSON.stringify
     type: 'vote'
     num : num
-  $('#input-quiz')[0].value = ''
