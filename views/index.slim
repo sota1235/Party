@@ -1,20 +1,23 @@
-h1 Hello, All-Star
+div.container
+  div
+    h1 All-Star Thanks Giving mock
 
-div#chat-text
+    div#quiz-form
+      form#input-form
+        input#input-text type='text' placeholder='Enter chat text here!'
+        input type='submit' value='コメントを送信'
 
-form#input-form
-  input#input-text type='text' placeholder='Enter chat text here!'
-  input type='submit'
-
-div
-  button.a value='1'
-    | 1番
-  button.b value='2'
-    | 2番
-  button.c value='3'
-    | 3番
-  button.d value='4'
-    | 4番
+      div
+        button.a value='1'
+          | 1番
+        button.b value='2'
+          | 2番
+        button.c value='3'
+          | 3番
+        button.d value='4'
+          | 4番
 
 - content_for :addJs do
   script src='/js/index.js'
+- content_for :addCss do
+  link rel='stylesheet' href='/css/index.css'
