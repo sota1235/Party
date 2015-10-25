@@ -33,7 +33,6 @@ $ ->
     if type is 'comment'
       comment = new Comment data['text']
       comment.run()
-      # $comment.prepend '<div id="comment">' + data['text'] + '</div>'
     else if type is 'vote'
       if data['num'] not in ['1', '2', '3', '4'] then return
       countUp $a[Number data['num'] - 1]

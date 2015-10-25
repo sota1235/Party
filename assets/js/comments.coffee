@@ -10,21 +10,50 @@
 #   jQuery 1.x
 
 class @Comment
-  @dom     = null
   @comment = null
+  time: 4000
 
   constructor: (comment) ->
     @comment = comment
 
   run: () ->
     create @comment
-    # run
+      .then setStyle
+      .then animate
+      .then deleteDom
+      .catch (err) ->
+        console.log err
 
   ### private methods ###
   create = (comment) ->
-    commentElm = '<div id="comment">' + comment + '</div>'
-    $('body').append commentElm
-    @dom = $ commentElm
+    return new Promise (resolve, reject) ->
+      idName     = 'comment' + Math.random().toString(36).slice(-8)
+      commentElm =
+        "<div id=\"#{idName}\" style=\"display: none\">" + comment + '</div>'
+      $('body').append commentElm
+      dom = $ "##{idName}"
+      resolve dom
 
-  deleteDom = () ->
-    @dom.remove()
+  setStyle = (dom) ->
+    return new Promise (resolve, reject) ->
+      top = Math.floor(Math.random() * 100)
+      dom.css
+        display: 'block'
+        position: 'fixed'
+        left: '100%'
+        top: top.toString() + '%'
+      resolve dom
+
+  animate = (dom) ->
+    return new Promise (resolve, reject) ->
+      dom.animate
+        left: '-200%'
+      , 7000
+      resolve dom
+
+  deleteDom = (dom) ->
+    return new Promise (resolve , reject) ->
+      setTimeout () ->
+        dom.remove()
+        resolve()
+      , 7500
