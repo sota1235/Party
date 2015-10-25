@@ -29,7 +29,7 @@ class @Comment
     return new Promise (resolve, reject) ->
       idName     = 'comment' + Math.random().toString(36).slice(-8)
       commentElm =
-        "<div id=\"#{idName}\" style=\"display: none\">" + comment + '</div>'
+        "<div id=\"#{idName}\" class=\"quiz_comment\" style=\"display: none\">" + comment + '</div>'
       $('body').append commentElm
       dom = $ "##{idName}"
       resolve dom
@@ -38,6 +38,7 @@ class @Comment
     return new Promise (resolve, reject) ->
       top = Math.floor(Math.random() * 100)
       dom.css
+        'font-size' : '30px'
         display: 'block'
         position: 'fixed'
         left: '100%'
