@@ -7,3 +7,6 @@ DS_Store
 
 # sass
 .sass-cache/
+
+# npm
+npm-debug.log
