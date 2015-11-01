@@ -29,13 +29,15 @@
     "jade": "^1.11.0",
     "jquery": "^2.1.4",
     "morgan": "^1.6.1",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.3.7"
   },
   "devDependencies": {
     "babelify": "^7.0.2",
     "browserify": "^12.0.1",
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
     "gulp-sourcemaps": "^1.6.0",
     "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",

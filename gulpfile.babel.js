@@ -3,6 +3,7 @@
 // Gulp plugins
 var gulp       = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
+var coffee     = require('gulp-coffee');
 // others
 var browserify = require('browserify');
 var babelify   = require('babelify');
@@ -11,7 +12,13 @@ var source     = require('vinyl-source-stream');
 var buffer     = require('vinyl-buffer');
 var glob       = require('glob');
 
-gulp.task('script', () => {
+gulp.task('coffee', () => {
+  gulp.src('assets/js/**/*.coffee')
+    .pipe(coffee())
+    .pipe(gulp.dest('public/js'));
+});
+
+gulp.task('browserify', () => {
   let scripts = glob.sync('./assets/js/*.js');
   browserify({
     entries: scripts,
@@ -33,4 +40,4 @@ gulp.task('watch', () => {
   gulp.watch('./assets/js/**/*.js', ['script']);
 });
 
-gulp.task('default', ['script']);
+gulp.task('default', ['browserify']);
