@@ -15,5 +15,14 @@ module.exports = function(server) {
 
   io.on('connection', function(socket) {
     console.log('a user connected');
+    socket.on('comment', function(msg) {
+      console.log('comment: ' + msg);
+      io.emit('comment', msg);
+    });
+
+    socket.on('vote', function(msg) {
+      console.log('vote: ' + msg);
+      io.emit('vote', msg);
+    });
   });
 };
