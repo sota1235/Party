@@ -1,13 +1,17 @@
-All Star Thanksgiving
+Party
 ====
 
-4択クイズのリアルタイム投票システムです。
+Simple quiz system.
 
 ### Description
 
-クイズ画面と投票画面にわかれます。
+This application has three types of screen.
 
-投票者の投票がリアルタイムにクイズ画面に数値として反映されます。
+- Questions
+- Answering form
+- Management quiz
+
+The answers is reflected in real-time on 'Questions' screen.
 
 ### Demo
 
@@ -15,37 +19,22 @@ All Star Thanksgiving
 
 ### Requirement
 
+- node.js v4.1.2
+- express 4.13.3
+
 ### Usage
 
 ### Install
 
-- Rubygems
-
-Install ruby gems. You need [bundler](https://github.com/bundler/bundler).
-
-```
-$ bundle install --path vendor/bundle
+```shell
+$ npm i
 ```
 
-- Bower
+Start application and access `http://{hostname}:3000`.
 
-Next, you need to install some frontend packages. You need [bower](https://www.npmjs.com/package/bower).
-
+```shell
+$ npm start
 ```
-$ npm i -g bower
-
-$ bower install
-```
-
-- Puma
-
-You can run the application by below command.
-
-```
-$ bundle exec puma -p 9292
-```
-
-And you can access `http://localhost:9292`.
 
 ### Contribution
 

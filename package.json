@@ -1,0 +1,46 @@
+{
+  "name": "party",
+  "version": "0.0.1",
+  "description": "Real time quiz system.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sota1235/Party.git"
+  },
+  "keywords": [
+    "quiz"
+  ],
+  "author": "sota1235",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sota1235/All-Star-Thanksgiving/issues"
+  },
+  "homepage": "https://github.com/sota1235/All-Star-Thanksgiving#readme",
+  "dependencies": {
+    "babel-core": "^6.0.14",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "jquery": "^2.1.4",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.3.7"
+  },
+  "devDependencies": {
+    "babelify": "^7.0.2",
+    "browserify": "^12.0.1",
+    "glob": "^5.0.15",
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "reactify": "^1.1.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

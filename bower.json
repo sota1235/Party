@@ -21,6 +21,6 @@
   ],
   "dependencies": {
     "normalize.css": "~3.0.3",
-    "jQuery": "~2.1.4"
+    "jquery": "jQuery#~2.1.4"
   }
 }
