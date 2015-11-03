@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/sota1235/All-Star-Thanksgiving#readme",
   "dependencies": {
-    "babel-core": "^6.0.14",
+    "babel-core": "^5.*.*",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
@@ -37,10 +37,11 @@
     "browserify": "^12.0.1",
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
-    "gulp-coffee": "^2.3.1",
+    "gulp-babel": "^6.0.0",
     "gulp-sourcemaps": "^1.6.0",
     "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.0"
   }
 }
