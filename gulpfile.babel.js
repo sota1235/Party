@@ -2,14 +2,17 @@
 
 // Gulp plugins
 var gulp       = require('gulp');
+var sass       = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var minifyCss  = require('gulp-minify-css');
+var postcss    = require('gulp-postcss');
 // others
-var browserify = require('browserify');
-var babelify   = require('babelify');
-var reactify   = require('reactify');
-var source     = require('vinyl-source-stream');
-var buffer     = require('vinyl-buffer');
-var glob       = require('glob');
+var browserify   = require('browserify');
+var babelify     = require('babelify');
+var autoprefixer = require('autoprefixer');
+var source       = require('vinyl-source-stream');
+var buffer       = require('vinyl-buffer');
+var glob         = require('glob');
 
 // ./hote/moge/common.babel.js => common.js
 var makeDestName = (fileName) => {
@@ -17,7 +20,7 @@ var makeDestName = (fileName) => {
   return babel.replace(/\.babel/, '');
 };
 
-gulp.task('build', () => {
+gulp.task('script', () => {
   let scripts = glob.sync('./assets/js/*.js');
   for(let script of scripts) {
     browserify({
@@ -38,8 +41,22 @@ gulp.task('build', () => {
   }
 });
 
-gulp.task('watch', () => {
-  gulp.watch('./assets/js/**/*.js', ['build']);
+gulp.task('sass', () => {
+  gulp.src('./assets/css/*.sass')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(minifyCss())
+    .pipe(postcss([
+      autoprefixer({
+        browsers: ['last 2 versions']
+      })
+    ]))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('default', ['build']);
+gulp.task('watch', () => {
+  gulp.watch('./assets/js/**/*.js', ['script']);
+});
+
+gulp.task('default', ['script']);
