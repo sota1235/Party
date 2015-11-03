@@ -67,19 +67,13 @@ var QuizInputForm = React.createClass({
   }
 });
 
-$('.a, .b, .c, .d').on('click', function (event) {
-  event.preventDefault();
-  var num = $(this).attr('value');
-  console.log('send quiz num ' + num);
-  socket.emit('vote', num);
-});
-
 var QuizButton = React.createClass({
   handleClick: function(e) {
     e.preventDefault();
     var num = this.refs.button.value;
     console.log(`send quiz num ${num}`);
     socket.emit('vote', num);
+    return;
   },
   render: function() {
     return (
