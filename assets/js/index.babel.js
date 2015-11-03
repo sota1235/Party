@@ -37,22 +37,54 @@ var QuizForm = React.createClass({
   }
 });
 
+$('#input-form').on('submit', (event) => {
+  event.preventDefault();
+  var text = $('#input-text')[0].value;
+  console.log('send comment');
+  socket.emit('comment', text);
+  $('#input-text')[0].value = '';
+});
+
 var QuizInputForm = React.createClass({
+  clickSubmit: function(e) {
+    e.preventDefault();
+    var comment = this.refs.comment.value.trim();
+    if (!comment) {
+      return;
+    }
+    this.refs.comment.value = '';
+    console.log(`send comment ${comment}`);
+    socket.emit('comment', comment);
+    return;
+  },
   render: function() {
     return (
       <div className="quizInputForm">
-        <input type="text" placeholder="Enter the chat text here!" />
-        <input type="submit" value="コメントを送信" />
+        <input type="text" placeholder="Enter the chat text here!" ref="comment" />
+        <input type="submit" value="コメントを送信" onClick={this.clickSubmit} />
       </div>
     );
   }
 });
 
+$('.a, .b, .c, .d').on('click', function (event) {
+  event.preventDefault();
+  var num = $(this).attr('value');
+  console.log('send quiz num ' + num);
+  socket.emit('vote', num);
+});
+
 var QuizButton = React.createClass({
+  handleClick: function(e) {
+    e.preventDefault();
+    var num = this.refs.button.value;
+    console.log(`send quiz num ${num}`);
+    socket.emit('vote', num);
+  },
   render: function() {
     return (
       <div className="quizButton">
-        <button value={this.props.val} key={this.props.key}>
+        <button value={this.props.val} key={this.props.key} onClick={this.handleClick} ref="button">
           {this.props.children}
         </button>
       </div>
@@ -82,18 +114,3 @@ ReactDOM.render(
   <QuizForm />,
   document.getElementById('quiz-form')
 );
-
-$('#input-form').on('submit', (event) => {
-  event.preventDefault();
-  var text = $('#input-text')[0].value;
-  console.log('send comment');
-  socket.emit('comment', text);
-  $('#input-text')[0].value = '';
-});
-
-$('.a, .b, .c, .d').on('click', function (event) {
-  event.preventDefault();
-  var num = $(this).attr('value');
-  console.log('send quiz num ' + num);
-  socket.emit('vote', num);
-});
