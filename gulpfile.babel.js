@@ -11,23 +11,31 @@ var source     = require('vinyl-source-stream');
 var buffer     = require('vinyl-buffer');
 var glob       = require('glob');
 
+// ./hote/moge/common.babel.js => common.js
+var makeDestName = (fileName) => {
+  var babel = fileName.split('/').reverse()[0];
+  return babel.replace(/\.babel/, '');
+};
+
 gulp.task('build', () => {
   let scripts = glob.sync('./assets/js/*.js');
-  browserify({
-    entries: scripts,
-    //transform: [reactify],
-    debug: true
-  })
-  .transform(babelify)
-  .bundle()
-  .on('error', (err) => { console.log('Error: ' + err.message); })
-  .pipe(source('app.js'))
-  .pipe(buffer())
-  .pipe(sourcemaps.init({
-    loadMaps: true
-  }))
-  .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./public/js'));
+  for(let script of scripts) {
+    browserify({
+      entries: [script],
+      //transform: [reactify],
+      debug: true
+    })
+    .transform(babelify)
+    .bundle()
+    .on('error', (err) => { console.log('Error: ' + err.message); })
+    .pipe(source(makeDestName(script)))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({
+      loadMaps: true
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./public/js'));
+  }
 });
 
 gulp.task('watch', () => {
