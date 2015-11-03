@@ -3,22 +3,7 @@ extends layout
 block content
   h1 Welcome to Party
 
-  div.answers
-    h1 A1
-    div.a1 回答者数
-      span 0
-
-    h1 A2
-    div.a2 回答者数
-      span 0
-
-    h1 A3
-    div.a3 回答者数
-      span 0
-
-    h1 A4
-    div.a4 回答者数
-      span 0
+  div#answers
 
 block addJs
   script(src='/socket.io/socket.io.js')
