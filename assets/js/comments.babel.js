@@ -23,8 +23,7 @@ module.exports = class Comment {
   run() {
     this.create(this.comment)
       .then(this.setStyle)
-      .then(this.animate)
-      .then(this.deleteDom)
+      //.then(this.deleteDom)
       .catch((err) => {
         console.log(err);
       });
@@ -45,22 +44,21 @@ module.exports = class Comment {
   setStyle(dom) {
     return new Promise((resolve, reject) => {
       var top = Math.floor(Math.random() * 100);
+      // HACK: 綺麗に流す方法を探す
       dom.css({
         'font-size' : '30px',
         display: 'block',
         position: 'fixed',
         left: '100%',
-        top: top.toString() + '%'
+        top: top.toString() + '%',
+        'transition-duration': '10s',
+        'z-index': '9999'
       });
-      resolve(dom);
-    });
-  }
-
-  animate(dom) {
-    return new Promise((resolve, reject) => {
-      dom.animate({
-        left: '-200%'
-      }, 7000);
+      setTimeout(function() {
+        dom.css({
+          transform: 'translate(-2000px, 0)',
+        });
+      }, 100);
       resolve(dom);
     });
   }
