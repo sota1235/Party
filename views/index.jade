@@ -3,20 +3,8 @@ extends layout
 block content
   h1 Party
 
+  // react.js rendering space
   div#quiz-form
-    form#input-form
-      input#input-text(type='text', placeholder='Enter chat text here!')
-      input(type='submit',value='コメントを送信')
-
-    div
-      button.a(value='1').
-        1番
-      button.b(value='2').
-        2番
-      button.c(value='3').
-        3番
-      button.d(value='4').
-        4番
 
 block addJs
   script(src='/socket.io/socket.io.js')
