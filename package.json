@@ -34,7 +34,8 @@
     "react-bootstrap": "^0.27.3",
     "react-dom": "^0.14.2",
     "serve-favicon": "^2.3.0",
-    "socket.io": "^1.3.7"
+    "socket.io": "^1.3.7",
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
