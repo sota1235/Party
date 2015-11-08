@@ -50,7 +50,7 @@ var buildScripts = (script, isWatch) => {
       })
       .bundle()
       .on('error', (err) => {
-        console.log(`Error: #{err.message}`)
+        console.log(`Error: ${err.message}`)
       })
       .pipe(source(makeDestName(script)))
       .pipe(duration(`Compiled '${script}'`))
