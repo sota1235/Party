@@ -22,4 +22,15 @@ module.exports = function(app) {
   app.get('/admin', function(req, res, next) {
     res.render('admin');
   });
+
+  /* access to models */
+  app.get('/get/questions', function(req, res, next) {
+    Questions.findAll()
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
 };
