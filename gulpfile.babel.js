@@ -25,10 +25,12 @@ gulp.task('script', () => {
   for(let script of scripts) {
     browserify({
       entries: [script],
-      //transform: [reactify],
       debug: true
     })
-    .transform(babelify)
+    .transform(babelify, {
+      presets: ['es2015', 'react'],
+      plugins: ['transform-react-display-name']
+    })
     .bundle()
     .on('error', (err) => { console.log('Error: ' + err.message); })
     .pipe(source(makeDestName(script)))
