@@ -1,18 +1,18 @@
 'use strict';
 
 // Gulp plugins
-var gulp       = require('gulp');
-var sass       = require('gulp-sass');
-var sourcemaps = require('gulp-sourcemaps');
-var minifyCss  = require('gulp-minify-css');
-var postcss    = require('gulp-postcss');
+import gulp       from 'gulp';
+import sass       from 'gulp-sass';
+import sourcemaps from 'gulp-sourcemaps';
+import minifyCss  from 'gulp-minify-css';
+import postcss    from 'gulp-postcss';
 // others
-var browserify   = require('browserify');
-var babelify     = require('babelify');
-var autoprefixer = require('autoprefixer');
-var source       = require('vinyl-source-stream');
-var buffer       = require('vinyl-buffer');
-var glob         = require('glob');
+import browserify   from 'browserify';
+import babelify     from 'babelify';
+import autoprefixer from 'autoprefixer';
+import source       from 'vinyl-source-stream';
+import buffer       from 'vinyl-buffer';
+import glob         from 'glob';
 
 // ./hote/moge/common.babel.js => common.js
 var makeDestName = (fileName) => {
