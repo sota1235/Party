@@ -16,23 +16,19 @@ import $          from 'jquery';
 import {
   ListGroup, ListGroupItem, Panel
 } from 'react-bootstrap';
+// own files
+import { getQuestions } from './ajax.babel.js';
 
 var socket    = io();
 var Component = React.Component;
 
 /* commponents */
-
 // question
 class Question extends Component {
   render() {
     return (
       <div className='question'>
-        <Panel collapsible defaultExpanded header="Panel heading">
-          <ListGroup fill>
-            <ListGroupItem>Item 1</ListGroupItem>
-            <ListGroupItem>Item 2</ListGroupItem>
-          </ListGroup>
-        </Panel>
+        <ListGroupItem>{this.props.children}</ListGroupItem>
       </div>
     );
   }
@@ -40,10 +36,22 @@ class Question extends Component {
 
 // question list
 class QuestionList extends Component {
+  componentDidMount() {
+    // access to server and get question list
+  }
   render() {
+    var questionNodes = this.props.questions.map(function(question) {
+      return (
+        <Question id={question.id}>
+          {question.title}
+        </Question>
+      )
+    });
     return (
       <div className='questionList'>
-        <Question />
+        <ListGroup>
+          {questionNodes}
+        </ListGroup>
       </div>
     );
   }
@@ -51,11 +59,31 @@ class QuestionList extends Component {
 
 // admin page
 class QuestionAdmin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: []
+    };
+  }
+
+  loadQuestions() {
+    var that = this;
+    getQuestions()
+      .then(function(questions) {
+        console.log(questions);
+        that.setState({questions: questions});
+      });
+  }
+
+  componentDidMount() {
+    this.loadQuestions();
+  }
+
   render() {
     return (
       <div className='questionAdmin'>
         <h1>Hello, question admin</h1>
-        <QuestionList />
+        <QuestionList questions={this.state.questions} />
       </div>
     );
   }
