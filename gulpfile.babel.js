@@ -53,7 +53,7 @@ var buildScripts = (script, isWatch) => {
         console.log(`Error: #{err.message}`)
       })
       .pipe(source(makeDestName(script)))
-      .pipe(duration(`Compiled '#{script}'`))
+      .pipe(duration(`Compiled '${script}'`))
       .pipe(buffer())
       .pipe(sourcemaps.init({
         loadMaps: true
