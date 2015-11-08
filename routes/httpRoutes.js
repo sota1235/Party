@@ -9,6 +9,8 @@
  */
 
 module.exports = function(app) {
+  var Questions = app.get('models').Questions;
+
   app.get('/', function(req, res, next) {
     res.render('index');
   });
