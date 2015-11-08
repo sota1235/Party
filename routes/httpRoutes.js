@@ -18,4 +18,8 @@ module.exports = function(app) {
   app.get('/quiz', function(req, res, next) {
     res.render('quiz');
   });
+
+  app.get('/admin', function(req, res, next) {
+    res.render('admin');
+  });
 };
