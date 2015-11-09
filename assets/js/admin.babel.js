@@ -14,7 +14,8 @@ import { render } from 'react-dom';
 import $          from 'jquery';
 // react bootstrap
 import {
-  ListGroup, ListGroupItem, Panel
+  ListGroup, ListGroupItem, Panel,
+  ButtonToolbar, Button, Input
 } from 'react-bootstrap';
 // own files
 import { getQuestions } from './ajax.babel.js';
@@ -29,6 +30,34 @@ class Question extends Component {
     return (
       <div className='question'>
         <ListGroupItem>{this.props.children}</ListGroupItem>
+      </div>
+    );
+  }
+}
+
+// form to add question
+class QuestionForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+ }
+
+  render() {
+    return (
+      <div className='questionForm'>
+        <Input
+          type='text'
+          value={this.state.value}
+          placeholder='クイズ本文を入力してください'
+          hasFeedback
+          ref='input'
+          groupClassName='group-class'
+          labelClassName='label-class' />
+        <ButtonToolbar>
+          <Button bsStyle='primary'>クイズを作成</Button>
+        </ButtonToolbar>
       </div>
     );
   }
@@ -83,6 +112,7 @@ class QuestionAdmin extends Component {
     return (
       <div className='questionAdmin'>
         <h1>Hello, question admin</h1>
+        <QuestionForm />
         <QuestionList questions={this.state.questions} />
       </div>
     );
