@@ -14,7 +14,6 @@ var Schema   = mongoose.Schema;
 
 var Questions = function(app) {
   var QuestionsSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     text: String,
     choice: []
   });

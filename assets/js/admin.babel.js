@@ -18,7 +18,7 @@ import {
   ButtonToolbar, Button, Input
 } from 'react-bootstrap';
 // own files
-import { getQuestions } from './ajax.babel.js';
+import { getQuestions, addQuestion } from './ajax.babel.js';
 
 var socket    = io();
 var Component = React.Component;
@@ -42,21 +42,42 @@ class QuestionForm extends Component {
     this.state = {
       value: ''
     };
- }
+    this.handleQuestionClick = this.handleQuestionClick.bind(this);
+    this.handleChange        = this.handleChange.bind(this);
+  }
+
+  handleQuestionClick() {
+    var choice = ['A1', 'A2', 'A3', 'A4'];
+    var text   = this.refs.input.getValue();
+    this.props.onQuestionClick(text, choice);
+    this.refs.input.setValue('');
+    return;
+  }
+
+  handleChange() {
+    this.setState({
+      value: this.refs.input.getValue()
+    });
+  }
 
   render() {
     return (
       <div className='questionForm'>
         <Input
           type='text'
-          value={this.state.value}
           placeholder='クイズ本文を入力してください'
           hasFeedback
+          value={this.state.value}
           ref='input'
           groupClassName='group-class'
-          labelClassName='label-class' />
+          labelClassName='label-class'
+          onChange={this.handleChange} />
         <ButtonToolbar>
-          <Button bsStyle='primary'>クイズを作成</Button>
+          <Button
+            bsStyle='primary'
+            onClick={this.handleQuestionClick}>
+            クイズを作成
+          </Button>
         </ButtonToolbar>
       </div>
     );
@@ -65,14 +86,11 @@ class QuestionForm extends Component {
 
 // question list
 class QuestionList extends Component {
-  componentDidMount() {
-    // access to server and get question list
-  }
   render() {
     var questionNodes = this.props.questions.map(function(question) {
       return (
-        <Question id={question.id}>
-          {question.title}
+        <Question id={question._id} key={question._id}>
+          {question.text}
         </Question>
       )
     });
@@ -93,13 +111,22 @@ class QuestionAdmin extends Component {
     this.state = {
       questions: []
     };
+    this.handleQuestionClick = this.handleQuestionClick.bind(this);
+  }
+
+  handleQuestionClick(text, choice) {
+    var that = this;
+    addQuestion(text, choice)
+      .then(function(result) {
+        console.log(`Submit comment success : ${JSON.stringify(result)}`);
+        that.loadQuestions();
+      });
   }
 
   loadQuestions() {
     var that = this;
     getQuestions()
       .then(function(questions) {
-        console.log(questions);
         that.setState({questions: questions});
       });
   }
@@ -112,7 +139,7 @@ class QuestionAdmin extends Component {
     return (
       <div className='questionAdmin'>
         <h1>Hello, question admin</h1>
-        <QuestionForm />
+        <QuestionForm onQuestionClick={this.handleQuestionClick} />
         <QuestionList questions={this.state.questions} />
       </div>
     );

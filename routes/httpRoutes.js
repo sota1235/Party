@@ -35,7 +35,7 @@ module.exports = function(app) {
   });
 
   app.post('/add/question', function(req, res, next) {
-    Questions.addQuestion(req, rest)
+    Questions.addQuestion(req, res)
       .then(function(result) {
         Questions.findAll()
           .then(function(data) { res.json(data); });

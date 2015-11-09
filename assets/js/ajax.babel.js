@@ -30,7 +30,7 @@ export function addQuestion(text, choice) {
     request
       .post('/add/question')
       .send({text: text, choice: choice})
-      .end(function(req, res) {
+      .end(function(err, res) {
         if(err) {
           reject(err);
         }
