@@ -23,3 +23,18 @@ export function getQuestions() {
       });
   });
 };
+
+// add Question
+export function addQuestion(text, choice) {
+  return new Promise((resolve, reject) => {
+    request
+      .post('/add/question')
+      .send({text: text, choice: choice})
+      .end(function(req, res) {
+        if(err) {
+          reject(err);
+        }
+        resolve(res.body);
+      });
+  });
+};
