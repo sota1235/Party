@@ -10,9 +10,11 @@
 
 var mongoose = require('mongoose');
 
+var Schema   = mongoose.Schema;
+
 var Questions = function(app) {
-  var QuestionsSchema = new mongoose.Schema({
-    num: Number,
+  var QuestionsSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     text: String,
     choice: []
   });

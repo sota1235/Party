@@ -33,4 +33,15 @@ module.exports = function(app) {
         res.json(err);
       });
   });
+
+  app.post('/add/question', function(req, res, next) {
+    Questions.addQuestion(req, rest)
+      .then(function(result) {
+        Questions.findAll()
+          .then(function(data) { res.json(data); });
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
 };
