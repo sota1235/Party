@@ -45,10 +45,9 @@ var Questions = function(app) {
       Questions.find({}, function(err, results) {
         if (err) {
           reject({'error': 'An error has occurred'});
-        } else {
-          console.log('Success: Getting questions');
-          resolve(results);
         }
+        console.log('Success: Getting questions');
+        resolve(results);
       });
     });
   };
@@ -63,17 +62,34 @@ var Questions = function(app) {
       addQuestion.save(function(err, result) {
         if (err) {
           reject({'error': 'An error has occurred'});
-        } else {
-          console.log('Success: ' + JSON.stringify(result));
-          resolve(result);
         }
+        console.log('Success: ' + JSON.stringify(result));
+        resolve(result);
+      });
+    });
+  };
+
+  // delete question data by id
+  var deleteQuestion = function(req) {
+    return new Promise(function(resolve, reject) {
+      var id = req.body.id;
+      console.log('Delete qustion id: ' + id);
+
+      Questions.remove({_id: id}, function(err, result) {
+        if(err) {
+          console.log('Delete question error: ' + JSON.stringify(err));
+          reject(err);
+        }
+        console.log('Success: ' + JSON.stringify(result));
+        resolve(result);
       });
     });
   };
 
   return {
     findAll: findAll,
-    addQuestion: addQuestion
+    addQuestion: addQuestion,
+    deleteQuestion: deleteQuestion
   };
 };
 

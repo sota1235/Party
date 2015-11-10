@@ -38,3 +38,18 @@ export function addQuestion(text, choice) {
       });
   });
 };
+
+// delete Question
+export function deleteQuestion(id) {
+  return new Promise((resolve, reject) => {
+    request
+      .post('/delete/question')
+      .send({id: id})
+      .end(function(err, res) {
+        if(err) {
+          reject(err);
+        }
+        resolve(res.body);
+      });
+  });
+};

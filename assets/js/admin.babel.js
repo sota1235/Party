@@ -18,37 +18,16 @@ import {
   ButtonToolbar, Button, Input
 } from 'react-bootstrap';
 // own files
-import { getQuestions, addQuestion } from './ajax.babel.js';
+import {
+  getQuestions,
+  addQuestion,
+  deleteQuestion
+} from './ajax.babel.js';
 
 var socket    = io();
 var Component = React.Component;
 
 /* commponents */
-// question
-class Question extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonStyle: {
-        float: 'right'
-      }
-    }
-  }
-
-  render() {
-    return (
-      <div className='question'>
-        <ListGroupItem>
-          <div>
-            {this.props.children}
-            <Button bsStyle='danger' pullRight style={this.state.buttonStyle}>削除</Button>
-          </div>
-        </ListGroupItem>
-      </div>
-    );
-  }
-}
-
 // form to add question
 class QuestionForm extends Component {
   constructor(props) {
@@ -98,12 +77,56 @@ class QuestionForm extends Component {
   }
 }
 
+// question
+class Question extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttonStyle: {
+        float: 'right'
+      }
+    }
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+  }
+
+  handleDeleteClick() {
+    var id = this.props.id;
+    this.props.onDeleteClick(id);
+    return;
+  }
+
+  render() {
+    return (
+      <div className='question'>
+        <ListGroupItem>
+          <div>
+            {this.props.children}
+            <Button
+              bsStyle='danger'
+              pullRight
+              style={this.state.buttonStyle}
+              onClick={this.handleDeleteClick}
+            >
+              削除
+            </Button>
+          </div>
+        </ListGroupItem>
+      </div>
+    );
+  }
+}
+
 // question list
 class QuestionList extends Component {
   render() {
+    var onDeleteClick = this.props.onDeleteClick;
     var questionNodes = this.props.questions.map(function(question) {
       return (
-        <Question id={question._id} key={question._id}>
+        <Question
+          id={question._id}
+          key={question._id}
+          onDeleteClick={onDeleteClick}
+        >
           {question.text}
         </Question>
       )
@@ -126,6 +149,7 @@ class QuestionAdmin extends Component {
       questions: []
     };
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
+    this.handleDeleteClick   = this.handleDeleteClick.bind(this);
   }
 
   handleQuestionClick(text, choice) {
@@ -133,6 +157,15 @@ class QuestionAdmin extends Component {
     addQuestion(text, choice)
       .then(function(result) {
         console.log(`Submit comment success : ${JSON.stringify(result)}`);
+        that.loadQuestions();
+      });
+  }
+
+  handleDeleteClick(id) {
+    var that = this;
+    deleteQuestion(id)
+      .then(function(result) {
+        console.log(`Delete question success id : ${id}`);
         that.loadQuestions();
       });
   }
@@ -154,7 +187,10 @@ class QuestionAdmin extends Component {
       <div className='questionAdmin'>
         <h1>Hello, question admin</h1>
         <QuestionForm onQuestionClick={this.handleQuestionClick} />
-        <QuestionList questions={this.state.questions} />
+        <QuestionList
+          questions={this.state.questions}
+          onDeleteClick={this.handleDeleteClick}
+        />
       </div>
     );
   }

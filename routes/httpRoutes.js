@@ -35,10 +35,20 @@ module.exports = function(app) {
   });
 
   app.post('/add/question', function(req, res, next) {
-    Questions.addQuestion(req, res)
+    Questions.addQuestion(req)
       .then(function(result) {
         Questions.findAll()
           .then(function(data) { res.json(data); });
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  app.post('/delete/question', function(req, res, next) {
+    Questions.deleteQuestion(req)
+      .then(function(result) {
+        res.json(result);
       })
       .catch(function(err) {
         res.json(err);
