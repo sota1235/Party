@@ -26,10 +26,24 @@ var Component = React.Component;
 /* commponents */
 // question
 class Question extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttonStyle: {
+        float: 'right'
+      }
+    }
+  }
+
   render() {
     return (
       <div className='question'>
-        <ListGroupItem>{this.props.children}</ListGroupItem>
+        <ListGroupItem>
+          <div>
+            {this.props.children}
+            <Button bsStyle='danger' pullRight style={this.state.buttonStyle}>削除</Button>
+          </div>
+        </ListGroupItem>
       </div>
     );
   }
