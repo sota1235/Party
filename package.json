@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "direquire": "0.0.5",
+    "eventemitter2": "^0.4.14",
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "jquery": "^2.1.4",
