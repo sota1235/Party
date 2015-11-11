@@ -9,9 +9,10 @@
  */
 'use strict';
 
-import React      from 'react';
-import { render } from 'react-dom';
-import $          from 'jquery';
+import React             from 'react';
+import { render }        from 'react-dom';
+import $                 from 'jquery';
+import { EventEmitter2 } from 'eventemitter2';
 // react bootstrap
 import {
   ListGroup, ListGroupItem, Panel,
@@ -25,6 +26,7 @@ import {
 } from './ajax.babel.js';
 
 var socket    = io();
+var emitter   = new EventEmitter2();
 var Component = React.Component;
 
 /* commponents */
@@ -42,8 +44,8 @@ class QuestionForm extends Component {
   handleQuestionClick() {
     var choice = ['A1', 'A2', 'A3', 'A4'];
     var text   = this.refs.input.getValue();
-    this.props.onQuestionClick(text, choice);
-    this.refs.input.setValue('');
+    emitter.emit('onQuestionClick', text, choice);
+    this.setState({value: ''});
     return;
   }
 
@@ -91,7 +93,7 @@ class Question extends Component {
 
   handleDeleteClick() {
     var id = this.props.id;
-    this.props.onDeleteClick(id);
+    emitter.emit('onDeleteClick', id);
     return;
   }
 
@@ -119,13 +121,11 @@ class Question extends Component {
 // question list
 class QuestionList extends Component {
   render() {
-    var onDeleteClick = this.props.onDeleteClick;
     var questionNodes = this.props.questions.map(function(question) {
       return (
         <Question
           id={question._id}
           key={question._id}
-          onDeleteClick={onDeleteClick}
         >
           {question.text}
         </Question>
@@ -179,18 +179,23 @@ class QuestionAdmin extends Component {
   }
 
   componentDidMount() {
+    let that = this;
     this.loadQuestions();
+    // event listener
+    emitter.on('onDeleteClick', function(id) {
+      that.handleDeleteClick(id);
+    });
+    emitter.on('onQuestionClick', function(text, choice) {
+      that.handleQuestionClick(text, choice);
+    });
   }
 
   render() {
     return (
       <div className='questionAdmin'>
         <h1>Hello, question admin</h1>
-        <QuestionForm onQuestionClick={this.handleQuestionClick} />
-        <QuestionList
-          questions={this.state.questions}
-          onDeleteClick={this.handleDeleteClick}
-        />
+        <QuestionForm />
+        <QuestionList questions={this.state.questions}/>
       </div>
     );
   }
