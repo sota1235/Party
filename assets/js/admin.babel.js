@@ -35,17 +35,21 @@ class QuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      choices: ['', '', '', '']
     };
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.handleChange        = this.handleChange.bind(this);
   }
 
   handleQuestionClick() {
-    var choice = ['A1', 'A2', 'A3', 'A4'];
-    var text   = this.refs.input.getValue();
-    emitter.emit('onQuestionClick', text, choice);
-    this.setState({value: ''});
+    var choices = [];
+    for(let i=0;i<4;i++) {
+      choices.push(this.refs[`choice${i+1}`].getValue());
+    }
+    var text = this.refs.input.getValue();
+    emitter.emit('onQuestionClick', text, choices);
+    this.setState({value: '', choices: ['', '', '', '']});
     return;
   }
 
@@ -53,9 +57,30 @@ class QuestionForm extends Component {
     this.setState({
       value: this.refs.input.getValue()
     });
+    this.setState({choices: [
+      this.refs.choice1.getValue(),
+      this.refs.choice2.getValue(),
+      this.refs.choice3.getValue(),
+      this.refs.choice4.getValue()
+    ]});
   }
 
   render() {
+    let choices = [];
+    for(let i=0;i<4;i++) {
+      choices.push(
+        <Input
+          type='text'
+          placeholder={`選択肢${i+1}を入力`}
+          value={this.state.choices[i]}
+          ref={`choice${i+1}`}
+          key={i}
+          required
+          onChange={this.handleChange}
+        />
+      );
+    };
+
     return (
       <div className='questionForm'>
         <Input
@@ -67,6 +92,7 @@ class QuestionForm extends Component {
           groupClassName='group-class'
           labelClassName='label-class'
           onChange={this.handleChange} />
+        {choices}
         <ButtonToolbar>
           <Button
             bsStyle='primary'
