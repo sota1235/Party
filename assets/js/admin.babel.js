@@ -13,10 +13,12 @@ import React             from 'react';
 import { render }        from 'react-dom';
 import $                 from 'jquery';
 import { EventEmitter2 } from 'eventemitter2';
+import _                 from 'lodash';
 // react bootstrap
 import {
   ListGroup, ListGroupItem, Panel,
-  ButtonToolbar, Button, Input
+  ButtonToolbar, Button, Input,
+  Table
 } from 'react-bootstrap';
 // own files
 import {
@@ -111,7 +113,7 @@ class Question extends Component {
     super(props);
     this.state = {
       buttonStyle: {
-        float: 'right'
+        //float: 'right'
       }
     }
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
@@ -124,14 +126,34 @@ class Question extends Component {
   }
 
   render() {
+    var that = this;
+    let choiceElm = this.props.choices.map(function(choice) {
+      let index = _.indexOf(that.props.choices, choice) + 1;
+      return (
+        <tr key={index}>
+          <td>{index}</td>
+          <td>{choice}</td>
+        </tr>
+      );
+    });
     return (
       <div className='question'>
         <ListGroupItem>
           <div>
             {this.props.children}
+            <Table striped bordered condensed hover>
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>選択肢文</th>
+                </tr>
+              </thead>
+              <tbody>
+                {choiceElm}
+              </tbody>
+            </Table>
             <Button
               bsStyle='danger'
-              pullRight
               style={this.state.buttonStyle}
               onClick={this.handleDeleteClick}
             >
@@ -152,6 +174,7 @@ class QuestionList extends Component {
         <Question
           id={question._id}
           key={question._id}
+          choices={question.choice}
         >
           {question.text}
         </Question>
