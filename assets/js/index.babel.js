@@ -9,9 +9,9 @@
  */
 'use strict';
 
-var React    = require('react');
-var ReactDOM = require('react-dom');
-var $        = require('jquery');
+import React    from 'react';
+import ReactDOM from 'react-dom';
+import $        from 'jquery';
 
 var socket = io();
 

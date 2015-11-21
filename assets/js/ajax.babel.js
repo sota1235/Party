@@ -30,7 +30,9 @@ export function getQuestion(id) {
     request
       .get(`/get/question/${id}`)
       .end((err, res) => {
-        if(err) err => reject(err);
+        if(err) {
+          reject(err);
+        }
         resolve(res.body);
       });
   });
