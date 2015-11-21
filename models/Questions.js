@@ -52,6 +52,21 @@ var Questions = function(app) {
     });
   };
 
+  // get question by _id
+  var findQuestion = function(req) {
+    return new Promise(function(resolve, reject) {
+      var id = req.params.id;
+      console.log('Getting question that id is ' + id);
+      Questions.find({ _id: id }, function(err, result) {
+        if (err) {
+          reject({'error': 'An error has occurred'});
+        }
+        console.log('Success: Getting question');
+        resolve(result);
+      });
+    });
+  };
+
   // add question data from request body
   var addQuestion = function(req) {
     return new Promise(function(resolve, reject) {
@@ -88,6 +103,7 @@ var Questions = function(app) {
 
   return {
     findAll: findAll,
+    findQuestion: findQuestion,
     addQuestion: addQuestion,
     deleteQuestion: deleteQuestion
   };

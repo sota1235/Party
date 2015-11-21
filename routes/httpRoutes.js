@@ -34,6 +34,16 @@ module.exports = function(app) {
       });
   });
 
+  app.get('/get/question/:id', function(req, res, next) {
+    Questions.findQuestion(req)
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
   app.post('/add/question', function(req, res, next) {
     Questions.addQuestion(req)
       .then(function(result) {
