@@ -141,6 +141,9 @@ class QuestionChoices extends Component {
 class Question extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      openStatus: false
+    };
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleOpenClick   = this.handleOpenClick.bind(this);
   }
@@ -153,6 +156,7 @@ class Question extends Component {
 
   handleOpenClick() {
     var id = this.props.id;
+    this.setState({openStatus: true});
     emitter.emit('onOpenClick', id);
     return;
   }
@@ -165,7 +169,9 @@ class Question extends Component {
             {this.props.children}
             <QuestionChoices id={this.props.id} choices={this.props.choices} />
             <ButtonToolbar>
-              <OpenQuestionButton handleClick={this.handleOpenClick} />
+              <OpenQuestionButton handleClick={this.handleOpenClick}>
+                {this.state.openStatus ? '公開中' : '公開'}
+              </OpenQuestionButton>
               <DeleteQuestionButton handleClick={this.handleDeleteClick} />
             </ButtonToolbar>
           </div>

@@ -36,7 +36,7 @@ export class OpenQuestionButton extends Component {
         bsStyle='info'
         onClick={this.props.handleClick}
       >
-        公開
+        {this.props.children}
       </Button>
     );
   }
