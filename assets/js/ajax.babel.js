@@ -24,6 +24,18 @@ export function getQuestions() {
   });
 };
 
+// get Question by id
+export function getQuestion(id) {
+  return new Promise((resolve, reject) => {
+    request
+      .get(`/get/question/${id}`)
+      .end((err, res) => {
+        if(err) err => reject(err);
+        resolve(res.body);
+      });
+  });
+};
+
 // add Question
 export function addQuestion(text, choice) {
   return new Promise((resolve, reject) => {

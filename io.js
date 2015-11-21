@@ -15,6 +15,7 @@ module.exports = function(server) {
 
   io.on('connection', function(socket) {
     console.log('a user connected');
+
     socket.on('comment', function(msg) {
       console.log('comment: ' + msg);
       io.emit('comment', msg);
@@ -23,6 +24,11 @@ module.exports = function(server) {
     socket.on('vote', function(msg) {
       console.log('vote: ' + msg);
       io.emit('vote', msg);
+    });
+
+    socket.on('open', function(msg) {
+      console.log('open: ' + msg);
+      io.emit('open', msg);
     });
   });
 };

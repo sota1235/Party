@@ -252,6 +252,9 @@ class QuestionAdmin extends Component {
     emitter.on('onQuestionClick', function(text, choice) {
       that.handleQuestionClick(text, choice);
     });
+    emitter.on('onOpenClick', function(id) {
+      socket.emit('open', id);
+    });
   }
 
   render() {

@@ -9,10 +9,12 @@
  */
 'use strict';
 
-var React    = require('react');
-var ReactDOM = require('react-dom');
-var $        = require('jquery');
-var Comment  = require('./comments.babel.js');
+import React    from 'react';
+import ReactDOM from 'react-dom';
+import $        from 'jquery';
+
+import Comment  from './comments.babel.js';
+import { getQuestion } from './ajax.babel.js';
 
 var socket  = io();
 
@@ -94,5 +96,12 @@ $(() => {
     console.log('comment: ' + msg);
     var comment = new Comment(msg);
     comment.run();
+  });
+
+  socket.on('open', (msg) => {
+    console.log('question open: id' + msg);
+    getQuestion(msg)
+      .then( result => console.log(result))
+      .catch( err => console.log(err));
   });
 });
