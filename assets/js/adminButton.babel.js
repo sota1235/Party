@@ -28,6 +28,20 @@ export class CreateQuestionButton extends Component {
   }
 }
 
+// '公開' button
+export class OpenQuestionButton extends Component {
+  render() {
+    return (
+      <Button
+        bsStyle='info'
+        onClick={this.props.handleClick}
+      >
+        公開
+      </Button>
+    );
+  }
+}
+
 // '削除' button
 export class DeleteQuestionButton extends Component {
   render() {

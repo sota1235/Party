@@ -22,7 +22,7 @@ import {
 } from 'react-bootstrap';
 // custom components
 import {
-  CreateQuestionButton, DeleteQuestionButton
+  CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton
 } from './adminButton.babel.js';
 // custom library
 import {
@@ -142,11 +142,18 @@ class Question extends Component {
   constructor(props) {
     super(props);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleOpenClick   = this.handleOpenClick.bind(this);
   }
 
   handleDeleteClick() {
     var id = this.props.id;
     emitter.emit('onDeleteClick', id);
+    return;
+  }
+
+  handleOpenClick() {
+    var id = this.props.id;
+    emitter.emit('onOpenClick', id);
     return;
   }
 
@@ -158,6 +165,7 @@ class Question extends Component {
             {this.props.children}
             <QuestionChoices id={this.props.id} choices={this.props.choices} />
             <ButtonToolbar>
+              <OpenQuestionButton handleClick={this.handleOpenClick} />
               <DeleteQuestionButton handleClick={this.handleDeleteClick} />
             </ButtonToolbar>
           </div>
