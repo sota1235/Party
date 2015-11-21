@@ -20,7 +20,11 @@ import {
   ButtonToolbar, Button, Input,
   Table
 } from 'react-bootstrap';
-// own files
+// custom components
+import {
+  CreateQuestionButton, DeleteQuestionButton
+} from './adminButton.babel.js';
+// custom library
 import {
   getQuestions,
   addQuestion,
@@ -96,13 +100,39 @@ class QuestionForm extends Component {
           onChange={this.handleChange} />
         {choices}
         <ButtonToolbar>
-          <Button
-            bsStyle='primary'
-            onClick={this.handleQuestionClick}>
-            クイズを作成
-          </Button>
+          <CreateQuestionButton handleClick={this.handleQuestionClick} />
         </ButtonToolbar>
       </div>
+    );
+  }
+}
+
+class QuestionChoices extends Component {
+  render() {
+    var that = this;
+    let choiceElm = this.props.choices.map(function(choice, i) {
+      let index = i + 1;
+      let key   = that.props.id + index;
+      return (
+        <tr key={key}>
+          <td>{index}</td>
+          <td>{choice}</td>
+        </tr>
+      );
+    });
+
+    return (
+      <Table striped bordered condensed hover>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>選択肢文</th>
+          </tr>
+        </thead>
+        <tbody>
+          {choiceElm}
+        </tbody>
+      </Table>
     );
   }
 }
@@ -111,11 +141,6 @@ class QuestionForm extends Component {
 class Question extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      buttonStyle: {
-        //float: 'right'
-      }
-    }
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
@@ -126,39 +151,15 @@ class Question extends Component {
   }
 
   render() {
-    var that = this;
-    let choiceElm = this.props.choices.map(function(choice) {
-      let index = _.indexOf(that.props.choices, choice) + 1;
-      return (
-        <tr key={index}>
-          <td>{index}</td>
-          <td>{choice}</td>
-        </tr>
-      );
-    });
     return (
       <div className='question'>
         <ListGroupItem>
           <div>
             {this.props.children}
-            <Table striped bordered condensed hover>
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>選択肢文</th>
-                </tr>
-              </thead>
-              <tbody>
-                {choiceElm}
-              </tbody>
-            </Table>
-            <Button
-              bsStyle='danger'
-              style={this.state.buttonStyle}
-              onClick={this.handleDeleteClick}
-            >
-              削除
-            </Button>
+            <QuestionChoices id={this.props.id} choices={this.props.choices} />
+            <ButtonToolbar>
+              <DeleteQuestionButton handleClick={this.handleDeleteClick} />
+            </ButtonToolbar>
           </div>
         </ListGroupItem>
       </div>
