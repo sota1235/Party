@@ -15,7 +15,8 @@ var Schema   = mongoose.Schema;
 var Questions = function(app) {
   var QuestionsSchema = new Schema({
     text: String,
-    choice: []
+    choice: [],
+    answer: Number
   });
 
   QuestionsSchema.pre('save', function(next) {
