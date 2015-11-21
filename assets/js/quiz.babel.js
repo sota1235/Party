@@ -16,12 +16,14 @@ import $        from 'jquery';
 import Comment  from './comments.babel.js';
 import { getQuestion } from './ajax.babel.js';
 
-var socket  = io();
+var socket    = io();
+var Component = React.Component;
 
 /* React components */
-var Answers = React.createClass({
-  getInitialState: () => {
-    return {
+class Answers extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       data: [
         {num: 'A1', val: 1},
         {num: 'A2', val: 2},
@@ -29,35 +31,40 @@ var Answers = React.createClass({
         {num: 'A4', val: 4},
       ]
     };
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <div className="answers">
         <AnswerDisplayList data={this.state.data} />
       </div>
     );
   }
-});
+}
 
-var AnswerDisplay = React.createClass({
-  getInitialState: () => {
-    return {
-      voteNum: 0
-    };
-  },
-  handleSocketVote: function(msg) {
+class AnswerDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { voteNum: 0 };
+    this.handleSocketVote  = this.handleSocketVote.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+  }
+
+  handleSocketVote(msg) {
     if(msg !== this.props.val.toString()) {
       return;
     }
     console.log(`vote: ${msg}`);
-    var voteNum = this.state.voteNum;
+    let voteNum = this.state.voteNum;
     this.setState({voteNum: voteNum + 1});
     return;
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     socket.on('vote', this.handleSocketVote);
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <div className="answerDisplay" value={this.props.val}>
         <h1>{this.props.num}</h1>
@@ -67,13 +74,13 @@ var AnswerDisplay = React.createClass({
       </div>
     );
   }
-});
+}
 
-var AnswerDisplayList = React.createClass({
-  render: function() {
-    var displayNodes = this.props.data.map(function(displays) {
+class AnswerDisplayList extends Component {
+  render() {
+    var displayNodes = this.props.data.map(function(displays, i) {
       return (
-        <AnswerDisplay num={displays.num} val={displays.val} key={displays.val} />
+        <AnswerDisplay num={displays.num} val={displays.val} key={i} />
       );
     });
     return (
@@ -82,7 +89,7 @@ var AnswerDisplayList = React.createClass({
       </div>
     )
   }
-});
+}
 
 /* React rendering */
 ReactDOM.render(
