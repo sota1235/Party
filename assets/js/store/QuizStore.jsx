@@ -19,11 +19,11 @@ export default class QuizStore {
       {num: 'A3', text: '', count: 0},
       {num: 'A4', text: '', count: 0}
     ];
-    this.updateQuiz = this.updateQuiz.bind(this);
     this.mapQuiz    = this.mapQuiz.bind(this);
     // events
     emitter.on('displayQuiz', this.onDisplayQuestion.bind(this));
     emitter.on('voteQuiz',    this.countUp.bind(this));
+    emitter.on('answerOpen',  this.onAnswerOpen.bind(this));
   }
   // getter for components
   getQuiz() {
@@ -37,6 +37,12 @@ export default class QuizStore {
         return result;
       })
       .then(this.mapQuiz);
+  }
+  // answer aalignment
+  onAnswerOpen(index) {
+    this.quiz[index].style = {
+      backgroundColor: 'yellow' // TODO: 正解演出CSS
+    }
   }
   // count up vote number
   countUp(index) {

@@ -76,7 +76,13 @@ class AnswerDisplayList extends Component {
   render() {
     var displayNodes = this.props.data.map(function(displays, i) {
       return (
-        <AnswerDisplay num={displays.num} index={i} text={displays.text} key={i} />
+        <AnswerDisplay
+          style={displays.num}
+          num={displays.num}
+          index={i}
+          text={displays.text}
+          key={i}
+        />
       );
     });
     return (
