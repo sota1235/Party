@@ -14,10 +14,10 @@ export default class QuizStore {
   constructor(emitter) {
     this.emitter = emitter;
     this.quiz = [
-      {num: 'A1', text: '', val: 1, count: 0},
-      {num: 'A2', text: '', val: 2, count: 0},
-      {num: 'A3', text: '', val: 3, count: 0},
-      {num: 'A4', text: '', val: 4, count: 0}
+      {num: 'A1', text: '', count: 0},
+      {num: 'A2', text: '', count: 0},
+      {num: 'A3', text: '', count: 0},
+      {num: 'A4', text: '', count: 0}
     ];
     this.updateQuiz = this.updateQuiz.bind(this);
     this.mapQuiz    = this.mapQuiz.bind(this);

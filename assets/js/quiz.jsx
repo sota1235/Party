@@ -56,13 +56,12 @@ class AnswerDisplay extends Component {
   }
 
   loadVote() {
-    let index = Number(this.props.val) - 1;
-    this.setState({voteNum: Store.getQuiz()[index].count});
+    this.setState({voteNum: Store.getQuiz()[this.props.index].count});
   }
 
   render() {
     return (
-      <div className="answerDisplay" value={this.props.val}>
+      <div className="answerDisplay">
         <h1>{this.props.num}</h1>
         <p>選択肢: {this.props.text}</p>
         <div>回答者数
@@ -77,7 +76,7 @@ class AnswerDisplayList extends Component {
   render() {
     var displayNodes = this.props.data.map(function(displays, i) {
       return (
-        <AnswerDisplay num={displays.num} val={displays.val} text={displays.text} key={i} />
+        <AnswerDisplay num={displays.num} index={i} text={displays.text} key={i} />
       );
     });
     return (
