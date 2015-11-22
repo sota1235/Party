@@ -8,17 +8,19 @@
  *   @sota1235
  */
 
+import _ from 'lodash';
 import { getQuestion } from '../ajax.jsx';
 
 export default class QuizStore {
   constructor(emitter) {
     this.emitter = emitter;
-    this.quiz = [
+    this.defaultQuiz = [
       {num: 'A1', text: '', count: 0},
       {num: 'A2', text: '', count: 0},
       {num: 'A3', text: '', count: 0},
       {num: 'A4', text: '', count: 0}
     ];
+    this.quiz = _.clone(this.defaultQuiz, true);
     this.mapQuiz    = this.mapQuiz.bind(this);
     // events
     emitter.on('displayQuiz',    this.onDisplayQuestion.bind(this));
@@ -54,7 +56,7 @@ export default class QuizStore {
   }
   // finish quiz
   onFinishQuestion() {
-    this.quiz = [];
+    this.quiz = _.clone(this.defaultQuiz, true);
     this.updateQuiz();
   }
   // mapping data to quiz
