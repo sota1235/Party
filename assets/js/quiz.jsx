@@ -61,7 +61,7 @@ class AnswerDisplay extends Component {
 
   render() {
     return (
-      <div className="answerDisplay">
+      <div className="answerDisplay" style={this.props.style}>
         <h1>{this.props.num}</h1>
         <p>選択肢: {this.props.text}</p>
         <div>回答者数
@@ -77,7 +77,7 @@ class AnswerDisplayList extends Component {
     var displayNodes = this.props.data.map(function(displays, i) {
       return (
         <AnswerDisplay
-          style={displays.num}
+          style={displays.style}
           num={displays.num}
           index={i}
           text={displays.text}

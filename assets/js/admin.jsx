@@ -19,7 +19,7 @@ import {
 } from 'react-bootstrap';
 // custom components
 import {
-  CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton
+  CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton, OpenAnswerButton
 } from './adminButton.jsx';
 // action, stores
 import AdminAction from './action/AdminAction.jsx';
@@ -143,10 +143,12 @@ class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openStatus: false
+      openStatus: false,
+      disabled: true
     };
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.handleOpenClick   = this.handleOpenClick.bind(this);
+    this.handleDeleteClick     = this.handleDeleteClick.bind(this);
+    this.handleOpenClick       = this.handleOpenClick.bind(this);
+    this.handleOpenAnswerClick = this.handleOpenAnswerClick.bind(this);
   }
 
   handleDeleteClick() {
@@ -154,8 +156,12 @@ class Question extends Component {
   }
 
   handleOpenClick() {
-    this.setState({openStatus: true});
+    this.setState({openStatus: true, disabled: false});
     Action.broadcastQuestion(this.props.id);
+  }
+
+  handleOpenAnswerClick() {
+    Action.openAnswer(this.props.answer);
   }
 
   render() {
@@ -169,6 +175,7 @@ class Question extends Component {
               <OpenQuestionButton handleClick={this.handleOpenClick}>
                 {this.state.openStatus ? '公開中' : '公開'}
               </OpenQuestionButton>
+              <OpenAnswerButton handleClick={this.handleOpenAnswerClick} disabled={this.state.disabled} />
               <DeleteQuestionButton handleClick={this.handleDeleteClick} />
             </ButtonToolbar>
           </div>

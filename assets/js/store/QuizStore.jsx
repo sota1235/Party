@@ -23,7 +23,7 @@ export default class QuizStore {
     // events
     emitter.on('displayQuiz', this.onDisplayQuestion.bind(this));
     emitter.on('voteQuiz',    this.countUp.bind(this));
-    emitter.on('answerOpen',  this.onAnswerOpen.bind(this));
+    emitter.on('openAnswer',  this.onAnswerOpen.bind(this));
   }
   // getter for components
   getQuiz() {
@@ -40,9 +40,10 @@ export default class QuizStore {
   }
   // answer aalignment
   onAnswerOpen(index) {
-    this.quiz[index].style = {
+    this.quiz[Number(index)].style = {
       backgroundColor: 'yellow' // TODO: 正解演出CSS
     }
+    this.updateQuiz();
   }
   // count up vote number
   countUp(index) {

@@ -30,5 +30,10 @@ module.exports = function(server) {
       console.log('open: ' + msg);
       io.emit('open', msg);
     });
+
+    socket.on('openAnswer', function(msg) {
+      console.log('open answer: ' + (msg + 1));
+      io.emit('openAnswer', msg);
+    });
   });
 };

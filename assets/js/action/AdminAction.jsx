@@ -22,4 +22,7 @@ export default class AdminAction {
   broadcastQuestion(id) {
     this.socket.emit('open', id);
   }
+  openAnswer(index) {
+    this.socket.emit('openAnswer', index - 1);
+  }
 }

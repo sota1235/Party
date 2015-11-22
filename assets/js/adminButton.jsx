@@ -42,6 +42,21 @@ export class OpenQuestionButton extends Component {
   }
 }
 
+// '解答' button
+export class OpenAnswerButton extends Component {
+  render() {
+    return (
+      <Button
+        bsStyle='success'
+        onClick={this.props.handleClick}
+        disabled={this.props.disabled}
+      >
+        解答
+      </Button>
+    );
+  }
+}
+
 // '削除' button
 export class DeleteQuestionButton extends Component {
   render() {
