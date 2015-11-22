@@ -14,15 +14,16 @@ export default class QuizStore {
   constructor(emitter) {
     this.emitter = emitter;
     this.quiz = [
-      {num: 'A1', text: '', val: 1},
-      {num: 'A2', text: '', val: 2},
-      {num: 'A3', text: '', val: 3},
-      {num: 'A4', text: '', val: 4}
+      {num: 'A1', text: '', val: 1, count: 0},
+      {num: 'A2', text: '', val: 2, count: 0},
+      {num: 'A3', text: '', val: 3, count: 0},
+      {num: 'A4', text: '', val: 4, count: 0}
     ];
     this.updateQuiz = this.updateQuiz.bind(this);
     this.mapQuiz    = this.mapQuiz.bind(this);
     // events
     emitter.on('displayQuiz', this.onDisplayQuestion.bind(this));
+    emitter.on('voteQuiz',    this.countUp.bind(this));
   }
   // getter for components
   getQuiz() {
@@ -35,7 +36,13 @@ export default class QuizStore {
         console.log(`get question id: ${id}`);
         return result;
       })
-      .then(this.updateQuiz);
+      .then(this.mapQuiz);
+  }
+  // count up vote number
+  countUp(index) {
+    if(index < 1 || index > 4) return;
+    this.quiz[index-1].count++;
+    this.updateQuiz();
   }
   // mapping data to quiz
   mapQuiz(data) {
@@ -43,10 +50,10 @@ export default class QuizStore {
       q.text = data[0].choice[i];
       return q;
     });
+    this.updateQuiz();
   }
   // TODO: private
-  updateQuiz(quiz) {
-    this.mapQuiz(quiz);
+  updateQuiz() {
     this.emitter.emit('quizChanged');
   }
 }

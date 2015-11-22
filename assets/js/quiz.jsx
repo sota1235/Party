@@ -51,22 +51,13 @@ class AnswerDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = { voteNum: 0 };
-    this.handleSocketVote  = this.handleSocketVote.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.loadVote = this.loadVote.bind(this);
+    emitter.on('quizChanged', this.loadVote);
   }
 
-  handleSocketVote(msg) {
-    if(msg !== this.props.val.toString()) {
-      return;
-    }
-    console.log(`vote: ${msg}`);
-    let voteNum = this.state.voteNum;
-    this.setState({voteNum: voteNum + 1});
-    return;
-  }
-
-  componentDidMount() {
-    socket.on('vote', this.handleSocketVote);
+  loadVote() {
+    let index = Number(this.props.val) - 1;
+    this.setState({voteNum: Store.getQuiz()[index].count});
   }
 
   render() {
