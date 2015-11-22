@@ -21,13 +21,15 @@ import {
 import {
   CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton
 } from './adminButton.jsx';
-// stores
+// action, stores
+import adminAction   from './action/AdminAction.jsx';
 import questionStore from './store/QuestionStore.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
 var Component = React.Component;
 var QuestionStore = new questionStore(emitter);
+var AdminAction   = new adminAction(emitter, socket);
 
 /* commponents */
 // form to add question
@@ -47,7 +49,7 @@ class QuestionForm extends Component {
   }
 
   handleQuestionClick() {
-    emitter.emit('onQuestionClick', this.state);
+    AdminAction.createQuestion(this.state);
     this.clearForm();
     return;
   }
@@ -148,16 +150,12 @@ class Question extends Component {
   }
 
   handleDeleteClick() {
-    var id = this.props.id;
-    emitter.emit('onDeleteClick', id);
-    return;
+    AdminAction.deleteQuestion(this.props.id);
   }
 
   handleOpenClick() {
-    var id = this.props.id;
     this.setState({openStatus: true});
-    emitter.emit('onOpenClick', id);
-    return;
+    AdminAction.broadcastQuestion(this.props.id);
   }
 
   render() {
@@ -216,12 +214,6 @@ class QuestionAdmin extends Component {
 
   loadQuestions() {
     this.setState({questions: QuestionStore.getQuestions()});
-  }
-
-  componentDidMount() {
-    emitter.on('onOpenClick', function(id) {
-      socket.emit('open', id);
-    });
   }
 
   render() {
