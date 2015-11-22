@@ -29,17 +29,13 @@ export default class QuestionStore {
   // delete question
   onDeleteClick(id) {
     deleteQuestion(id)
-      .then( result => {
-        console.log(`Delete question success id: ${id}`);
-      })
+      .then( result => console.log(`Delete question success id: ${id}`))
       .then(this.updateQuestions);
   }
   // add new question
-  onQuestionClick(text, choices, answer) {
-    addQuestion(text, choices, answer)
-      .then(function(result) {
-        console.log(`Submit add question: ${JSON.stringify(result)}`);
-      })
+  onQuestionClick(question) {
+    addQuestion(question.text, question.choices, question.answer)
+      .then( result => console.log(`Submit add question: ${JSON.stringify(result)}`))
       .then(this.updateQuestions);
   }
   // TODO: private method

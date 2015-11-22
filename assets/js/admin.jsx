@@ -11,20 +11,17 @@
 
 import React             from 'react';
 import { render }        from 'react-dom';
-import $                 from 'jquery';
 import { EventEmitter2 } from 'eventemitter2';
-import _                 from 'lodash';
 // react bootstrap
 import {
   ListGroup, ListGroupItem, Panel,
-  ButtonToolbar, Button, Input,
-  Table
+  ButtonToolbar, Input, Table
 } from 'react-bootstrap';
 // custom components
 import {
   CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton
 } from './adminButton.jsx';
-// custom library
+// stores
 import questionStore from './store/QuestionStore.jsx';
 
 var socket    = io();
@@ -38,42 +35,34 @@ class QuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      text: '',
       choices: ['', '', '', ''],
       answer: ''
     };
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.handleChange        = this.handleChange.bind(this);
-    this.clearForm           = this.clearForm.bind(this);
-  }
-
-  clearForm() {
-    this.setState({value: '', choices: ['', '', '', ''], answer: ''});
+    this.clearForm = () => {
+      this.setState({ text: '', choices: ['', '', '', ''], answer: '' });
+    }
   }
 
   handleQuestionClick() {
-    var choices = [];
-    for(let i=0;i<4;i++) {
-      choices.push(this.refs[`choice${i+1}`].getValue());
-    }
-    var text   = this.refs.input.getValue();
-    var answer = this.refs.answer.getValue();
-    emitter.emit('onQuestionClick', text, choices, answer);
+    emitter.emit('onQuestionClick', this.state);
     this.clearForm();
     return;
   }
 
   handleChange() {
     this.setState({
-      value: this.refs.input.getValue(),
-      answer: this.refs.answer.getValue()
+      text: this.refs.input.getValue(),
+      answer: this.refs.answer.getValue(),
+      choices: [
+        this.refs.choice1.getValue(),
+        this.refs.choice2.getValue(),
+        this.refs.choice3.getValue(),
+        this.refs.choice4.getValue()
+      ]
     });
-    this.setState({choices: [
-      this.refs.choice1.getValue(),
-      this.refs.choice2.getValue(),
-      this.refs.choice3.getValue(),
-      this.refs.choice4.getValue()
-    ]});
   }
 
   render() {
@@ -97,7 +86,7 @@ class QuestionForm extends Component {
           type='text'
           placeholder='クイズ本文を入力してください'
           hasFeedback
-          value={this.state.value}
+          value={this.state.text}
           ref='input'
           onChange={this.handleChange} />
         {choices}
