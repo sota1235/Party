@@ -39,11 +39,11 @@ export function getQuestion(id) {
 };
 
 // add Question
-export function addQuestion(text, choice) {
+export function addQuestion(text, choice, answer) {
   return new Promise((resolve, reject) => {
     request
       .post('/add/question')
-      .send({text: text, choice: choice})
+      .send({text: text, choice: choice, answer: answer})
       .end(function(err, res) {
         if(err) {
           reject(err);

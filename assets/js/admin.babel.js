@@ -42,10 +42,16 @@ class QuestionForm extends Component {
     super(props);
     this.state = {
       value: '',
-      choices: ['', '', '', '']
+      choices: ['', '', '', ''],
+      answer: ''
     };
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
     this.handleChange        = this.handleChange.bind(this);
+    this.clearForm           = this.clearForm.bind(this);
+  }
+
+  clearForm() {
+    this.setState({value: '', choices: ['', '', '', ''], answer: ''});
   }
 
   handleQuestionClick() {
@@ -53,15 +59,17 @@ class QuestionForm extends Component {
     for(let i=0;i<4;i++) {
       choices.push(this.refs[`choice${i+1}`].getValue());
     }
-    var text = this.refs.input.getValue();
-    emitter.emit('onQuestionClick', text, choices);
-    this.setState({value: '', choices: ['', '', '', '']});
+    var text   = this.refs.input.getValue();
+    var answer = this.refs.answer.getValue();
+    emitter.emit('onQuestionClick', text, choices, answer);
+    this.clearForm();
     return;
   }
 
   handleChange() {
     this.setState({
-      value: this.refs.input.getValue()
+      value: this.refs.input.getValue(),
+      answer: this.refs.answer.getValue()
     });
     this.setState({choices: [
       this.refs.choice1.getValue(),
@@ -99,6 +107,15 @@ class QuestionForm extends Component {
           labelClassName='label-class'
           onChange={this.handleChange} />
         {choices}
+        <Input
+          type='text'
+          placeholder='正解の番号を入力してください(1 ~ 4)'
+          hasFeedback
+          value={this.state.answer}
+          ref='answer'
+          groupClassName='group-class'
+          labelClassName='label-class'
+          onChange={this.handleChange} />
         <ButtonToolbar>
           <CreateQuestionButton handleClick={this.handleQuestionClick} />
         </ButtonToolbar>
@@ -113,8 +130,12 @@ class QuestionChoices extends Component {
     let choiceElm = this.props.choices.map(function(choice, i) {
       let index = i + 1;
       let key   = that.props.id + index;
+      let color = that.props.answer == index ? 'red' : 'black';
+      let style = {
+        color: color
+      };
       return (
-        <tr key={key}>
+        <tr style={style} key={key}>
           <td>{index}</td>
           <td>{choice}</td>
         </tr>
@@ -167,7 +188,7 @@ class Question extends Component {
         <ListGroupItem>
           <div>
             {this.props.children}
-            <QuestionChoices id={this.props.id} choices={this.props.choices} />
+            <QuestionChoices id={this.props.id} choices={this.props.choices} answer={this.props.answer} />
             <ButtonToolbar>
               <OpenQuestionButton handleClick={this.handleOpenClick}>
                 {this.state.openStatus ? '公開中' : '公開'}
@@ -190,6 +211,7 @@ class QuestionList extends Component {
           id={question._id}
           key={question._id}
           choices={question.choice}
+          answer={question.answer}
         >
           {question.text}
         </Question>
@@ -216,9 +238,9 @@ class QuestionAdmin extends Component {
     this.handleDeleteClick   = this.handleDeleteClick.bind(this);
   }
 
-  handleQuestionClick(text, choice) {
+  handleQuestionClick(text, choice, answer) {
     var that = this;
-    addQuestion(text, choice)
+    addQuestion(text, choice, answer)
       .then(function(result) {
         console.log(`Submit comment success : ${JSON.stringify(result)}`);
         that.loadQuestions();
@@ -249,8 +271,8 @@ class QuestionAdmin extends Component {
     emitter.on('onDeleteClick', function(id) {
       that.handleDeleteClick(id);
     });
-    emitter.on('onQuestionClick', function(text, choice) {
-      that.handleQuestionClick(text, choice);
+    emitter.on('onQuestionClick', function(text, choice, answer) {
+      that.handleQuestionClick(text, choice, answer);
     });
     emitter.on('onOpenClick', function(id) {
       socket.emit('open', id);
