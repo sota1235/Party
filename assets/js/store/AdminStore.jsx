@@ -1,8 +1,8 @@
 /**
- * Question.jsx
+ * AdminStore.jsx
  *
  * Description:
- *   Store class for questions data
+ *   Store class for admin page
  *
  * Author:
  *   @sota1235
