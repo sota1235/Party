@@ -91,7 +91,6 @@ class QuestionForm extends Component {
           value={choice}
           ref={`choice${i+1}`}
           key={i}
-          required
           onChange={that.handleChange}
         />
       );
@@ -105,8 +104,6 @@ class QuestionForm extends Component {
           hasFeedback
           value={this.state.value}
           ref='input'
-          groupClassName='group-class'
-          labelClassName='label-class'
           onChange={this.handleChange} />
         {choices}
         <Input
@@ -115,8 +112,6 @@ class QuestionForm extends Component {
           hasFeedback
           value={this.state.answer}
           ref='answer'
-          groupClassName='group-class'
-          labelClassName='label-class'
           onChange={this.handleChange} />
         <ButtonToolbar>
           <CreateQuestionButton handleClick={this.handleQuestionClick} />
@@ -126,19 +121,16 @@ class QuestionForm extends Component {
   }
 }
 
-class QuestionChoices extends Component {
+class QuestionChoiceTable extends Component {
   render() {
     var that = this;
     let choiceElm = this.props.choices.map(function(choice, i) {
-      let index = i + 1;
-      let key   = that.props.id + index;
-      let color = that.props.answer == index ? 'red' : 'black';
-      let style = {
-        color: color
-      };
+      let key   = that.props.id + i.toString();
+      let color = that.props.answer == i + 1 ? 'red' : 'black';
+      let style = {color: color};
       return (
         <tr style={style} key={key}>
-          <td>{index}</td>
+          <td>{i + 1}</td>
           <td>{choice}</td>
         </tr>
       );
@@ -190,7 +182,7 @@ class Question extends Component {
         <ListGroupItem>
           <div>
             {this.props.children}
-            <QuestionChoices id={this.props.id} choices={this.props.choices} answer={this.props.answer} />
+            <QuestionChoiceTable id={this.props.id} choices={this.props.choices} answer={this.props.answer} />
             <ButtonToolbar>
               <OpenQuestionButton handleClick={this.handleOpenClick}>
                 {this.state.openStatus ? '公開中' : '公開'}
@@ -207,7 +199,7 @@ class Question extends Component {
 // question list
 class QuestionList extends Component {
   render() {
-    var questionNodes = this.props.questions.map(function(question) {
+    var questionNodes = this.props.questions.map( question => {
       return (
         <Question
           id={question._id}
