@@ -54,7 +54,8 @@ export default class QuizStore {
   // mapping data to quiz
   mapQuiz(data) {
     this.quiz = this.quiz.map((q, i) => {
-      q.text = data[0].choice[i];
+      q.text  = data[0].choice[i];
+      q.style = {};
       return q;
     });
     this.updateQuiz();
