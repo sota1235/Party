@@ -12,43 +12,30 @@
 import React    from 'react';
 import ReactDOM from 'react-dom';
 import $        from 'jquery';
+import { EventEmitter2} from 'eventemitter2';
 
-import Comment  from './comments.jsx';
+import Comment    from './comments.jsx';
+import QuizAction from './action/QuizAction.jsx';
+import QuizStore  from './store/QuizStore.jsx';
 import { getQuestion } from './ajax.jsx';
 
 var socket    = io();
+var emitter   = new EventEmitter2();
 var Component = React.Component;
+var Action    = new QuizAction(emitter, socket);
+var Store     = new QuizStore(emitter);
 
 /* React components */
 class Answers extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [
-        {num: 'A1', text: '', val: 1},
-        {num: 'A2', text: '', val: 2},
-        {num: 'A3', text: '', val: 3},
-        {num: 'A4', text: '', val: 4},
-      ]
-    };
-
-    socket.on('open', (msg) => {
-      console.log('question open: id' + msg);
-      getQuestion(msg).then( result => this.handleOpenQuestion(result));
-    });
+    this.state = {data: []};
+    this.loadQuiz = this.loadQuiz.bind(this);
+    emitter.on('quizChanged', this.loadQuiz);
   }
 
-  handleOpenQuestion(question) {
-    let choices = question[0].choice;
-    this.setState({
-      data: [
-        {num: 'A1', text: choices[0], val: 1},
-        {num: 'A2', text: choices[1], val: 2},
-        {num: 'A3', text: choices[2], val: 3},
-        {num: 'A4', text: choices[3], val: 4},
-      ]
-    });
-    return;
+  loadQuiz() {
+    this.setState({ data: Store.getQuiz() });
   }
 
   render() {
