@@ -82,20 +82,20 @@ class QuestionForm extends Component {
   }
 
   render() {
-    let choices = [];
-    for(let i=0;i<4;i++) {
-      choices.push(
+    let that = this;
+    let choices = this.state.choices.map((choice, i) => {
+      return (
         <Input
           type='text'
           placeholder={`選択肢${i+1}を入力`}
-          value={this.state.choices[i]}
+          value={choice}
           ref={`choice${i+1}`}
           key={i}
           required
-          onChange={this.handleChange}
+          onChange={that.handleChange}
         />
       );
-    };
+    });
 
     return (
       <div className='questionForm'>
