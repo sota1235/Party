@@ -1,5 +1,5 @@
 /**
- * adminButton.babel.js
+ * adminButton.jsx
  *
  * Description:
  *   Button components for admin page

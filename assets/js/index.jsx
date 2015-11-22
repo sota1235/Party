@@ -1,5 +1,5 @@
 /**
- * index.babel.js
+ * index.jsx
  *
  * Description:
  *  Send comments and votes in real time

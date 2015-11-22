@@ -1,5 +1,5 @@
 /**
- * ajax.babel.js
+ * ajax.jsx
  *
  * Description:
  *   access to server and get data

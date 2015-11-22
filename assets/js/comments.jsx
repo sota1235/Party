@@ -1,18 +1,15 @@
 /**
- * comments.babel.js
+ * comments.jsx
  *
  * Description:
  *  受け取った文字列ををニコ動風に流す
  *
  * Author:
  *  @sota1235
- *
- * Required:
- *  jQuery 1.x
  */
 'use strict';
 
-var $ = require('jquery');
+import $ from 'jquery';
 
 module.exports = class Comment {
   constructor(comment) {

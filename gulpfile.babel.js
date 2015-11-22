@@ -17,17 +17,17 @@ import buffer       from 'vinyl-buffer';
 import glob         from 'glob';
 
 /* functions */
-// ./hote/moge/common.babel.js => common.js
+// ./hote/moge/common.jsx => common.js
 var makeDestName = (fileName) => {
-  var babel = fileName.split('/').reverse()[0];
-  return babel.replace(/\.babel/, '');
+  var jsx = fileName.split('/').reverse()[0];
+  return jsx.replace(/\.jsx/, '.js');
 };
 
 // build js files with options
 var buildScripts = (script, isWatch) => {
   var defaultOption = {
     entries: [script],
-    //extensions: ['.jsx'],
+    extensions: ['.jsx'],
     debug: true
   };
   // choose bundler
@@ -70,14 +70,14 @@ var buildScripts = (script, isWatch) => {
 
 /* tasks */
 gulp.task('script', () => {
-  let scripts = glob.sync('./assets/js/*.js');
+  let scripts = glob.sync('./assets/js/*.jsx');
   for(let script of scripts) {
     buildScripts(script, false);
   }
 });
 
 gulp.task('watchify', () => {
-  let scripts = glob.sync('./assets/js/*.js');
+  let scripts = glob.sync('./assets/js/*.jsx');
   for(let script of scripts) {
     buildScripts(script, true);
   }
@@ -98,7 +98,7 @@ gulp.task('sass', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch('./assets/js/**/*.js',    ['script']);
+  gulp.watch('./assets/js/**/*.jsx',   ['script']);
   gulp.watch('./assets/css/**/*.sass', ['sass']);
 });
 

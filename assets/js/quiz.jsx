@@ -1,5 +1,5 @@
 /**
- * quiz.babel.js
+ * quiz.jsx
  *
  * Description:
  *  receive vote data and show it
@@ -13,8 +13,8 @@ import React    from 'react';
 import ReactDOM from 'react-dom';
 import $        from 'jquery';
 
-import Comment  from './comments.babel.js';
-import { getQuestion } from './ajax.babel.js';
+import Comment  from './comments.jsx';
+import { getQuestion } from './ajax.jsx';
 
 var socket    = io();
 var Component = React.Component;

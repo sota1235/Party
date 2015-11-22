@@ -1,5 +1,5 @@
 /**
- * admin.babel.js
+ * admin.jsx
  *
  * Description:
  *   Admin page to controll questions
@@ -23,13 +23,13 @@ import {
 // custom components
 import {
   CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton
-} from './adminButton.babel.js';
+} from './adminButton.jsx';
 // custom library
 import {
   getQuestions,
   addQuestion,
   deleteQuestion
-} from './ajax.babel.js';
+} from './ajax.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
