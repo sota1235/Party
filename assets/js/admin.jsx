@@ -30,10 +30,12 @@ import {
   addQuestion,
   deleteQuestion
 } from './ajax.jsx';
+import questionStore from './store/Question.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
 var Component = React.Component;
+var QuestionStore = new questionStore(emitter);
 
 /* commponents */
 // form to add question
@@ -231,49 +233,16 @@ class QuestionList extends Component {
 class QuestionAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      questions: []
-    };
-    this.handleQuestionClick = this.handleQuestionClick.bind(this);
-    this.handleDeleteClick   = this.handleDeleteClick.bind(this);
-  }
-
-  handleQuestionClick(text, choice, answer) {
-    var that = this;
-    addQuestion(text, choice, answer)
-      .then(function(result) {
-        console.log(`Submit comment success : ${JSON.stringify(result)}`);
-        that.loadQuestions();
-      });
-  }
-
-  handleDeleteClick(id) {
-    var that = this;
-    deleteQuestion(id)
-      .then(function(result) {
-        console.log(`Delete question success id : ${id}`);
-        that.loadQuestions();
-      });
+    this.state = {questions: []};
+    this.loadQuestions = this.loadQuestions.bind(this);
+    emitter.on('questionChange', this.loadQuestions);
   }
 
   loadQuestions() {
-    var that = this;
-    getQuestions()
-      .then(function(questions) {
-        that.setState({questions: questions});
-      });
+    this.setState({questions: QuestionStore.getQuestions()});
   }
 
   componentDidMount() {
-    let that = this;
-    this.loadQuestions();
-    // event listener
-    emitter.on('onDeleteClick', function(id) {
-      that.handleDeleteClick(id);
-    });
-    emitter.on('onQuestionClick', function(text, choice, answer) {
-      that.handleQuestionClick(text, choice, answer);
-    });
     emitter.on('onOpenClick', function(id) {
       socket.emit('open', id);
     });

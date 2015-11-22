@@ -1,0 +1,52 @@
+/**
+ * Question.jsx
+ *
+ * Description:
+ *   Store class for questions data
+ *
+ * Author:
+ *   @sota1235
+ */
+
+import {
+  getQuestions, addQuestion, deleteQuestion
+} from '../ajax.jsx';
+
+export default class Question {
+  constructor(emitter) {
+    this.emitter   = emitter;
+    this.questions = [];
+    this.updateQuestions();
+    this.updateQuestions = this.updateQuestions.bind(this);
+    // events
+    emitter.on('onDeleteClick',   this.onDeleteClick.bind(this));
+    emitter.on('onQuestionClick', this.onQuestionClick.bind(this));
+  }
+  // getter for components
+  getQuestions() {
+    return this.questions;
+  }
+  // delete question
+  onDeleteClick(id) {
+    deleteQuestion(id)
+      .then( result => {
+        console.log(`Delete question success id: ${id}`);
+      })
+      .then(this.updateQuestions);
+  }
+  // add new question
+  onQuestionClick(text, choices, answer) {
+    addQuestion(text, choices, answer)
+      .then(function(result) {
+        console.log(`Submit add question: ${JSON.stringify(result)}`);
+      })
+      .then(this.updateQuestions);
+  }
+  // TODO: private method
+  updateQuestions() {
+    getQuestions().then( questions => {
+      this.questions = questions;
+      this.emitter.emit('questionChange');
+    });
+  }
+}
