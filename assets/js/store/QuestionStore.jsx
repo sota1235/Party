@@ -12,7 +12,7 @@ import {
   getQuestions, addQuestion, deleteQuestion
 } from '../ajax.jsx';
 
-export default class Question {
+export default class QuestionStore {
   constructor(emitter) {
     this.emitter   = emitter;
     this.questions = [];

@@ -25,12 +25,7 @@ import {
   CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton
 } from './adminButton.jsx';
 // custom library
-import {
-  getQuestions,
-  addQuestion,
-  deleteQuestion
-} from './ajax.jsx';
-import questionStore from './store/Question.jsx';
+import questionStore from './store/QuestionStore.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
