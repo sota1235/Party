@@ -35,5 +35,10 @@ module.exports = function(server) {
       console.log('open answer: ' + (msg + 1));
       io.emit('openAnswer', msg);
     });
+
+    socket.on('finish', function(msg) {
+      console.log('finish quiz');
+      io.emit('finish');
+    });
   });
 };

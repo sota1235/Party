@@ -19,7 +19,11 @@ import {
 } from 'react-bootstrap';
 // custom components
 import {
-  CreateQuestionButton, DeleteQuestionButton, OpenQuestionButton, OpenAnswerButton
+  CreateQuestionButton,
+  DeleteQuestionButton,
+  OpenQuestionButton,
+  OpenAnswerButton,
+  FinishQuestionButton
 } from './adminButton.jsx';
 // action, stores
 import AdminAction from './action/AdminAction.jsx';
@@ -144,24 +148,50 @@ class Question extends Component {
     super(props);
     this.state = {
       openStatus: false,
-      disabled: true
+      disabled: {
+        open: true,
+        finish: true
+      }
     };
-    this.handleDeleteClick     = this.handleDeleteClick.bind(this);
-    this.handleOpenClick       = this.handleOpenClick.bind(this);
-    this.handleOpenAnswerClick = this.handleOpenAnswerClick.bind(this);
+    this.handleDeleteClick         = this.handleDeleteClick.bind(this);
+    this.handleOpenClick           = this.handleOpenClick.bind(this);
+    this.handleOpenAnswerClick     = this.handleOpenAnswerClick.bind(this);
+    this.handleFinishQuestionClick = this.handleFinishQuestionClick.bind(this);
   }
 
   handleDeleteClick() {
     Action.deleteQuestion(this.props.id);
   }
-
+  // 問題公開
   handleOpenClick() {
-    this.setState({openStatus: true, disabled: false});
+    this.setState({
+      openStatus: true,
+      disabled: {
+        open: false
+      }
+    });
     Action.broadcastQuestion(this.props.id);
   }
-
+  // 解答オープン
   handleOpenAnswerClick() {
+    this.setState({
+      disabled: {
+        open: true,
+        finish: false
+      }
+    });
     Action.openAnswer(this.props.answer);
+  }
+  // 終了
+  handleFinishQuestionClick() {
+    this.setState({
+      openStatus: false,
+      disabled: {
+        open: true,
+        finish: true
+      }
+    });
+    Action.finishQuestion();
   }
 
   render() {
@@ -175,7 +205,8 @@ class Question extends Component {
               <OpenQuestionButton handleClick={this.handleOpenClick}>
                 {this.state.openStatus ? '公開中' : '公開'}
               </OpenQuestionButton>
-              <OpenAnswerButton handleClick={this.handleOpenAnswerClick} disabled={this.state.disabled} />
+              <OpenAnswerButton handleClick={this.handleOpenAnswerClick} disabled={this.state.disabled.open} />
+              <FinishQuestionButton handleClick={this.handleFinishQuestionClick} disabled={this.state.disabled.finish} />
               <DeleteQuestionButton handleClick={this.handleDeleteClick} />
             </ButtonToolbar>
           </div>

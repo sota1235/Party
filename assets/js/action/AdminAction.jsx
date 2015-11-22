@@ -25,4 +25,7 @@ export default class AdminAction {
   openAnswer(index) {
     this.socket.emit('openAnswer', index - 1);
   }
+  finishQuestion() {
+    this.socket.emit('finish');
+  }
 }

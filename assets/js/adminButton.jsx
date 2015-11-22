@@ -57,6 +57,21 @@ export class OpenAnswerButton extends Component {
   }
 }
 
+// '終了' button
+export class FinishQuestionButton extends Component {
+  render() {
+    return (
+      <Button
+        bsStyle='warning'
+        onClick={this.props.handleClick}
+        disabled={this.props.disabled}
+      >
+        終了
+      </Button>
+    );
+  }
+}
+
 // '削除' button
 export class DeleteQuestionButton extends Component {
   render() {

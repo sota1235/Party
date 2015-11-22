@@ -14,7 +14,8 @@ export default class QuizAction {
     this.socket  = socket;
     this.socket.on('open', this.displayQuiz.bind(this));
     this.socket.on('vote', this.voteQuiz.bind(this));
-    this.socket.on('openAnswer', this.answerOpen.bind(this));
+    this.socket.on('openAnswer', this.openAnswer.bind(this));
+    this.socket.on('finish', this.finishQuestion.bind(this));
   }
   displayQuiz(id) {
     this.emitter.emit('displayQuiz', id);
@@ -23,8 +24,12 @@ export default class QuizAction {
     console.log(`vote: ${index}`);
     this.emitter.emit('voteQuiz', index);
   }
-  answerOpen(index) {
+  openAnswer(index) {
     console.log(`open answer: ${index}`);
     this.emitter.emit('openAnswer', index);
+  }
+  finishQuestion() {
+    console.log('finish quiz');
+    this.emitter.emit('finishQuestion');
   }
 }

@@ -56,6 +56,7 @@ class AnswerDisplay extends Component {
   }
 
   loadVote() {
+    if(Store.getQuiz().length === 0) return;
     this.setState({voteNum: Store.getQuiz()[this.props.index].count});
   }
 

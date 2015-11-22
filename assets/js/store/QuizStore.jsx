@@ -21,9 +21,10 @@ export default class QuizStore {
     ];
     this.mapQuiz    = this.mapQuiz.bind(this);
     // events
-    emitter.on('displayQuiz', this.onDisplayQuestion.bind(this));
-    emitter.on('voteQuiz',    this.countUp.bind(this));
-    emitter.on('openAnswer',  this.onAnswerOpen.bind(this));
+    emitter.on('displayQuiz',    this.onDisplayQuestion.bind(this));
+    emitter.on('voteQuiz',       this.countUp.bind(this));
+    emitter.on('openAnswer',     this.onAnswerOpen.bind(this));
+    emitter.on('finishQuestion', this.onFinishQuestion.bind(this));
   }
   // getter for components
   getQuiz() {
@@ -49,6 +50,11 @@ export default class QuizStore {
   countUp(index) {
     if(index < 1 || index > 4) return;
     this.quiz[index-1].count++;
+    this.updateQuiz();
+  }
+  // finish quiz
+  onFinishQuestion() {
+    this.quiz = [];
     this.updateQuiz();
   }
   // mapping data to quiz
