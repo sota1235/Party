@@ -31,6 +31,10 @@ class QuizComponent extends Component {
     emitter.on('quizChanged', this.loadQuiz);
   }
 
+  componentWillUnmount() {
+    emitter.off('quizChanged', this.loadQuiz);
+  }
+
   loadQuiz() {
     this.setState({ data: Store.getQuiz() });
   }
@@ -50,6 +54,10 @@ class ChoiceDisplay extends Component {
     this.state = { voteNum: 0 };
     this.loadVote = this.loadVote.bind(this);
     emitter.on('quizChanged', this.loadVote);
+  }
+
+  componentWillUnmount() {
+    emitter.off('quizChanged', this.loadVote);
   }
 
   loadVote() {

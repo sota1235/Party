@@ -22,16 +22,19 @@ var socket = io();
 /* React rendering */
 render((
   <Router>
-    <Route path='title' component={QuizTitleComponent}/>
-    <Route path='quiz'  component={QuizComponent}/>
+    <Route path='/'    component={QuizTitleComponent}/>
+    <Route path='quiz' component={QuizComponent}/>
   </Router>
 ),  document.getElementById('answers'));
 
 $(() => {
-  // Socket.io events
+  /* Socket.io events */
   socket.on('comment', (msg) => {
     console.log('comment: ' + msg);
     var comment = new Comment(msg);
     comment.run();
   });
+  // Dynamic routing
+  socket.on('open', () => { console.log('hoge'); location.hash = '#/quiz'; });
+  socket.on('finish', () => { console.log('moge'); location.hash = '#/';});
 });
