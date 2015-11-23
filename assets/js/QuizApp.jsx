@@ -35,6 +35,6 @@ $(() => {
     comment.run();
   });
   // Dynamic routing
-  socket.on('open', () => { console.log('hoge'); location.hash = '#/quiz'; });
-  socket.on('finish', () => { console.log('moge'); location.hash = '#/';});
+  socket.on('open', () => location.hash = '#/quiz');
+  socket.on('finish', () => location.hash = '#/');
 });
