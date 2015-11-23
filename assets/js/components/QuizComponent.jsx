@@ -1,23 +1,20 @@
 /**
- * quiz.jsx
+ * QuizComponent.jsx
  *
  * Description:
- *  receive vote data and show it
+ *   React Component for quiz
  *
  * Author:
- *  sota1235
+ *   @sota1235
  */
 'use strict';
 
-import React    from 'react';
-import ReactDOM from 'react-dom';
-import $        from 'jquery';
-import { EventEmitter2} from 'eventemitter2';
+import React from 'react';
+import { EventEmitter2 } from 'eventemitter2';
 
-import Comment    from './comments.jsx';
-import QuizAction from './action/QuizAction.jsx';
-import QuizStore  from './store/QuizStore.jsx';
-import { getQuestion } from './ajax.jsx';
+import QuizAction from '../action/QuizAction.jsx';
+import QuizStore  from '../store/QuizStore.jsx';
+import { getQuestion } from '../ajax.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
@@ -26,7 +23,7 @@ var Action    = new QuizAction(emitter, socket);
 var Store     = new QuizStore(emitter);
 
 /* React components */
-class Answers extends Component {
+class QuizComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {data: []};
@@ -40,14 +37,14 @@ class Answers extends Component {
 
   render() {
     return (
-      <div className="answers">
-        <AnswerDisplayList data={this.state.data} />
+      <div className="quizComponent">
+        <ChoiceDisplayList data={this.state.data} />
       </div>
     );
   }
 }
 
-class AnswerDisplay extends Component {
+class ChoiceDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = { voteNum: 0 };
@@ -61,7 +58,7 @@ class AnswerDisplay extends Component {
 
   render() {
     return (
-      <div className="answerDisplay" style={this.props.style}>
+      <div className="choiceDisplay" style={this.props.style}>
         <h1>{this.props.num}</h1>
         <p>選択肢: {this.props.text}</p>
         <div>回答者数
@@ -72,11 +69,11 @@ class AnswerDisplay extends Component {
   }
 }
 
-class AnswerDisplayList extends Component {
+class ChoiceDisplayList extends Component {
   render() {
     var displayNodes = this.props.data.map(function(displays, i) {
       return (
-        <AnswerDisplay
+        <ChoiceDisplay
           style={displays.style}
           num={displays.num}
           index={i}
@@ -86,24 +83,11 @@ class AnswerDisplayList extends Component {
       );
     });
     return (
-      <div className="answerDisplayList">
+      <div className="choiceDisplayList">
         {displayNodes}
       </div>
     )
   }
 }
 
-/* React rendering */
-ReactDOM.render(
-  <Answers />,
-  document.getElementById('answers')
-);
-
-$(() => {
-  // Socket.io events
-  socket.on('comment', (msg) => {
-    console.log('comment: ' + msg);
-    var comment = new Comment(msg);
-    comment.run();
-  });
-});
+export default QuizComponent;
