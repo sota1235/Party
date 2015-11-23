@@ -1,22 +1,21 @@
 /**
- * index.jsx
+ * IndexComponent.jsx
  *
  * Description:
- *  Send comments and votes in real time
+ *   React Component for user page
  *
  * Author:
- *  sota1235
+ *   @sota1235
  */
 'use strict';
 
-import React    from 'react';
-import ReactDOM from 'react-dom';
-import $        from 'jquery';
+import React from 'react';
+import $     from 'jquery';
 
 var socket = io();
 
 /* make quiz form */
-var QuizForm = React.createClass({
+var IndexComponent = React.createClass({
   getInitialState: () => {
     return {
       data: [
@@ -103,8 +102,4 @@ var QuizButtonList = React.createClass({
   }
 });
 
-/* rendering */
-ReactDOM.render(
-  <QuizForm />,
-  document.getElementById('quiz-form')
-);
+export default IndexComponent;

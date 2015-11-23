@@ -1,8 +1,8 @@
 /**
- * admin.jsx
+ * AdminComponent.jsx
  *
  * Description:
- *   Admin page to controll questions
+ *   React Component for admin page
  *
  * Author:
  *  sota1235
@@ -10,7 +10,6 @@
 'use strict';
 
 import React             from 'react';
-import { render }        from 'react-dom';
 import { EventEmitter2 } from 'eventemitter2';
 // react bootstrap
 import {
@@ -24,10 +23,10 @@ import {
   OpenQuestionButton,
   OpenAnswerButton,
   FinishQuestionButton
-} from './adminButton.jsx';
+} from './AdminButtonComponent.jsx';
 // action, stores
-import AdminAction from './action/AdminAction.jsx';
-import AdminStore  from './store/AdminStore.jsx';
+import AdminAction from '../action/AdminAction.jsx';
+import AdminStore  from '../store/AdminStore.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
@@ -242,7 +241,7 @@ class QuestionList extends Component {
 }
 
 // admin page
-class QuestionAdmin extends Component {
+export default class QuestionAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {questions: []};
@@ -264,9 +263,3 @@ class QuestionAdmin extends Component {
     );
   }
 }
-
-/* rendering */
-render(
-  <QuestionAdmin />,
-  document.getElementById('question-admin')
-);

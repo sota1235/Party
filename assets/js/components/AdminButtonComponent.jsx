@@ -1,5 +1,5 @@
 /**
- * adminButton.jsx
+ * AdminButtonComponent.jsx
  *
  * Description:
  *   Button components for admin page

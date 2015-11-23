@@ -14,7 +14,7 @@ import { EventEmitter2 } from 'eventemitter2';
 
 import QuizAction from '../action/QuizAction.jsx';
 import QuizStore  from '../store/QuizStore.jsx';
-import { getQuestion } from '../ajax.jsx';
+import { getQuestion } from '../lib/ajax.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();

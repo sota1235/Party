@@ -14,7 +14,7 @@ import React                   from 'react';
 import $                       from 'jquery';
 
 import QuizComponent from './components/QuizComponent.jsx';
-import Comment       from './comments.jsx';
+import Comment       from './lib/comments.jsx';
 
 var socket = io();
 

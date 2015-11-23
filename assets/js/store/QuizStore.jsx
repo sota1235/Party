@@ -9,7 +9,7 @@
  */
 
 import _ from 'lodash';
-import { getQuestion } from '../ajax.jsx';
+import { getQuestion } from '../lib/ajax.jsx';
 
 export default class QuizStore {
   constructor(emitter) {

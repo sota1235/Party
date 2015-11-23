@@ -10,7 +10,7 @@
 
 import {
   getQuestions, addQuestion, deleteQuestion
-} from '../ajax.jsx';
+} from '../lib/ajax.jsx';
 
 export default class QuestionStore {
   constructor(emitter) {
