@@ -35,6 +35,6 @@ $(() => {
     comment.run();
   });
   // Dynamic routing
-  socket.on('open', () => location.hash = '#/quiz');
+  socket.on('open',   () => location.hash = '#/quiz');
   socket.on('finish', () => location.hash = '#/');
 });

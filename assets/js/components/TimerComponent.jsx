@@ -10,6 +10,7 @@
 'use strict';
 
 import React from 'react';
+import _     from 'lodash';
 
 var Component = React.Component;
 
@@ -20,7 +21,14 @@ export default class TimerComponent extends Component {
     this.state = {
       time: 15,
       style: {
-        textAlign: 'center'
+        bottom: '20%',
+        right: '20%',
+        padding: '20px 30px',
+        fontSize: '50px',
+        color: '#505050',
+        border: '10px green solid',
+        backgroundColor: '#D1F5CD',
+        position: 'fixed'
       }
     }
     this.countDown = this.countDown.bind(this);
@@ -37,8 +45,19 @@ export default class TimerComponent extends Component {
   }
 
   countDown() {
-    let time = this.state.time;
-    this.setState({time: time - 1});
+    this.setState((prev, current) => {
+      var newStyle = _.clone(prev.style);
+      // coloring red when time count is 5 second
+      if(prev.time === 6) {
+        newStyle.color = 'red';
+      }
+      return {
+        time: prev.time - 1,
+        style: newStyle
+      };
+    });
+
+    // stop count down
     if(this.state.time === 0) {
       clearInterval(this.timerId);
     }

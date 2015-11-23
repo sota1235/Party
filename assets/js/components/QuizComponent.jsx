@@ -16,6 +16,8 @@ import QuizAction from '../action/QuizAction.jsx';
 import QuizStore  from '../store/QuizStore.jsx';
 import { getQuestion } from '../lib/ajax.jsx';
 
+import TimerComponent from './TimerComponent.jsx';
+
 var socket    = io();
 var emitter   = new EventEmitter2();
 var Component = React.Component;
@@ -43,6 +45,7 @@ class QuizComponent extends Component {
     return (
       <div className="quizComponent">
         <ChoiceDisplayList data={this.state.data} />
+        <TimerComponent />
       </div>
     );
   }
