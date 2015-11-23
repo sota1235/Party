@@ -30,6 +30,12 @@ export default class TimerComponent extends Component {
     this.timerId = setInterval(this.countDown, 1000);
   }
 
+  componentWillUnmount() {
+    if(this.timerId) {
+      clearInterval(this.timerId);
+    }
+  }
+
   countDown() {
     let time = this.state.time;
     this.setState({time: time - 1});
