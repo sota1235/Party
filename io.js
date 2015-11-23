@@ -16,29 +16,35 @@ module.exports = function(server) {
   io.on('connection', function(socket) {
     console.log('a user connected');
 
+    // send comment
     socket.on('comment', function(msg) {
       console.log('comment: ' + msg);
       io.emit('comment', msg);
     });
-
+    // send vote for choices of quiz
     socket.on('vote', function(msg) {
       console.log('vote: ' + msg);
       io.emit('vote', msg);
     });
-
-    socket.on('open', function(msg) {
-      console.log('open: ' + msg);
-      io.emit('open', msg);
+    // display quiz
+    socket.on('open', function(id) {
+      console.log('open: ' + id);
+      io.emit('open', id);
     });
-
+    // show answer
     socket.on('openAnswer', function(msg) {
       console.log('open answer: ' + (msg + 1));
       io.emit('openAnswer', msg);
     });
-
+    // hide quiz
     socket.on('finish', function(msg) {
       console.log('finish quiz');
       io.emit('finish');
+    });
+    // quiz timer finish
+    socket.on('timerFinish', function(msg) {
+      console.log('exit time limit of quiz');
+      io.emit('timerFinish');
     });
   });
 };

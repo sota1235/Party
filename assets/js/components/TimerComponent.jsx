@@ -12,7 +12,11 @@
 import React from 'react';
 import _     from 'lodash';
 
+import QuizAction from '../action/QuizAction.jsx';
+
 var Component = React.Component;
+var socket    = io();
+var Action    = new QuizAction(null, socket);
 
 /* React components */
 export default class TimerComponent extends Component {
@@ -60,6 +64,7 @@ export default class TimerComponent extends Component {
     // stop count down
     if(this.state.time === 0) {
       clearInterval(this.timerId);
+      Action.exitTimeLimit();
     }
   }
 

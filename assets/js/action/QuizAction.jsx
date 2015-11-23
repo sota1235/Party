@@ -32,4 +32,8 @@ export default class QuizAction {
     console.log('finish quiz');
     this.emitter.emit('finishQuestion');
   }
+  exitTimeLimit() {
+    console.log('exit time limit of quiz');
+    this.socket.emit('timerFinish');
+  }
 }
