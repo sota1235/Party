@@ -9,14 +9,17 @@
  */
 'use strict';
 
-import React from 'react';
-import _     from 'lodash';
+import React             from 'react';
+import { EventEmitter2 } from 'eventemitter2';
+import _                 from 'lodash';
 
 import QuizAction from '../action/QuizAction.jsx';
 
 var Component = React.Component;
 var socket    = io();
-var Action    = new QuizAction(null, socket);
+var emitter   = new EventEmitter2();
+// TODO: いらないemitter渡しちゃってるのでどうにかする
+var Action    = new QuizAction(emitter, socket);
 
 /* React components */
 export default class TimerComponent extends Component {
