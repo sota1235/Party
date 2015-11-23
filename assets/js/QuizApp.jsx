@@ -13,16 +13,19 @@ import { render }              from 'react-dom';
 import React                   from 'react';
 import $                       from 'jquery';
 
-import QuizComponent from './components/QuizComponent.jsx';
-import Comment       from './lib/comments.jsx';
+import QuizTitleComponent from './components/QuizTitleComponent.jsx';
+import QuizComponent      from './components/QuizComponent.jsx';
+import Comment            from './lib/comments.jsx';
 
 var socket = io();
 
 /* React rendering */
-render(
-  <QuizComponent />,
-  document.getElementById('answers')
-);
+render((
+  <Router>
+    <Route path='title' component={QuizTitleComponent}/>
+    <Route path='quiz'  component={QuizComponent}/>
+  </Router>
+),  document.getElementById('answers'));
 
 $(() => {
   // Socket.io events
