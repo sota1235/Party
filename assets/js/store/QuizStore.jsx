@@ -9,10 +9,12 @@
  */
 
 import _ from 'lodash';
+import { EventEmitter2 } from 'eventemitter2';
 import { getQuestion } from '../lib/ajax.jsx';
 
-export default class QuizStore {
+export default class QuizStore extends EventEmitter2 {
   constructor(emitter) {
+    super();
     this.emitter = emitter;
     this.defaultQuiz = [
       {num: 'A1', text: '', count: 0},
@@ -70,6 +72,6 @@ export default class QuizStore {
   }
   // TODO: private
   updateQuiz() {
-    this.emitter.emit('quizChanged');
+    this.emit('quizChanged');
   }
 }

@@ -8,12 +8,14 @@
  *   @sota1235
  */
 
+import { EventEmitter2 } from 'eventemitter2';
 import {
   getQuestions, addQuestion, deleteQuestion
 } from '../lib/ajax.jsx';
 
-export default class QuestionStore {
+export default class QuestionStore extends EventEmitter2 {
   constructor(emitter) {
+    super();
     this.emitter   = emitter;
     this.questions = [];
     this.updateQuestions();
@@ -42,7 +44,7 @@ export default class QuestionStore {
   updateQuestions() {
     getQuestions().then( questions => {
       this.questions = questions;
-      this.emitter.emit('questionChange');
+      this.emit('questionChange');
     });
   }
 }

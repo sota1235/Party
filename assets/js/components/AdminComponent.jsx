@@ -246,7 +246,7 @@ export default class QuestionAdmin extends Component {
     super(props);
     this.state = {questions: []};
     this.loadQuestions = this.loadQuestions.bind(this);
-    emitter.on('questionChange', this.loadQuestions);
+    Store.on('questionChange', this.loadQuestions);
   }
 
   loadQuestions() {

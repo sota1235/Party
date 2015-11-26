@@ -30,11 +30,11 @@ class QuizComponent extends Component {
     super(props);
     this.state = {data: []};
     this.loadQuiz = this.loadQuiz.bind(this);
-    emitter.on('quizChanged', this.loadQuiz);
+    Store.on('quizChanged', this.loadQuiz);
   }
 
   componentWillUnmount() {
-    emitter.off('quizChanged', this.loadQuiz);
+    Store.off('quizChanged', this.loadQuiz);
   }
 
   loadQuiz() {
@@ -56,11 +56,11 @@ class ChoiceDisplay extends Component {
     super(props);
     this.state = { voteNum: 0 };
     this.loadVote = this.loadVote.bind(this);
-    emitter.on('quizChanged', this.loadVote);
+    Store.on('quizChanged', this.loadVote);
   }
 
   componentWillUnmount() {
-    emitter.off('quizChanged', this.loadVote);
+    Store.off('quizChanged', this.loadVote);
   }
 
   loadVote() {
