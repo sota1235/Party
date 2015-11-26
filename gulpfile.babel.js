@@ -76,11 +76,16 @@ gulp.task('script', () => {
   }
 });
 
-gulp.task('watchify', () => {
-  let scripts = glob.sync('./assets/js/*.jsx');
-  for(let script of scripts) {
-    buildScripts(script, true);
-  }
+gulp.task('admin', () => {
+buildScripts('./assets/js/AdminApp.jsx', true);
+});
+
+gulp.task('quiz', () => {
+  buildScripts('./assets/js/QuizApp.jsx', true);
+});
+
+gulp.task('index', () => {
+  buildScripts('./assets/js/IndexApp.jsx', true);
 });
 
 gulp.task('sass', () => {
