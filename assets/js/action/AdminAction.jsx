@@ -19,13 +19,4 @@ export default class AdminAction {
   deleteQuestion(id) {
     this.emitter.emit('onDeleteClick', id);
   }
-  broadcastQuestion(id) {
-    this.socket.emit('open', id);
-  }
-  openAnswer(index) {
-    this.socket.emit('openAnswer', index - 1);
-  }
-  finishQuestion() {
-    this.socket.emit('finish');
-  }
 }

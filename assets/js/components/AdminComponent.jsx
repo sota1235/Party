@@ -25,14 +25,16 @@ import {
   FinishQuestionButton
 } from './AdminButtonComponent.jsx';
 // action, stores
-import AdminAction from '../action/AdminAction.jsx';
-import AdminStore  from '../store/AdminStore.jsx';
+import AdminAction  from '../action/AdminAction.jsx';
+import SocketAction from '../action/SocketAction.jsx';
+import AdminStore   from '../store/AdminStore.jsx';
 
-var socket    = io();
-var emitter   = new EventEmitter2();
-var Component = React.Component;
-var Store     = new AdminStore(emitter);
-var Action    = new AdminAction(emitter, socket);
+var socket       = io();
+var emitter      = new EventEmitter2();
+var Component    = React.Component;
+var Store        = new AdminStore(emitter);
+var adminAction  = new AdminAction(emitter, socket);
+var socketAction = new SocketAction(socket);
 
 /* commponents */
 // form to add question
@@ -52,7 +54,7 @@ class QuestionForm extends Component {
   }
 
   handleQuestionClick() {
-    Action.createQuestion(this.state);
+    adminAction.createQuestion(this.state);
     this.clearForm();
     return;
   }
@@ -159,7 +161,7 @@ class Question extends Component {
   }
 
   handleDeleteClick() {
-    Action.deleteQuestion(this.props.id);
+    adminAction.deleteQuestion(this.props.id);
   }
   // 問題公開
   handleOpenClick() {
@@ -169,7 +171,7 @@ class Question extends Component {
         open: false
       }
     });
-    Action.broadcastQuestion(this.props.id);
+    socketAction.broadcastQuestion(this.props.id);
   }
   // 解答オープン
   handleOpenAnswerClick() {
@@ -179,7 +181,7 @@ class Question extends Component {
         finish: false
       }
     });
-    Action.openAnswer(this.props.answer);
+    socketAction.openAnswer(this.props.answer);
   }
   // 終了
   handleFinishQuestionClick() {
@@ -190,7 +192,7 @@ class Question extends Component {
         finish: true
       }
     });
-    Action.finishQuestion();
+    socketAction.finishQuestion();
   }
 
   render() {
