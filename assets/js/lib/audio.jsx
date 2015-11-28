@@ -11,8 +11,8 @@
 import request from 'superagent';
 
 export default class AudioPlayer {
-  constructor(fileName) {
-    this.url     = `${location.host}/${fileName}`;
+  constructor(uri) {
+    this.uri     = uri;
     this.context = null;
     this.buffer  = null;
 
@@ -20,38 +20,35 @@ export default class AudioPlayer {
     try {
       AudioContext = window.AudioContext || window.webkitAudioContext;
       this.context = new AudioContext;
+      console.log('Web Audio API is supported in this browser!');
     } catch(e) {
       console.log('Web Audio API is not supported in this browser');
     }
     // initiall process
     this.load()
-      .then(this.decode)
-      .then( buffer => this.buffer = buffer );
+      .then( buffer => {
+        this.buffer = buffer
+      });
   }
   // load sound from url
   load() {
-    let url = this.url;
+    let uri     = this.uri;
+    let context = this.context;
     return new Promise(function(resolve, reject) {
-      request
-        .get(url)
-        .set('Accept', 'ArrayBuffer')
-        .end((err, res) => {
-          if(err) {
-            reject(err);
-          }
-          resolve(res);
+      let request = new XMLHttpRequest();
+      request.open('GET', uri, true);
+      request.responseType = 'arraybuffer';
+      request.onload = () => {
+        context.decodeAudioData(request.response, buffer => {
+          resolve(buffer);
         });
-    });
-  }
-  // decode audio response
-  decode(res) {
-    return new Promise(function(resolve, reject) {
-      this.context.decodeAudioData(res, buffer => resolve(buffer));
+      };
+      request.send();
     });
   }
   // play sound
   play(time) {
-    if(this.buffer = null) {
+    if(this.buffer === null) {
       return;
     }
     let source = this.context.createBufferSource();
