@@ -11,7 +11,7 @@
 
 import $ from 'jquery';
 
-module.exports = class Comment {
+export default class Comment {
   constructor(comment) {
     this.comment = comment;
     this.time    = 4000;
@@ -41,7 +41,6 @@ module.exports = class Comment {
   setStyle(dom) {
     return new Promise((resolve, reject) => {
       var top = Math.floor(Math.random() * 100);
-      // HACK: 綺麗に流す方法を探す
       dom.css({
         'font-size' : '30px',
         display: 'block',
@@ -49,7 +48,8 @@ module.exports = class Comment {
         left: '100%',
         top: top.toString() + '%',
         'transition-duration': '10s',
-        'z-index': '9999'
+        'z-index': '9999',
+        'white-space': 'nowrap'
       });
       setTimeout(function() {
         dom.css({
