@@ -47,16 +47,21 @@ export default class AudioPlayer {
     });
   }
   // play sound
-  play(time) {
+  play() {
     if(this.buffer === null) {
       return;
     }
-    let source = this.context.createBufferSource();
-    source.buffer = this.buffer;
-    source.connect(this.context.destination);
-    source.start(time);
+    console.log(`Sound start: ${this.uri}`);
+    this.source = this.context.createBufferSource();
+    this.source.buffer = this.buffer;
+    this.source.connect(this.context.destination);
+    this.source.start(0);
   }
   // stop sound
   stop() {
+    if(this.source) {
+      console.log(`Stop sound: ${this.uri}`);
+      this.source.stop();
+    }
   }
 }
