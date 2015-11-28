@@ -49,6 +49,7 @@ export default class AudioPlayer {
   // play sound
   play() {
     if(this.buffer === null) {
+      console.log(`Sound not loaded: ${this.uri}`);
       return;
     }
     console.log(`Sound start: ${this.uri}`);
