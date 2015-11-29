@@ -25,14 +25,19 @@ export default class TimerComponent extends Component {
     this.state = {
       time: 15,
       style: {
+        position: 'fixed',
         bottom: '20%',
         right: '20%',
-        padding: '20px 30px',
+        width: '140px',
+        height: '140px',
+        paddingTop: '40px',
         fontSize: '50px',
-        color: '#505050',
-        border: '10px green solid',
-        backgroundColor: '#D1F5CD',
-        position: 'fixed'
+        textAlign: 'center',
+        color: '#7B7B7B',
+        borderRadius: '50%',
+        border: '3px #9FCEFF solid',
+        backgroundColor: '#E6F3FF',
+        boxShadow: 'rgba(113,135,164,.65098) 3px 3px 6px 3px'
       }
     }
     this.countDown = this.countDown.bind(this);
