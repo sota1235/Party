@@ -19,17 +19,16 @@ export default class QuizStore extends EventEmitter2 {
     this.defaultQuiz = {
       title: '',
       choices: [
-        {num: 'A1', text: '', count: 0},
-        {num: 'A2', text: '', count: 0},
-        {num: 'A3', text: '', count: 0},
-        {num: 'A4', text: '', count: 0}
+        {num: 'A1', text: ''},
+        {num: 'A2', text: ''},
+        {num: 'A3', text: ''},
+        {num: 'A4', text: ''}
       ]
     };
     this.quiz    = _.clone(this.defaultQuiz, true);
     this.mapQuiz = this.mapQuiz.bind(this);
     // events
     emitter.on('displayQuiz',    this.onDisplayQuestion.bind(this));
-    emitter.on('voteQuiz',       this.countUp.bind(this));
     emitter.on('openAnswer',     this.onAnswerOpen.bind(this));
     emitter.on('finishQuestion', this.onFinishQuestion.bind(this));
   }
@@ -53,12 +52,6 @@ export default class QuizStore extends EventEmitter2 {
     }
     this.updateQuiz();
   }
-  // count up vote number
-  countUp(index) {
-    if(index < 1 || index > 4) return;
-    this.quiz.choices[index-1].count++;
-    this.updateQuiz();
-  }
   // finish quiz
   onFinishQuestion() {
     this.quiz = _.clone(this.defaultQuiz, true);
@@ -66,7 +59,6 @@ export default class QuizStore extends EventEmitter2 {
   }
   // mapping data to quiz
   mapQuiz(data) {
-    console.log(data);
     this.quiz.title   = data[0].text;
     this.quiz.choices = this.quiz.choices.map((q, i) => {
       q.text  = data[0].choice[i];

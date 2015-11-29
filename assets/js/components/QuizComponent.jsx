@@ -14,6 +14,7 @@ import { EventEmitter2 } from 'eventemitter2';
 
 import QuizAction from '../action/QuizAction.jsx';
 import QuizStore  from '../store/QuizStore.jsx';
+import VoteStore  from '../store/VoteStore.jsx';
 import { getQuestion } from '../lib/ajax.jsx';
 
 import TimerComponent from './TimerComponent.jsx';
@@ -22,35 +23,47 @@ var socket    = io();
 var emitter   = new EventEmitter2();
 var Component = React.Component;
 var Action    = new QuizAction(emitter, socket);
-var Store     = new QuizStore(emitter);
+var quizStore = new QuizStore(emitter);
+var voteStore = new VoteStore(emitter);
 
 /* React components */
 class QuizComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        title: '',
-        choices: []
-      }
+      title: '',
+      choices: [],
+      votes: [0, 0, 0, 0]
     };
     this.loadQuiz = this.loadQuiz.bind(this);
-    Store.on('quizChanged', this.loadQuiz);
+    this.loadVote = this.loadVote.bind(this);
+    quizStore.on('quizChanged', this.loadQuiz);
+    voteStore.on('voteChanged', this.loadVote);
   }
 
   componentWillUnmount() {
-    Store.off('quizChanged', this.loadQuiz);
+    quizStore.off('quizChanged', this.loadQuiz);
+    voteStore.off('voteChanged', this.loadVote);
   }
 
   loadQuiz() {
-    this.setState({ data: Store.getQuiz() });
+    let quiz = quizStore.getQuiz();
+    this.setState({
+      title:   quiz.title,
+      choices: quiz.choices
+    });
   }
 
+  loadVote() {
+    this.setState({
+      votes: voteStore.getVotes()
+    });
+  }
   render() {
     return (
         <div className="quizComponent container">
-          <QuizTitle title={this.state.data.title} />
-        <ChoiceDisplayList data={this.state.data.choices} />
+          <QuizTitle title={this.state.title} />
+        <ChoiceDisplayList choices={this.state.choices} votes={this.state.votes} />
         <TimerComponent />
       </div>
     );
@@ -58,10 +71,6 @@ class QuizComponent extends Component {
 }
 
 class QuizTitle extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="quizTitle">
@@ -72,28 +81,13 @@ class QuizTitle extends Component {
 }
 
 class ChoiceDisplay extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { voteNum: 0 };
-    this.loadVote = this.loadVote.bind(this);
-    Store.on('quizChanged', this.loadVote);
-  }
-
-  componentWillUnmount() {
-    Store.off('quizChanged', this.loadVote);
-  }
-
-  loadVote() {
-    this.setState({voteNum: Store.getQuiz().choices[this.props.index].count});
-  }
-
   render() {
     return (
       <div className="choiceDisplay" style={this.props.style}>
         <h1>{this.props.num}</h1>
         <p>選択肢: {this.props.text}</p>
         <div>回答者数
-          <span>{this.state.voteNum}</span>
+          <span>{this.props.voteNum}</span>
         </div>
       </div>
     );
@@ -102,7 +96,8 @@ class ChoiceDisplay extends Component {
 
 class ChoiceDisplayList extends Component {
   render() {
-    var displayNodes = this.props.data.map(function(displays, i) {
+    let votes = this.props.votes;
+    var displayNodes = this.props.choices.map(function(displays, i) {
       return (
         <div className="col-md-6" key={i}>
           <ChoiceDisplay
@@ -110,6 +105,7 @@ class ChoiceDisplayList extends Component {
             num={displays.num}
             index={i}
             text={displays.text}
+            voteNum={votes[i]}
           />
         </div>
       );
