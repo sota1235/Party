@@ -131,4 +131,4 @@ gulp.task('watch', () => {
   gulp.watch('./assets/css/*.sass', ['sass']);
 });
 
-gulp.task('default', ['script']);
+gulp.task('default', ['script', 'sass', 'static']);
