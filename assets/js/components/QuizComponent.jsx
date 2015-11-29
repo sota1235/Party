@@ -28,7 +28,12 @@ var Store     = new QuizStore(emitter);
 class QuizComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: []};
+    this.state = {
+      data: {
+        title: '',
+        choices: []
+      }
+    };
     this.loadQuiz = this.loadQuiz.bind(this);
     Store.on('quizChanged', this.loadQuiz);
   }
@@ -43,9 +48,24 @@ class QuizComponent extends Component {
 
   render() {
     return (
-      <div className="quizComponent container">
-        <ChoiceDisplayList data={this.state.data} />
+        <div className="quizComponent container">
+          <QuizTitle title={this.state.data.title} />
+        <ChoiceDisplayList data={this.state.data.choices} />
         <TimerComponent />
+      </div>
+    );
+  }
+}
+
+class QuizTitle extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="quizTitle">
+        <h1>{this.props.title}</h1>
       </div>
     );
   }
@@ -64,7 +84,7 @@ class ChoiceDisplay extends Component {
   }
 
   loadVote() {
-    this.setState({voteNum: Store.getQuiz()[this.props.index].count});
+    this.setState({voteNum: Store.getQuiz().choices[this.props.index].count});
   }
 
   render() {
