@@ -16,6 +16,14 @@ import source       from 'vinyl-source-stream';
 import buffer       from 'vinyl-buffer';
 import glob         from 'glob';
 
+// static files mapping
+let libs = [
+  {
+    dist: './node_modules/bootstrap/dist/css/*',
+    target: './public/css/lib/bootstrap'
+  }
+];
+
 /* functions */
 // ./hote/moge/common.jsx => common.js
 var makeDestName = (fileName) => {
@@ -100,6 +108,13 @@ gulp.task('sass', () => {
     ]))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./public/css'));
+});
+
+gulp.task('static', () => {
+  for(let lib of libs) {
+    gulp.src(lib.dist)
+      .pipe(gulp.dest(lib.target));
+  }
 });
 
 gulp.task('watch', () => {
