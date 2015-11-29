@@ -22,6 +22,7 @@
   "homepage": "https://github.com/sota1235/All-Star-Thanksgiving#readme",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "bootstrap": "^3.3.6",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
     "direquire": "0.0.5",
@@ -33,6 +34,7 @@
     "lodash": "^3.10.1",
     "mongoose": "^4.2.4",
     "morgan": "^1.6.1",
+    "normalize.css": "^3.0.3",
     "react": "^0.14.2",
     "react-bootstrap": "^0.27.3",
     "react-dom": "^0.14.2",
@@ -62,6 +64,8 @@
     "watchify": "^3.6.0"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   }
 }

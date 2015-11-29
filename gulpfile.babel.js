@@ -19,8 +19,16 @@ import glob         from 'glob';
 // static files mapping
 let libs = [
   {
-    dist: './node_modules/bootstrap/dist/css/*',
-    target: './public/css/lib/bootstrap'
+    dist: './node_modules/bootstrap/dist/**/*',
+    target: './public/lib/bootstrap/'
+  },
+  {
+    dist: './node_modules/normalize.css/normalize.css',
+    target: './public/lib/normalize/'
+  },
+  {
+    dist: './node_modules/jquery/dist/jquery.min.js',
+    target: './public/lib/jquery/'
   }
 ];
 
@@ -113,6 +121,7 @@ gulp.task('sass', () => {
 gulp.task('static', () => {
   for(let lib of libs) {
     gulp.src(lib.dist)
+      .pipe(duration('Move static file'))
       .pipe(gulp.dest(lib.target));
   }
 });
