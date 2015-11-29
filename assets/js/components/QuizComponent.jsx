@@ -43,7 +43,7 @@ class QuizComponent extends Component {
 
   render() {
     return (
-      <div className="quizComponent">
+      <div className="quizComponent container">
         <ChoiceDisplayList data={this.state.data} />
         <TimerComponent />
       </div>
@@ -84,17 +84,18 @@ class ChoiceDisplayList extends Component {
   render() {
     var displayNodes = this.props.data.map(function(displays, i) {
       return (
-        <ChoiceDisplay
-          style={displays.style}
-          num={displays.num}
-          index={i}
-          text={displays.text}
-          key={i}
-        />
+        <div className="col-md-6" key={i}>
+          <ChoiceDisplay
+            style={displays.style}
+            num={displays.num}
+            index={i}
+            text={displays.text}
+          />
+        </div>
       );
     });
     return (
-      <div className="choiceDisplayList">
+      <div className="choiceDisplayList row">
         {displayNodes}
       </div>
     )
