@@ -26,8 +26,8 @@ export default class TimerComponent extends Component {
       time: 15,
       style: {
         position: 'fixed',
-        bottom: '20%',
-        right: '20%',
+        bottom: '5%',
+        right: '5%',
         width: '140px',
         height: '140px',
         paddingTop: '40px',
