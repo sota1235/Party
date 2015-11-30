@@ -105,7 +105,7 @@ gulp.task('index', () => {
 });
 
 gulp.task('sass', () => {
-  gulp.src('./assets/css/*.sass')
+  gulp.src('./assets/sass/*.sass')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(minifyCss())
@@ -128,7 +128,7 @@ gulp.task('static', () => {
 
 gulp.task('watch', () => {
   gulp.watch('./assets/js/**/*.jsx',   ['script']);
-  gulp.watch('./assets/css/*.sass', ['sass']);
+  gulp.watch('./assets/sass/*.sass', ['sass']);
 });
 
 gulp.task('default', ['script', 'sass', 'static']);
