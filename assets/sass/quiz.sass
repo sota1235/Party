@@ -3,6 +3,7 @@
 body
   @include background
 
+/* Main displey of quiz page */
 .quizComponent
   // question's text
   .quizTitle
@@ -10,7 +11,7 @@ body
     margin: 0 auto
     margin-top: 30px
     background-color: #E5FF7E
-    padding: 20px
+    padding: 15px
     border: 2px solid #898A46
     border-radius: 16px
     text-align: center
@@ -23,9 +24,9 @@ body
       position: relative
       width: 100%
       height: 30%
-      margin: 20px
+      margin: 7px 10px
       padding-left: 20px
-      padding-bottom: 40px
+      padding-bottom: 20px
       background-color: #E4FFE6
       // border of question's choice
       border: solid
@@ -33,6 +34,7 @@ body
       border-color: #03C100
       border-radius: 20px
 
+      // choice marker
       h1
         width: 70px
         height: 70px
@@ -42,7 +44,18 @@ body
         border-radius: 50%
         border: 1px solid white
 
-// Quiz title
+      // choice text
+      p
+        font-size: 45px
+        margin: 20px auto
+        text-align: center
+
+      // vote number
+      .voteNumber
+        text-align: right
+        padding-right: 20px
+
+/* Quiz title */
 .quizTitleComponent
   height: 100%
   width: 100%

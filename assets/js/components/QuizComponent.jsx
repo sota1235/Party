@@ -94,8 +94,8 @@ class ChoiceDisplay extends Component {
     return (
       <div className="choiceDisplay">
         <h1 style={this.state.style}>{this.props.num}</h1>
-        <p>選択肢: {this.props.text}</p>
-        <div>回答者数
+        <p>{this.props.text}</p>
+        <div className="voteNumber">回答者数
           <span>{this.props.voteNum}</span>
         </div>
       </div>
