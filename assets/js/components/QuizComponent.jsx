@@ -81,10 +81,19 @@ class QuizTitle extends Component {
 }
 
 class ChoiceDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: {
+        background: `-webkit-gradient(linear, left top, left bottom,  from(${this.props.color.top}), to(${this.props.color.bottom}))`
+      }
+    }
+  }
+
   render() {
     return (
-      <div className="choiceDisplay" style={this.props.style}>
-        <h1>{this.props.num}</h1>
+      <div className="choiceDisplay">
+        <h1 style={this.state.style}>{this.props.num}</h1>
         <p>選択肢: {this.props.text}</p>
         <div>回答者数
           <span>{this.props.voteNum}</span>
@@ -101,7 +110,7 @@ class ChoiceDisplayList extends Component {
       return (
         <div className="col-md-6" key={i}>
           <ChoiceDisplay
-            style={displays.style}
+            color={displays.color}
             num={displays.num}
             index={i}
             text={displays.text}

@@ -19,10 +19,10 @@ export default class QuizStore extends EventEmitter2 {
     this.defaultQuiz = {
       title: '',
       choices: [
-        {num: 'A1', text: ''},
-        {num: 'A2', text: ''},
-        {num: 'A3', text: ''},
-        {num: 'A4', text: ''}
+        {num: 'A', text: '', color: { top: '#00B7EF', bottom: 'blue'}},
+        {num: 'B', text: '', color: { top: '#FDABAB', bottom: 'red'}},
+        {num: 'C', text: '', color: { top: '#6DFF7C', bottom: 'green'}},
+        {num: 'D', text: '', color: { top: '#FAFF00', bottom: '#FFE000'}}
       ]
     };
     this.quiz    = _.clone(this.defaultQuiz, true);
