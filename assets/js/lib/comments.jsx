@@ -20,7 +20,7 @@ export default class Comment {
   run() {
     this.create(this.comment)
       .then(this.setStyle)
-      //.then(this.deleteDom)
+      .then(this.deleteDom)
       .catch((err) => {
         console.log(err);
       });
@@ -40,20 +40,20 @@ export default class Comment {
 
   setStyle(dom) {
     return new Promise((resolve, reject) => {
-      var top = Math.floor(Math.random() * 100);
+      var top = Math.floor(Math.random() * 100 % 96 + 1);
       dom.css({
-        'font-size' : '30px',
+        'font-size': '30px',
         display: 'block',
         position: 'fixed',
-        left: '100%',
+        left: '150%',
         top: top.toString() + '%',
-        'transition-duration': '10s',
-        'z-index': '9999',
+        'transition-duration': '12s',
+        'z-index': '-9999',
         'white-space': 'nowrap'
       });
       setTimeout(function() {
         dom.css({
-          transform: 'translate(-2000px, 0)',
+          transform: 'translate(-5000px, 0)',
         });
       }, 100);
       resolve(dom);
@@ -65,7 +65,7 @@ export default class Comment {
       setTimeout(() => {
         dom.remove();
         resolve();
-      }, 7500);
+      }, 12000);
     });
   }
 }
