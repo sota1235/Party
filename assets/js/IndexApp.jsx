@@ -22,3 +22,12 @@ render(
   <IndexComponent />,
   document.getElementById('quiz-form')
 );
+
+$('#input-form').on('submit', (event) => {
+  event.preventDefault();
+  var text = $('#input-text')[0].value;
+  console.log('send comment');
+  socket.emit('comment', text);
+  $('#input-text')[0].value = '';
+});
+
