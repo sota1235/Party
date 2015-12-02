@@ -92,7 +92,7 @@ class ChoiceDisplay extends Component {
 
   render() {
     return (
-      <div className="choiceDisplay">
+      <div className="choiceDisplay" style={this.props.style}>
         <h1 style={this.state.style}>{this.props.num}</h1>
         <p>{this.props.text}</p>
         <div className="voteNumber">回答者数
@@ -112,6 +112,7 @@ class ChoiceDisplayList extends Component {
           <ChoiceDisplay
             color={displays.color}
             num={displays.num}
+            style={displays.style}
             index={i}
             text={displays.text}
             voteNum={votes[i]}
