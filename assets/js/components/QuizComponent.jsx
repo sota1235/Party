@@ -18,6 +18,7 @@ import VoteStore  from '../store/VoteStore.jsx';
 import { getQuestion } from '../lib/ajax.jsx';
 
 import TimerComponent from './TimerComponent.jsx';
+import ChoiceDisplay  from './QuizChoice.jsx';
 
 var socket    = io();
 var emitter   = new EventEmitter2();
@@ -27,7 +28,7 @@ var quizStore = new QuizStore(emitter);
 var voteStore = new VoteStore(emitter);
 
 /* React components */
-class QuizComponent extends Component {
+export default class QuizComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,8 +62,8 @@ class QuizComponent extends Component {
   }
   render() {
     return (
-        <div className="quizComponent container">
-          <QuizTitle title={this.state.title} />
+      <div className="quizComponent container">
+        <QuizTitle title={this.state.title} />
         <ChoiceDisplayList choices={this.state.choices} votes={this.state.votes} />
         <TimerComponent />
       </div>
@@ -75,29 +76,6 @@ class QuizTitle extends Component {
     return (
       <div className="quizTitle">
         <h1>{this.props.title}</h1>
-      </div>
-    );
-  }
-}
-
-class ChoiceDisplay extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      style: {
-        background: `-webkit-gradient(linear, left top, left bottom,  from(${this.props.color.top}), to(${this.props.color.bottom}))`
-      }
-    }
-  }
-
-  render() {
-    return (
-      <div className="choiceDisplay" style={this.props.style}>
-        <h1 style={this.state.style}>{this.props.num}</h1>
-        <p>{this.props.text}</p>
-        <div className="voteNumber">回答者数
-          <span>{this.props.voteNum}</span>
-        </div>
       </div>
     );
   }
@@ -127,5 +105,3 @@ class ChoiceDisplayList extends Component {
     )
   }
 }
-
-export default QuizComponent;
