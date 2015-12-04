@@ -34,6 +34,7 @@
     "lodash": "^3.10.1",
     "mongoose": "^4.2.4",
     "morgan": "^1.6.1",
+    "multer": "^1.1.0",
     "normalize.css": "^3.0.3",
     "react": "^0.14.2",
     "react-bootstrap": "^0.27.3",

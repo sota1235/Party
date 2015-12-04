@@ -8,6 +8,11 @@
  *  sota1235
  */
 
+var path   = require('path');
+var multer = require('multer');
+
+var upload = multer({ dest: path.join(__dirname, '..', 'public', 'uploads') });
+
 module.exports = function(app) {
   var Questions = app.get('models').Questions;
 
@@ -21,6 +26,11 @@ module.exports = function(app) {
 
   app.get('/admin', function(req, res, next) {
     res.render('admin');
+  });
+
+  app.post('/upload', upload.single('questionImg'), function(req, res, next) {
+    console.log(req.file);
+    //res.sendStatus(200);
   });
 
   /* access to models */

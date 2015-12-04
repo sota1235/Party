@@ -112,6 +112,17 @@ class QuestionForm extends Component {
   }
 }
 
+class UploadImg extends Component {
+  render() {
+    return (
+      <form action="/upload" encType="multipart/form-data" method="POST">
+        <input type="file" name="questionImg" />
+        <input type="submit" />
+      </form>
+    );
+  }
+}
+
 class QuestionChoiceTable extends Component {
   render() {
     var that = this;
@@ -123,6 +134,9 @@ class QuestionChoiceTable extends Component {
         <tr style={style} key={key}>
           <td>{i + 1}</td>
           <td>{choice}</td>
+          <td>
+            <UploadImg index={i+1} id={that.props.id} />
+          </td>
         </tr>
       );
     });
