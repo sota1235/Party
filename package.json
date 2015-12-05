@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/sota1235/All-Star-Thanksgiving#readme",
   "dependencies": {
+    "animate.css": "^3.4.0",
     "body-parser": "^1.14.1",
     "bootstrap": "^3.3.6",
     "cookie-parser": "^1.4.0",

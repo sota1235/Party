@@ -29,6 +29,10 @@ let libs = [
   {
     dist: './node_modules/jquery/dist/jquery.min.js',
     target: './public/lib/jquery/'
+  },
+  {
+    dist: './node_modules/animate.css/animate.min.css',
+    target: './public/lib/animate.css/'
   }
 ];
 
