@@ -1,10 +1,29 @@
 extends layout
 
-block content
-  h1 Party
+block addHeader
+  meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 
-  // react.js rendering space
-  div#quiz-form
+block content
+  .container
+    .title
+      h1 Welcome to Party!!
+
+    .choice-form
+      .rows
+        .col-xs-6
+          button.btn.btn-primary(type="button") A
+        .col-xs-6
+          button.btn.btn-danger(type="button")  B
+        .col-xs-6
+          button.btn.btn-success(type="button")  C
+        .col-xs-6
+          button.btn.btn-warning(type="button") D
+
+    .rows.comment-form
+      .col-xs-12
+        h3 コメントをどうぞლ(´ڡ`ლ)
+        textarea.form-control(rows="1")
+        button.btn.btn-info(type="button") コメントを送信
 
 block addCss
   link(rel="stylesheet", href="/css/index.css")

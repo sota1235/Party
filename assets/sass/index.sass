@@ -1,53 +1,17 @@
-@mixin button_style
-  font-size: 1.5em
-  font-weight: 700
-  background-color: #FAFA96
-  color: white
-  padding: 0.6em 3em
-  border: none
-  width: 100%
-  margin-bottom: 0.5em
-
+// style sheet for index page (user page)
 .container
-  background-color: #B3FA96
-  display: table
-  height: 100%
-  text-align: center
-  width: 100%
+  .title
+    text-align: center
 
-  h1
-    font-size: 30px
-    color: white
-
-  &>div
-    display: table-cell
-    vertical-align: middle
-
-  #quiz-form
-    display: inline-block
-
-    #input-form
-      input[type=text]
-        font-size: 1.5em
-        font-weight: 700
-        background-color: white
-        color: #90FA95
-        border: none
-        display: block
-        padding: 0.6em 1em
-        margin-bottom: 0.5em
+  .choice-form
+    .col-xs-6
+      padding: 0 5px
+      button
         width: 100%
+        height: 50px
+        margin: 10px 0
 
-      input[type=submit]
-        @include button_style
-
-        &:hover
-          position: relative
-          top: 2px
-
+  .comment-form
     button
-      @include button_style
-
-      &:hover
-        position: relative
-        top: 2px
+      width: 100%
+      margin-top: 10px
