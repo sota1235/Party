@@ -13,10 +13,15 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var Questions = function(app) {
+  var ChoiceSchema = new Schema({
+    text: String,
+    imgPath: String
+  });
+
   var QuestionsSchema = new Schema({
     text: String,
-    choice: [],
-    answer: Number
+    choice: [ ChoiceSchema ],
+    answer: Number,
   });
 
   QuestionsSchema.pre('save', function(next) {
@@ -77,10 +82,27 @@ var Questions = function(app) {
       var addQuestion = new Questions(question);
       addQuestion.save(function(err, result) {
         if (err) {
-          reject({'error': 'An error has occurred'});
+          reject({'error': err});
         }
         console.log('Success: ' + JSON.stringify(result));
         resolve(result);
+      });
+    });
+  };
+
+  // update question data from request body
+  var upadteQuestion = function(req) {
+    return new Promise(function(resolve, reject) {
+      var id    = req.query.id;
+      var index = req.query.index;
+      var file  = req.files.name;
+      console.log('Adding question img id: ' + id)+
+
+      Question.update({_id: id}, {img: []}, {}, function(err, num) {
+        if(err) {
+          reject(err);
+        }
+        resolve();
       });
     });
   };

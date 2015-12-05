@@ -17,7 +17,7 @@ export default class AdminFormStore extends EventEmitter2 {
     this.emitter = emitter;
     this.formValues = {
       text: '',
-      choices: ['', '', '', ''],
+      choices: [{text:''}, {text:''}, {text:''}, {text:''}],
       answer: ''
     };
     this.defaultValue = _.clone(this.formValues, true);

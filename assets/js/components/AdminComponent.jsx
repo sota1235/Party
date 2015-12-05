@@ -75,10 +75,10 @@ class QuestionForm extends Component {
 
   handleChangeChoices() {
     adminAction.changeChoices([
-        this.refs.choice1.getValue(),
-        this.refs.choice2.getValue(),
-        this.refs.choice3.getValue(),
-        this.refs.choice4.getValue()
+        {text: this.refs.choice1.getValue()},
+        {text: this.refs.choice2.getValue()},
+        {text: this.refs.choice3.getValue()},
+        {text: this.refs.choice4.getValue()}
       ]
     );
   }
@@ -90,7 +90,7 @@ class QuestionForm extends Component {
         <Input
           type='text'
           placeholder={`選択肢${i+1}を入力`}
-          value={choice}
+          value={choice.text}
           ref={`choice${i+1}`}
           key={i}
           onChange={that.handleChangeChoices}
@@ -147,7 +147,7 @@ class QuestionChoiceTable extends Component {
       return (
         <tr style={style} key={key}>
           <td>{i + 1}</td>
-          <td>{choice}</td>
+          <td>{choice.text}</td>
           <td>
             <UploadImg index={i+1} id={that.props.id} />
           </td>
@@ -161,6 +161,7 @@ class QuestionChoiceTable extends Component {
           <tr>
             <th>No.</th>
             <th>選択肢文</th>
+            <th>画像</th>
           </tr>
         </thead>
         <tbody>
