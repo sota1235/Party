@@ -30,7 +30,7 @@ module.exports = function(server) {
     socket.on('open', function(id, text) {
       console.log('open: ' + id);
       io.emit('open', id);
-      io.emit('question-open', text);
+      io.emit('question-open', text); // index page
     });
     // show answer
     socket.on('openAnswer', function(msg) {
@@ -41,7 +41,7 @@ module.exports = function(server) {
     socket.on('finish', function(msg) {
       console.log('finish quiz');
       io.emit('finish');
-      io.emit('question-finish');
+      io.emit('question-finish'); // index page
     });
     // quiz timer finish
     socket.on('timerFinish', function(msg) {
