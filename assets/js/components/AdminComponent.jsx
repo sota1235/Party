@@ -75,10 +75,10 @@ class QuestionForm extends Component {
 
   handleChangeChoices() {
     adminAction.changeChoices([
-        {text: this.refs.choice1.getValue()},
-        {text: this.refs.choice2.getValue()},
-        {text: this.refs.choice3.getValue()},
-        {text: this.refs.choice4.getValue()}
+        {index: 1, text: this.refs.choice1.getValue()},
+        {index: 2, text: this.refs.choice2.getValue()},
+        {index: 3, text: this.refs.choice3.getValue()},
+        {index: 4, text: this.refs.choice4.getValue()}
       ]
     );
   }
@@ -125,14 +125,22 @@ class QuestionForm extends Component {
 
 class UploadImg extends Component {
   render() {
+    if(this.props.path === undefined) {
+      return (
+        <form action={`/upload?id=${this.props.id}&index=${this.props.index}`}
+          encType="multipart/form-data"
+          method="POST"
+        >
+          <input type="file" name="questionImg" />
+          <input type="submit" />
+        </form>
+      );
+    }
+    let style = {
+      height: "50px"
+    }
     return (
-      <form action={`/upload?id=${this.props.id}&index=${this.props.index}`}
-        encType="multipart/form-data"
-        method="POST"
-      >
-        <input type="file" name="questionImg" />
-        <input type="submit" />
-      </form>
+      <img src={`/uploads/${this.props.path}`} style={style}/>
     );
   }
 }
@@ -149,7 +157,7 @@ class QuestionChoiceTable extends Component {
           <td>{i + 1}</td>
           <td>{choice.text}</td>
           <td>
-            <UploadImg index={i+1} id={that.props.id} />
+            <UploadImg index={i+1} id={that.props.id} path={choice.imgPath} />
           </td>
         </tr>
       );

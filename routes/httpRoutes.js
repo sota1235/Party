@@ -29,8 +29,13 @@ module.exports = function(app) {
   });
 
   app.post('/upload', upload.single('questionImg'), function(req, res, next) {
-    console.log(req.file);
-    //res.sendStatus(200);
+    Questions.updateQuestion(req)
+      .then(function(result) {;
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
   });
 
   /* access to models */

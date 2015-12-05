@@ -14,6 +14,7 @@ var Schema   = mongoose.Schema;
 
 var Questions = function(app) {
   var ChoiceSchema = new Schema({
+    index: Number,
     text: String,
     imgPath: String
   });
@@ -91,19 +92,27 @@ var Questions = function(app) {
   };
 
   // update question data from request body
-  var upadteQuestion = function(req) {
+  var updateQuestion = function(req) {
     return new Promise(function(resolve, reject) {
       var id    = req.query.id;
       var index = req.query.index;
-      var file  = req.files.name;
-      console.log('Adding question img id: ' + id)+
+      var file  = req.file.filename;
+      console.log('Adding question img id: ' + id);
 
-      Question.update({_id: id}, {img: []}, {}, function(err, num) {
-        if(err) {
-          reject(err);
+      Questions.findOneAndUpdate(
+        { _id: id, "choice.index": index },
+        {
+          $set: {
+            "choice.$.imgPath": file
+          }
+        },
+        function(err, doc) {
+          if(err) {
+            reject(err);
+          }
+          resolve('success');
         }
-        resolve();
-      });
+      );
     });
   };
 
@@ -128,7 +137,8 @@ var Questions = function(app) {
     findAll: findAll,
     findQuestion: findQuestion,
     addQuestion: addQuestion,
-    deleteQuestion: deleteQuestion
+    deleteQuestion: deleteQuestion,
+    updateQuestion: updateQuestion
   };
 };
 
