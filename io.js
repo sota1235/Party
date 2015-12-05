@@ -27,9 +27,10 @@ module.exports = function(server) {
       io.emit('vote', msg);
     });
     // display quiz
-    socket.on('open', function(id) {
+    socket.on('open', function(id, text) {
       console.log('open: ' + id);
       io.emit('open', id);
+      io.emit('question-open', text);
     });
     // show answer
     socket.on('openAnswer', function(msg) {
@@ -40,6 +41,7 @@ module.exports = function(server) {
     socket.on('finish', function(msg) {
       console.log('finish quiz');
       io.emit('finish');
+      io.emit('question-finish');
     });
     // quiz timer finish
     socket.on('timerFinish', function(msg) {

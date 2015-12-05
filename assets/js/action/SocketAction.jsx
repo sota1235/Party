@@ -16,8 +16,8 @@ export default class SocketAction {
     console.log('exit time limit of quiz');
     this.socket.emit('timerFinish');
   }
-  broadcastQuestion(id) {
-    this.socket.emit('open', id);
+  broadcastQuestion(id, text) {
+    this.socket.emit('open', id, text);
   }
   openAnswer(index) {
     this.socket.emit('openAnswer', index - 1);

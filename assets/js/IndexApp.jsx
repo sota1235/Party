@@ -29,4 +29,11 @@ $(() => {
     socket.emit('comment', text);
     $('.comment-form textarea')[0].value = '';
   });
+  /* Socket listner */
+  socket.on('question-open', function(text) {
+    $('.question-text').text(text);
+  });
+  socket.on('question-finish', function() {
+    $('.question-text').text('');
+  });
 });

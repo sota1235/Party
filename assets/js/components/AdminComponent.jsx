@@ -208,7 +208,7 @@ class Question extends Component {
         open: false
       }
     });
-    socketAction.broadcastQuestion(this.props.id);
+    socketAction.broadcastQuestion(this.props.id, this.props.text);
   }
   // 解答オープン
   handleOpenAnswerClick() {
@@ -262,6 +262,7 @@ class QuestionList extends Component {
         <Question
           id={question._id}
           key={question._id}
+          text={question.text}
           choices={question.choice}
           answer={question.answer}
         >
