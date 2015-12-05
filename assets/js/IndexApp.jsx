@@ -8,26 +8,25 @@
  *   @sot1235
  */
 
-import { Router, Route, Link } from 'react-router';
-import { render }              from 'react-dom';
-import React                   from 'react';
-import $                       from 'jquery';
-
-import IndexComponent from './components/IndexComponent.jsx';
+import $ from 'jquery';
 
 var socket = io();
 
-/* React rendering */
-render(
-  <IndexComponent />,
-  document.getElementById('quiz-form')
-);
-
-$('#input-form').on('submit', (event) => {
-  event.preventDefault();
-  var text = $('#input-text')[0].value;
-  console.log('send comment');
-  socket.emit('comment', text);
-  $('#input-text')[0].value = '';
+$(() => {
+  /* Event listners */
+  // send vote
+  $('.choice-form button').on('click', function(event) {
+    event.preventDefault();
+    let target = $(this).val();
+    console.log(`send quiz vote for ${target}`);
+    socket.emit('vote', target);
+  });
+  // send comment
+  $('.comment-form button').on('click', (event) => {
+    event.preventDefault();
+    var text = $('.comment-form textarea')[0].value;
+    console.log('send comment');
+    socket.emit('comment', text);
+    $('.comment-form textarea')[0].value = '';
+  });
 });
-
