@@ -19,6 +19,7 @@ export default class QuizAction {
   }
   displayQuiz(id) {
     this.emitter.emit('displayQuiz', id);
+    this.emitter.emit('start_sound'); // for audio
   }
   voteQuiz(index) {
     console.log(`vote: ${index}`);
@@ -27,6 +28,7 @@ export default class QuizAction {
   openAnswer(index) {
     console.log(`open answer: ${index}`);
     this.emitter.emit('openAnswer', index);
+    this.emitter.emit('open_answer_sound'); // for audio
   }
   finishQuestion() {
     console.log('finish quiz');

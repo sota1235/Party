@@ -12,9 +12,10 @@
 import React from 'react';
 import { EventEmitter2 } from 'eventemitter2';
 
-import QuizAction from '../../action/QuizAction.jsx';
-import QuizStore  from '../../store/QuizStore.jsx';
-import VoteStore  from '../../store/VoteStore.jsx';
+import QuizAction  from '../../action/QuizAction.jsx';
+import SoundAction from '../../action/SoundAction.jsx';
+import QuizStore   from '../../store/QuizStore.jsx';
+import VoteStore   from '../../store/VoteStore.jsx';
 import { getQuestion } from '../../lib/ajax.jsx';
 
 import TimerComponent from '../TimerComponent.jsx';
@@ -24,6 +25,7 @@ var socket    = io();
 var emitter   = new EventEmitter2();
 var Component = React.Component;
 var Action    = new QuizAction(emitter, socket);
+var Sound     = new SoundAction(emitter);
 var quizStore = new QuizStore(emitter);
 var voteStore = new VoteStore(emitter);
 
