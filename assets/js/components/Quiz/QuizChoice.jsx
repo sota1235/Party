@@ -29,7 +29,7 @@ export default class ChoiceDisplay extends Component {
     return (
       <div className="choiceDisplay" style={this.props.style}>
         <h1 style={this.state.style}>{this.props.num}</h1>
-        <ChoiceContent text={this.props.text} />
+        <ChoiceContent text={this.props.text} img={this.props.img} />
         <ChoiceVoteNum voteNum={this.props.voteNum} />
       </div>
     );
@@ -38,9 +38,14 @@ export default class ChoiceDisplay extends Component {
 
 class ChoiceContent extends Component {
   render() {
+    var img;
+    if(this.props.img !== undefined) {
+      img = <img src={`/uploads/${this.props.img}`} />;
+    }
     return (
       <div className="choiceContent">
         <p>{this.props.text}</p>
+        {img}
       </div>
     );
   }

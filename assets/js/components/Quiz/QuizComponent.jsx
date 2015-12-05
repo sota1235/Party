@@ -93,6 +93,7 @@ class ChoiceDisplayList extends Component {
             style={displays.style}
             index={i}
             text={displays.text}
+            img={displays.img}
             voteNum={votes[i]}
           />
         </div>

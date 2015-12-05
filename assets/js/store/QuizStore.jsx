@@ -19,10 +19,10 @@ export default class QuizStore extends EventEmitter2 {
     this.defaultQuiz = {
       title: '',
       choices: [
-        {num: 'A', text: '', style: {}, color: { top: '#00B7EF', bottom: 'blue'}},
-        {num: 'B', text: '', style: {}, color: { top: '#FDABAB', bottom: 'red'}},
-        {num: 'C', text: '', style: {}, color: { top: '#6DFF7C', bottom: 'green'}},
-        {num: 'D', text: '', style: {}, color: { top: '#FAFF00', bottom: '#FFE000'}}
+        {num: 'A', text: '', img: '', style: {}, color: { top: '#00B7EF', bottom: 'blue'}},
+        {num: 'B', text: '', img: '', style: {}, color: { top: '#FDABAB', bottom: 'red'}},
+        {num: 'C', text: '', img: '', style: {}, color: { top: '#6DFF7C', bottom: 'green'}},
+        {num: 'D', text: '', img: '', style: {}, color: { top: '#FAFF00', bottom: '#FFE000'}}
       ]
     };
     this.quiz    = _.clone(this.defaultQuiz, true);
@@ -62,6 +62,7 @@ export default class QuizStore extends EventEmitter2 {
     this.quiz.title   = data[0].text;
     this.quiz.choices = this.quiz.choices.map((q, i) => {
       q.text  = data[0].choice[i].text;
+      q.img   = data[0].choice[i].imgPath;
       q.style = {};
       return q;
     });
