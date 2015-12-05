@@ -61,7 +61,7 @@ export default class QuizStore extends EventEmitter2 {
   mapQuiz(data) {
     this.quiz.title   = data[0].text;
     this.quiz.choices = this.quiz.choices.map((q, i) => {
-      q.text  = data[0].choice[i];
+      q.text  = data[0].choice[i].text;
       q.style = {};
       return q;
     });
