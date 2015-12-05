@@ -38,9 +38,15 @@ export default class ChoiceDisplay extends Component {
 
 class ChoiceContent extends Component {
   render() {
-    var img;
+    // show img if data is available
+    let img;
     if(this.props.img !== undefined) {
-      img = <img src={`/uploads/${this.props.img}`} />;
+      // style for component
+      let style = {
+        maxWidth: "500px",
+        maxHeight: "200px"
+      };
+     img = <img src={`/uploads/${this.props.img}`} style={style} />;
     }
     return (
       <div className="choiceContent">
