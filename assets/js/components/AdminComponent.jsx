@@ -25,14 +25,16 @@ import {
   FinishQuestionButton
 } from './AdminButtonComponent.jsx';
 // action, stores
-import AdminAction  from '../action/AdminAction.jsx';
-import SocketAction from '../action/SocketAction.jsx';
-import AdminStore   from '../store/AdminStore.jsx';
+import AdminAction    from '../action/AdminAction.jsx';
+import SocketAction   from '../action/SocketAction.jsx';
+import AdminStore     from '../store/AdminStore.jsx';
+import AdminFormStore from '../store/AdminFormStore.jsx';
 
 var socket       = io();
 var emitter      = new EventEmitter2();
 var Component    = React.Component;
-var Store        = new AdminStore(emitter);
+var adminStore   = new AdminStore(emitter);
+var formStore    = new AdminFormStore(emitter);
 var adminAction  = new AdminAction(emitter, socket);
 var socketAction = new SocketAction(socket);
 
@@ -41,35 +43,44 @@ var socketAction = new SocketAction(socket);
 class QuestionForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: '',
-      choices: ['', '', '', ''],
-      answer: ''
-    };
+    this.loadStore           = this.loadStore.bind(this);
     this.handleQuestionClick = this.handleQuestionClick.bind(this);
-    this.handleChange        = this.handleChange.bind(this);
-    this.clearForm = () => {
-      this.setState({ text: '', choices: ['', '', '', ''], answer: '' });
-    }
+    this.handleChangeText    = this.handleChangeText.bind(this);
+    this.handleChangeAnswer  = this.handleChangeAnswer.bind(this);
+    this.handleChangeChoices = this.handleChangeChoices.bind(this);
+    // listen store
+    formStore.on('formChange', this.loadStore);
+  }
+
+  componentWillMount() {
+    this.setState(formStore.get());
+  }
+
+  loadStore() {
+    this.setState(formStore.get());
   }
 
   handleQuestionClick() {
     adminAction.createQuestion(this.state);
-    this.clearForm();
-    return;
+    adminAction.clearForm();
   }
 
-  handleChange() {
-    this.setState({
-      text: this.refs.input.getValue(),
-      answer: this.refs.answer.getValue(),
-      choices: [
+  handleChangeText() {
+    adminAction.changeText(this.refs.input.getValue());
+  }
+
+  handleChangeAnswer() {
+    adminAction.changeAnswer(this.refs.answer.getValue());
+  }
+
+  handleChangeChoices() {
+    adminAction.changeChoices([
         this.refs.choice1.getValue(),
         this.refs.choice2.getValue(),
         this.refs.choice3.getValue(),
         this.refs.choice4.getValue()
       ]
-    });
+    );
   }
 
   render() {
@@ -82,7 +93,7 @@ class QuestionForm extends Component {
           value={choice}
           ref={`choice${i+1}`}
           key={i}
-          onChange={that.handleChange}
+          onChange={that.handleChangeChoices}
         />
       );
     });
@@ -95,7 +106,7 @@ class QuestionForm extends Component {
           hasFeedback
           value={this.state.text}
           ref='input'
-          onChange={this.handleChange} />
+          onChange={this.handleChangeText} />
         {choices}
         <Input
           type='text'
@@ -103,7 +114,7 @@ class QuestionForm extends Component {
           hasFeedback
           value={this.state.answer}
           ref='answer'
-          onChange={this.handleChange} />
+          onChange={this.handleChangeAnswer} />
         <ButtonToolbar>
           <CreateQuestionButton handleClick={this.handleQuestionClick} />
         </ButtonToolbar>
@@ -115,7 +126,10 @@ class QuestionForm extends Component {
 class UploadImg extends Component {
   render() {
     return (
-      <form action="/upload" encType="multipart/form-data" method="POST">
+      <form action={`/upload?id=${this.props.id}&index=${this.props.index}`}
+        encType="multipart/form-data"
+        method="POST"
+      >
         <input type="file" name="questionImg" />
         <input type="submit" />
       </form>
@@ -262,11 +276,11 @@ export default class QuestionAdmin extends Component {
     super(props);
     this.state = {questions: []};
     this.loadQuestions = this.loadQuestions.bind(this);
-    Store.on('questionChange', this.loadQuestions);
+    adminStore.on('questionChange', this.loadQuestions);
   }
 
   loadQuestions() {
-    this.setState({questions: Store.getQuestions()});
+    this.setState({questions: adminStore.getQuestions()});
   }
 
   render() {
