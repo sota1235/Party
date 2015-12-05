@@ -12,12 +12,12 @@
 import React from 'react';
 import { EventEmitter2 } from 'eventemitter2';
 
-import QuizAction from '../action/QuizAction.jsx';
-import QuizStore  from '../store/QuizStore.jsx';
-import VoteStore  from '../store/VoteStore.jsx';
-import { getQuestion } from '../lib/ajax.jsx';
+import QuizAction from '../../action/QuizAction.jsx';
+import QuizStore  from '../../store/QuizStore.jsx';
+import VoteStore  from '../../store/VoteStore.jsx';
+import { getQuestion } from '../../lib/ajax.jsx';
 
-import TimerComponent from './TimerComponent.jsx';
+import TimerComponent from '../TimerComponent.jsx';
 import ChoiceDisplay  from './QuizChoice.jsx';
 
 var socket    = io();

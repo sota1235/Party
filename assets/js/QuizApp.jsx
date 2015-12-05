@@ -13,8 +13,8 @@ import { render }              from 'react-dom';
 import React                   from 'react';
 import $                       from 'jquery';
 
-import QuizTitleComponent from './components/QuizTitleComponent.jsx';
-import QuizComponent      from './components/QuizComponent.jsx';
+import QuizTitleComponent from './components/Quiz/QuizTitleComponent.jsx';
+import QuizComponent      from './components/Quiz/QuizComponent.jsx';
 import Comment            from './lib/comments.jsx';
 
 var socket = io();
