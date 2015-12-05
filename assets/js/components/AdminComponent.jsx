@@ -172,7 +172,7 @@ class QuestionChoiceTable extends Component {
             <th>画像</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="questionChoiceTableTbody">
           {choiceElm}
         </tbody>
       </Table>
