@@ -44,7 +44,7 @@ class ChoiceContent extends Component {
       // style for component
       let style = {
         maxWidth: "500px",
-        maxHeight: "200px"
+        maxHeight: "220px"
       };
       content = <img src={`/uploads/${this.props.img}`} style={style} />;
     } else {
