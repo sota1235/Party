@@ -64,6 +64,7 @@ export default class QuizComponent extends Component {
   loadVote() {
     this.setState({ votes: voteStore.getVotes() });
   }
+
   render() {
     return (
       <div className="quizComponent container">
