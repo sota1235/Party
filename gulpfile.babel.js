@@ -7,7 +7,6 @@ import sourcemaps from 'gulp-sourcemaps';
 import minifyCss  from 'gulp-minify-css';
 import postcss    from 'gulp-postcss';
 import duration   from 'gulp-duration';
-import mocha      from 'gulp-mocha';
 // others
 import browserify   from 'browserify';
 import watchify     from 'watchify';
@@ -129,11 +128,6 @@ gulp.task('static', () => {
       .pipe(duration('Move static file'))
       .pipe(gulp.dest(lib.target));
   }
-});
-
-gulp.task('test', () => {
-  gulp.src('./tests/**/*-test.js')
-    .pipe(mocha());
 });
 
 gulp.task('watch', () => {
