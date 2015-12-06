@@ -61,9 +61,7 @@ class ChoiceContent extends Component {
 class ChoiceVoteNum extends Component {
   render() {
     return (
-      <div className="voteNumber">回答者数
-        <span>{this.props.voteNum}</span>
-      </div>
+      <div className="voteNumber">{this.props.voteNum}</div>
     );
   }
 }
