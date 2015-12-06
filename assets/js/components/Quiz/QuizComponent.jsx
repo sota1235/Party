@@ -98,7 +98,8 @@ class ChoiceDisplayList extends Component {
             index={i}
             text={displays.text}
             img={displays.img}
-            voteNum={votes[i]}
+            voteNum={votes.number[i]}
+            voteDisabled={votes.disabled}
           />
         </div>
       );

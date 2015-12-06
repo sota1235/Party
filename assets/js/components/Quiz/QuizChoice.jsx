@@ -30,7 +30,7 @@ export default class ChoiceDisplay extends Component {
       <div className="choiceDisplay" style={this.props.style}>
         <h1 style={this.state.style}>{this.props.num}</h1>
         <ChoiceContent text={this.props.text} img={this.props.img} />
-        <ChoiceVoteNum voteNum={this.props.voteNum} />
+        <ChoiceVoteNum num={this.props.voteNum} disabled={this.props.voteDisabled} />
       </div>
     );
   }
@@ -60,8 +60,11 @@ class ChoiceContent extends Component {
 
 class ChoiceVoteNum extends Component {
   render() {
+    let style = {
+      display: this.props.disabled ? 'none' : ''
+    };
     return (
-      <div className="voteNumber">{this.props.voteNum}</div>
+      <div className="voteNumber" style={style}>{this.props.num}</div>
     );
   }
 }
