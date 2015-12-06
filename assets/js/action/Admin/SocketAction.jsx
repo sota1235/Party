@@ -19,6 +19,9 @@ export default class SocketAction {
   broadcastQuestion(id, text) {
     this.socket.emit('open', id, text);
   }
+  answerCheck() {
+    this.socket.emit('answerCheck');
+  }
   openAnswer(index) {
     this.socket.emit('openAnswer', index - 1);
   }

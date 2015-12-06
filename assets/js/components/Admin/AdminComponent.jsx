@@ -184,11 +184,12 @@ class QuestionChoiceTable extends Component {
 class Question extends Component {
   constructor(props) {
     super(props);
-    buttonStore.on('buttonStatusChange', this.loadButtonStatus.bind(this));
     this.handleDeleteClick         = this.handleDeleteClick.bind(this);
     this.handleOpenClick           = this.handleOpenClick.bind(this);
     this.handleOpenAnswerClick     = this.handleOpenAnswerClick.bind(this);
     this.handleFinishQuestionClick = this.handleFinishQuestionClick.bind(this);
+    this.loadButtonStatus          = this.loadButtonStatus.bind(this);
+    buttonStore.on('buttonStatusChange', this.loadButtonStatus);
   }
 
   componentWillMount() {
@@ -216,10 +217,11 @@ class Question extends Component {
   handleOpenAnswerClick() {
     if(this.state.buttonStatus.answer.text === 'AnswerCheck') {
       buttonAction.answerCheckButton();
+      socketAction.answerCheck();
     } else {
       buttonAction.openAnswerButton();
+      socketAction.openAnswer(this.props.answer);
     }
-    socketAction.openAnswer(this.props.answer);
   }
   // 終了
   handleFinishQuestionClick() {

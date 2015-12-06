@@ -32,6 +32,11 @@ module.exports = function(server) {
       io.emit('open', id);
       io.emit('question-open', text); // index page
     });
+    // answer check (count vote)
+    socket.on('answerCheck', function(msg) {
+      console.log('answer check!');
+      io.emit('answerCheck');
+    });
     // show answer
     socket.on('openAnswer', function(msg) {
       console.log('open answer: ' + (msg + 1));
