@@ -13,7 +13,7 @@ import {
   getQuestions, addQuestion, deleteQuestion
 } from '../../lib/ajax.jsx';
 
-export default class QuestionStore extends EventEmitter2 {
+export default class AdminStore extends EventEmitter2 {
   constructor(emitter) {
     super();
     this.emitter   = emitter;
