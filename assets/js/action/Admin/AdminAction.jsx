@@ -9,9 +9,8 @@
  */
 
 export default class AdminAction {
-  constructor(emitter, socket) {
+  constructor(emitter) {
     this.emitter = emitter;
-    this.socket  = socket;
   }
   createQuestion(question) {
     this.emitter.emit('onQuestionClick', question);

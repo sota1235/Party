@@ -18,24 +18,24 @@ import {
 } from 'react-bootstrap';
 // custom components
 import {
-  CreateQuestionButton,
-  DeleteQuestionButton,
-  OpenQuestionButton,
-  OpenAnswerButton,
-  FinishQuestionButton
+  CreateQuestionButton, QuestionButtons
 } from './AdminButtonComponent.jsx';
 // action, stores
-import AdminAction    from '../../action/Admin/AdminAction.jsx';
-import SocketAction   from '../../action/Admin/SocketAction.jsx';
-import AdminStore     from '../../store/Admin/AdminStore.jsx';
-import AdminFormStore from '../../store/Admin/AdminFormStore.jsx';
+import AdminAction  from '../../action/Admin/AdminAction.jsx';
+import ButtonAction from '../../action/Admin/AdminButtonAction.jsx';
+import SocketAction from '../../action/Admin/SocketAction.jsx';
+import AdminStore   from '../../store/Admin/AdminStore.jsx';
+import FormStore    from '../../store/Admin/AdminFormStore.jsx';
+import ButtonStore  from '../../store/Admin/AdminButtonStore.jsx';
 
 var socket       = io();
 var emitter      = new EventEmitter2();
 var Component    = React.Component;
 var adminStore   = new AdminStore(emitter);
-var formStore    = new AdminFormStore(emitter);
-var adminAction  = new AdminAction(emitter, socket);
+var formStore    = new FormStore(emitter);
+var buttonStore  = new ButtonStore(emitter);
+var adminAction  = new AdminAction(emitter);
+var buttonAction = new ButtonAction(emitter);
 var socketAction = new SocketAction(socket);
 
 /* commponents */
@@ -184,51 +184,46 @@ class QuestionChoiceTable extends Component {
 class Question extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      openStatus: false,
-      disabled: {
-        open: true,
-        finish: true
-      }
-    };
+    buttonStore.on('buttonStatusChange', this.loadButtonStatus.bind(this));
     this.handleDeleteClick         = this.handleDeleteClick.bind(this);
     this.handleOpenClick           = this.handleOpenClick.bind(this);
     this.handleOpenAnswerClick     = this.handleOpenAnswerClick.bind(this);
     this.handleFinishQuestionClick = this.handleFinishQuestionClick.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({
+      buttonStatus: buttonStore.get()
+    });
+  }
+
+  loadButtonStatus() {
+    this.setState({
+      buttonStatus: buttonStore.get()
+    });
+  }
+  // 問題を削除
   handleDeleteClick() {
     adminAction.deleteQuestion(this.props.id);
   }
   // 問題公開
   handleOpenClick() {
-    this.setState({
-      openStatus: true,
-      disabled: {
-        open: false
-      }
-    });
+    console.log('open');
+    buttonAction.openQuestionButton();
     socketAction.broadcastQuestion(this.props.id, this.props.text);
   }
   // 解答オープン
   handleOpenAnswerClick() {
-    this.setState({
-      disabled: {
-        open: true,
-        finish: false
-      }
-    });
+    if(this.state.buttonStatus.answer.text === 'AnswerCheck') {
+      buttonAction.answerCheckButton();
+    } else {
+      buttonAction.openAnswerButton();
+    }
     socketAction.openAnswer(this.props.answer);
   }
   // 終了
   handleFinishQuestionClick() {
-    this.setState({
-      openStatus: false,
-      disabled: {
-        open: true,
-        finish: true
-      }
-    });
+    buttonAction.finishButton();
     socketAction.finishQuestion();
   }
 
@@ -240,12 +235,12 @@ class Question extends Component {
             {this.props.children}
             <QuestionChoiceTable id={this.props.id} choices={this.props.choices} answer={this.props.answer} />
             <ButtonToolbar>
-              <OpenQuestionButton handleClick={this.handleOpenClick}>
-                {this.state.openStatus ? '公開中' : '公開'}
-              </OpenQuestionButton>
-              <OpenAnswerButton handleClick={this.handleOpenAnswerClick} disabled={this.state.disabled.open} />
-              <FinishQuestionButton handleClick={this.handleFinishQuestionClick} disabled={this.state.disabled.finish} />
-              <DeleteQuestionButton handleClick={this.handleDeleteClick} />
+              <QuestionButtons store={this.state.buttonStatus}
+                openQuestionClick={this.handleOpenClick}
+                answerClick={this.handleOpenAnswerClick}
+                finishClick={this.handleFinishQuestionClick}
+                deleteClick={this.handleDeleteClick}
+              />
             </ButtonToolbar>
           </div>
         </ListGroupItem>

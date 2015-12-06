@@ -28,60 +28,30 @@ export class CreateQuestionButton extends Component {
   }
 }
 
-// '公開' button
-export class OpenQuestionButton extends Component {
+// button set for controling question status
+export class QuestionButtons extends Component {
   render() {
-    return (
-      <Button
-        bsStyle='info'
-        onClick={this.props.handleClick}
-      >
-        {this.props.children}
-      </Button>
-    );
-  }
-}
-
-// '解答' button
-export class OpenAnswerButton extends Component {
-  render() {
-    return (
-      <Button
-        bsStyle='success'
-        onClick={this.props.handleClick}
-        disabled={this.props.disabled}
-      >
-        解答
-      </Button>
-    );
-  }
-}
-
-// '終了' button
-export class FinishQuestionButton extends Component {
-  render() {
-    return (
-      <Button
-        bsStyle='warning'
-        onClick={this.props.handleClick}
-        disabled={this.props.disabled}
-      >
-        終了
-      </Button>
-    );
-  }
-}
-
-// '削除' button
-export class DeleteQuestionButton extends Component {
-  render() {
-    return (
-      <Button
-        bsStyle='danger'
-        onClick={this.props.handleClick}
-      >
-        削除
-      </Button>
+    let props = this.props;
+    let store = props.store
+      return (
+        <div className="questionButtons">
+          <Button
+            bsStyle="info" disabled={store.open.disabled}
+            onClick={props.openQuestionClick}
+          >{store.open.text}</Button>
+          <Button
+            bsStyle="success" disabled={store.answer.disabled}
+            onClick={props.answerClick}
+          >{store.answer.text}</Button>
+          <Button
+            bsStyle="warning" disabled={store.finish.disabled}
+            onClick={props.finishClick}
+            >{store.finish.text}</Button>
+          <Button
+            bsStyle="danger" disabled={store.delete.disabled}
+            onClick={props.deleteClick}
+          >{store.delete.text}</Button>
+        </div>
     );
   }
 }
