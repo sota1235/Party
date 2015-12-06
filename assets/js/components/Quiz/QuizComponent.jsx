@@ -33,15 +33,19 @@ var voteStore = new VoteStore(emitter);
 export default class QuizComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: '',
-      choices: [],
-      votes: [0, 0, 0, 0]
-    };
     this.loadQuiz = this.loadQuiz.bind(this);
     this.loadVote = this.loadVote.bind(this);
     quizStore.on('quizChanged', this.loadQuiz);
     voteStore.on('voteChanged', this.loadVote);
+  }
+
+  componentWillMount() {
+    let quiz = quizStore.getQuiz();
+    this.setState({
+      title:   quiz.title,
+      choices: quiz.choices,
+      votes:   voteStore.getVotes()
+    });
   }
 
   componentWillUnmount() {
@@ -58,9 +62,7 @@ export default class QuizComponent extends Component {
   }
 
   loadVote() {
-    this.setState({
-      votes: voteStore.getVotes()
-    });
+    this.setState({ votes: voteStore.getVotes() });
   }
   render() {
     return (

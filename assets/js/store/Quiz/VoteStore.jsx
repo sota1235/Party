@@ -14,7 +14,8 @@ import { EventEmitter2 } from 'eventemitter2';
 export default class QuizStore extends EventEmitter2 {
   constructor(emitter) {
     super();
-    this.emitter = emitter;
+    this.emitter    = emitter;
+    this.EVENT_NAME = 'voteChanged';
     this.votes = [0, 0, 0, 0];
     // events
     emitter.on('voteQuiz', this.countUp.bind(this));
@@ -26,10 +27,6 @@ export default class QuizStore extends EventEmitter2 {
   // count up vote number
   countUp(index) {
     this.votes[index-1]++;
-    this.updateVotes();
-  }
-  // TODO: private
-  updateVotes() {
-    this.emit('voteChanged');
+    this.emit(this.EVENT_NAME);
   }
 }
