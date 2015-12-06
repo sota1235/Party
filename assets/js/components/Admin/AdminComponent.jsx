@@ -216,9 +216,11 @@ class Question extends Component {
   // 解答オープン
   handleOpenAnswerClick() {
     if(this.state.buttonStatus.answer.text === 'AnswerCheck') {
+      console.log('answer check');
       buttonAction.answerCheckButton();
       socketAction.answerCheck();
     } else {
+      console.log('open answer');
       buttonAction.openAnswerButton();
       socketAction.openAnswer(this.props.answer);
     }

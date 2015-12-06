@@ -12,10 +12,11 @@ export default class QuizAction {
   constructor(emitter, socket) {
     this.emitter = emitter;
     this.socket  = socket;
-    this.socket.on('open', this.displayQuiz.bind(this));
-    this.socket.on('vote', this.voteQuiz.bind(this));
-    this.socket.on('openAnswer', this.openAnswer.bind(this));
-    this.socket.on('finish', this.finishQuestion.bind(this));
+    this.socket.on('open',        this.displayQuiz.bind(this));
+    this.socket.on('vote',        this.voteQuiz.bind(this));
+    this.socket.on('answerCheck', this.answerCheck.bind(this));
+    this.socket.on('openAnswer',  this.openAnswer.bind(this));
+    this.socket.on('finish',      this.finishQuestion.bind(this));
   }
   displayQuiz(id) {
     this.emitter.emit('displayQuiz', id);
@@ -24,6 +25,10 @@ export default class QuizAction {
   voteQuiz(index) {
     console.log(`vote: ${index}`);
     this.emitter.emit('voteQuiz', index);
+  }
+  answerCheck() {
+    console.log('answer check');
+    this.emitter.emit('answerCheck');
   }
   openAnswer(index) {
     console.log(`open answer: ${index}`);
