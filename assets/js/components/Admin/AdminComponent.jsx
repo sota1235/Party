@@ -25,10 +25,10 @@ import {
   FinishQuestionButton
 } from './AdminButtonComponent.jsx';
 // action, stores
-import AdminAction    from '../action/AdminAction.jsx';
-import SocketAction   from '../action/SocketAction.jsx';
-import AdminStore     from '../store/AdminStore.jsx';
-import AdminFormStore from '../store/AdminFormStore.jsx';
+import AdminAction    from '../../action/Admin/AdminAction.jsx';
+import SocketAction   from '../../action/Admin/SocketAction.jsx';
+import AdminStore     from '../../store/Admin/AdminStore.jsx';
+import AdminFormStore from '../../store/Admin/AdminFormStore.jsx';
 
 var socket       = io();
 var emitter      = new EventEmitter2();

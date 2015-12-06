@@ -8,7 +8,7 @@
  *   @sota1235
  */
 
-import Audio from '../lib/audio.jsx';
+import Audio from '../../lib/audio.jsx';
 
 export default class SoundAction {
   constructor(emitter) {

@@ -12,7 +12,7 @@ import { Router, Route, Link } from 'react-router';
 import { render }              from 'react-dom';
 import React                   from 'react';
 
-import AdminComponent from './components/AdminComponent.jsx';
+import AdminComponent from './components/Admin/AdminComponent.jsx';
 
 /* React rendering */
 render(

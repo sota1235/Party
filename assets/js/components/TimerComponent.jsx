@@ -12,7 +12,7 @@
 import React from 'react';
 import _     from 'lodash';
 
-import SocketAction from '../action/SocketAction.jsx';
+import SocketAction from '../action/Admin/SocketAction.jsx';
 
 var Component = React.Component;
 var socket    = io();

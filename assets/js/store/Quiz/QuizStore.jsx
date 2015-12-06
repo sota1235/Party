@@ -10,7 +10,7 @@
 
 import _ from 'lodash';
 import { EventEmitter2 } from 'eventemitter2';
-import { getQuestion } from '../lib/ajax.jsx';
+import { getQuestion } from '../../lib/ajax.jsx';
 
 export default class QuizStore extends EventEmitter2 {
   constructor(emitter) {
