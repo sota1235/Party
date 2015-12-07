@@ -29,6 +29,7 @@ export default class QuizAction {
   answerCheck() {
     console.log('answer check');
     this.emitter.emit('answerCheck');
+    this.emitter.emit('answer_check_sound'); // for audio
   }
   openAnswer(index) {
     console.log(`open answer: ${index}`);
