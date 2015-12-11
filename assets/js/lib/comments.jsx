@@ -10,6 +10,7 @@
 'use strict';
 
 import $ from 'jquery';
+import _ from 'lodash';
 
 export default class Comment {
   constructor(comment) {
@@ -31,7 +32,7 @@ export default class Comment {
     return new Promise((resolve, reject) => {
       var idName     = 'comment' + Math.random().toString(36).slice(-8);
       var commentElm =
-        `<div id="${idName}" class="quiz_comment" style="display: none">${comment}</div>`;
+        `<div id="${idName}" class="quiz_comment" style="display: none">${_.escape(comment)}</div>`;
       $('body').append(commentElm);
       var dom = $(`#${idName}`);
       resolve(dom);
