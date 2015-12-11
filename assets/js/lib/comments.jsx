@@ -53,7 +53,7 @@ export default class Comment {
       });
       setTimeout(function() {
         dom.css({
-          transform: 'translate(-5000px, 0)',
+          transform: 'translate(-2800px, 0)',
         });
       }, 100);
       resolve(dom);
