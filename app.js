@@ -5,6 +5,8 @@ var favicon      = require('serve-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
+var basicAuth    = require('basic-auth-connect');
+var basicConfig  = require('./config/basic.json');
 
 var app = express();
 
@@ -22,6 +24,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Basic Authentication
+app.all('/quiz', basicAuth(function(user, password) {
+  return user === basicConfig.username && password === basicConfig.password;
+}));
+app.all('/admin', basicAuth(function(user, password) {
+  return user === basicConfig.username && password === basicConfig.password;
+}));
 
 // HTTP routing
 (require(path.resolve('routes', 'httpRoutes')))(app);
