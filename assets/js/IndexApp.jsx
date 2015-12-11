@@ -47,6 +47,7 @@ $(() => {
     var text = $('.comment-form textarea')[0].value;
     if(!validateComment(text)) {
       commentValidateError();
+      return;
     }
     console.log('send comment');
     socket.emit('comment', text);
