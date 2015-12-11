@@ -17,6 +17,7 @@ export default class QuizStore extends EventEmitter2 {
     super();
     this.emitter    = emitter;
     this.EVENT_NAME = 'voteChanged';
+    this.updateVote = true;
     this.votes = {
       number:   [0, 0, 0, 0],
       disabled: true
@@ -34,10 +35,14 @@ export default class QuizStore extends EventEmitter2 {
   // show votes
   showVoteNum() {
     this.votes.disabled = false;
+    this.updateVote     = false;
     this.emit(this.EVENT_NAME);
   }
   // count up vote number
   countUp(index) {
+    if (!this.updateVote) {
+      return;
+    }
     this.votes.number[index-1]++;
     this.emit(this.EVENT_NAME);
   }
