@@ -68,7 +68,7 @@ var Images = function(app) {
       var file = req.file.filename;
       console.log('Adding image: ' + file);
 
-      var addImage = new Images({ imgName: file });
+      var addImage = new Images({ fileName: file });
       addImage.save(function(err, result) {
         if (err) {
           reject({'error': err});
