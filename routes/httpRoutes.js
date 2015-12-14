@@ -15,6 +15,7 @@ var upload = multer({ dest: path.join(__dirname, '..', 'public', 'uploads') });
 
 module.exports = function(app) {
   var Questions = app.get('models').Questions;
+  var Images    = app.get('models').Images;
 
   app.get('/', function(req, res, next) {
     res.render('index');
@@ -29,6 +30,7 @@ module.exports = function(app) {
   });
 
   /* access to models */
+  // Questions
   app.post('/upload', upload.single('questionImg'), function(req, res, next) {
     Questions.updateQuestion(req)
       .then(function(result) {;
@@ -72,6 +74,47 @@ module.exports = function(app) {
 
   app.post('/delete/question', function(req, res, next) {
     Questions.deleteQuestion(req)
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  // Images
+  app.post('/upload/img', upload.single('normalImg'), function(req, res, next) {
+    Images.addImage(req)
+      .then(function(result) {;
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  app.get('/get/images', function(req, res, next) {
+    Images.findAll()
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  app.get('/get/image/:id', function(req, res, next) {
+    Images.findImage(req)
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  app.post('/delete/image', function(req, res, next) {
+    Images.deleteQuestion(req)
       .then(function(result) {
         res.json(result);
       })
