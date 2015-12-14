@@ -55,7 +55,7 @@ module.exports = function(server) {
     });
     // publish image events
     socket.on('imageEvent', function(msg) {
-      console.log('send image event: ' + msg);
+      console.log('send image event: ' + JSON.stringify(msg));
       io.emit('imageEvent', msg);
     });
   });

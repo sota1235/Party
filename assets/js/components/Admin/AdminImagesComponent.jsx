@@ -66,7 +66,7 @@ class ImageButtons extends Component {
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
   onOpenClick() {
-    this.props.actions.socket.sendImgEvent('open');
+    this.props.actions.socket.sendImgEvent('open', this.props.id);
   }
   onFinishClick() {
     this.props.actions.socket.sendImgEvent('close');
