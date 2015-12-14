@@ -21,6 +21,7 @@ import {
 import {
   CreateQuestionButton, QuestionButtons
 } from './AdminButtonComponent.jsx';
+import AdminImagesComponent from './AdminImagesComponent.jsx';
 // action, stores
 import AdminAction  from '../../action/Admin/AdminAction.jsx';
 import ButtonAction from '../../action/Admin/AdminButtonAction.jsx';
@@ -306,7 +307,7 @@ export default class QuestionAdmin extends Component {
               <QuestionList questions={this.state.questions}/>
             </Col>
             <Col xs={6}>
-              <div className="img Space">Image Space</div>
+              <AdminImagesComponent images={[]} />
             </Col>
           </Row>
         </Grid>
