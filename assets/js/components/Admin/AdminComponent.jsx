@@ -319,7 +319,7 @@ export default class QuestionAdmin extends Component {
             <Col xs={6}>
               <AdminImagesComponent
                 images={this.state.images}
-                action={imageAction}
+                actions={ { image: imageAction, socket: socketAction } }
               />
             </Col>
           </Row>

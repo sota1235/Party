@@ -22,7 +22,7 @@ export default class AdminImagesComponent extends Component {
     let that = this;
     let imgNodes = this.props.images.map( (image, index) => {
       return (
-        <ImageListItem key={index} image={image} action={that.props.action} />
+        <ImageListItem key={index} image={image} actions={that.props.actions} />
       );
     });
     return (
@@ -47,7 +47,7 @@ class ImageListItem extends Component {
         <div className="media">
           <div className="media-body">
             <h4>{/*TODO: info.imgName*/}Image Name</h4>
-            <ImageButtons id={info._id} action={this.props.action} />
+            <ImageButtons id={info._id} actions={this.props.actions} />
           </div>
           <div className="media-right">
             <img className="media-object" src={`/uploads/${info.fileName}`} style={this.imgStyle} />
@@ -61,17 +61,25 @@ class ImageListItem extends Component {
 class ImageButtons extends Component {
   constructor(props) {
     super(props);
+    this.onOpenClick   = this.onOpenClick.bind(this);
+    this.onFinishClick = this.onFinishClick.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
+  onOpenClick() {
+    this.props.actions.socket.sendImgEvent('open');
+  }
+  onFinishClick() {
+    this.props.actions.socket.sendImgEvent('close');
+  }
   onDeleteClick() {
-    this.props.action.deleteAction(this.props.id);
+    this.props.actions.image.deleteAction(this.props.id);
   }
   render() {
     return (
       <ButtonToolbar>
-        <Button bsStyle="info">公開</Button>
-        <Button bsStyle="warning">終了</Button>
-        <Button bsStyle="danger" onClick={this.onDeleteClick}>削除</Button>
+        <Button bsStyle="info"    onClick={this.onOpenClick}  >公開</Button>
+        <Button bsStyle="warning" onClick={this.onFinishClick}>終了</Button>
+        <Button bsStyle="danger"  onClick={this.onDeleteClick}>削除</Button>
       </ButtonToolbar>
     );
   }
