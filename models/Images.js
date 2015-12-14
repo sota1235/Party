@@ -14,7 +14,8 @@ var Schema   = mongoose.Schema;
 
 var Images = function(app) {
   var ImagesSchema = new Schema({
-    imgName: String
+    // TODO: imgName: String,
+    fileName: String
   });
 
   mongoose.model('Images', ImagesSchema);
