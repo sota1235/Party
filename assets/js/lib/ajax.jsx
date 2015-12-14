@@ -10,6 +10,7 @@
 
 import request from 'superagent';
 
+/* Questions */
 // get Questions
 export function getQuestions() {
   return new Promise((resolve, reject) => {
@@ -67,3 +68,47 @@ export function deleteQuestion(id) {
       });
   });
 };
+
+/* Images */
+// get Images
+export function getImages() {
+  return new Promise((resolve, reject) => {
+    request
+      .get('/get/images')
+      .end((err, res) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(res.body);
+      });
+  });
+};
+
+// get Image by id
+export function getImage(id) {
+  return new Promise((resolve, reject) => {
+    request
+      .get(`/get/image/${id}`)
+      .end((err, res) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(res.body);
+      });
+  });
+};
+
+// delete Image
+export function deleteImage(id) {
+  return new Promise((resolve, reject) => {
+    request
+      .post('/delete/image')
+      .send({id: id})
+      .end(function(err, res) {
+        if(err) {
+          reject(err);
+        }
+        resolve(res.body);
+      });
+  });
+}
