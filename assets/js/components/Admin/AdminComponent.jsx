@@ -14,7 +14,8 @@ import { EventEmitter2 } from 'eventemitter2';
 // react bootstrap
 import {
   ListGroup, ListGroupItem, Panel,
-  ButtonToolbar, Input, Table
+  ButtonToolbar, Input, Table,
+  Grid, Row, Col
 } from 'react-bootstrap';
 // custom components
 import {
@@ -299,7 +300,16 @@ export default class QuestionAdmin extends Component {
       <div className='questionAdmin container'>
         <h1>Admin Page for {app.title}!!</h1>
         <QuestionForm />
-        <QuestionList questions={this.state.questions}/>
+        <Grid>
+          <Row className="show-grid">
+            <Col xs={6}>
+              <QuestionList questions={this.state.questions}/>
+            </Col>
+            <Col xs={6}>
+              <div className="img Space">Image Space</div>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
