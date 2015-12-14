@@ -19,7 +19,7 @@ let Component = React.Component;
 
 export default class AdminImagesComponent extends Component {
   render() {
-    let imgNodes = this.props.images.map( (index, image) => {
+    let imgNodes = this.props.images.map( (image, index) => {
       return (
         <ImageListItem key={index} image={image} />
       );
@@ -27,6 +27,7 @@ export default class AdminImagesComponent extends Component {
     return (
       <ListGroup>
         {imgNodes}
+        <UploadImg />
       </ListGroup>
     );
   }
@@ -44,7 +45,7 @@ class ImageListItem extends Component {
       <ListGroupItem>
         <div className="media">
           <div className="media-body">
-            <h1>{/*TODO: info.imgName*/}Image Name</h1>
+            <h4>{/*TODO: info.imgName*/}Image Name</h4>
             <ImageButtons />
           </div>
           <div className="media-right">
@@ -64,6 +65,19 @@ class ImageButtons extends Component {
         <Button bsStyle="warning">終了</Button>
         <Button bsStyle="danger">削除</Button>
       </ButtonToolbar>
+    );
+  }
+}
+
+class UploadImg extends Component {
+  render() {
+    return (
+      <ListGroupItem>
+        <form action="/upload/img" encType="multipart/form-data" method="POST">
+          <input type="file" name="normalImg" />
+          <input type="submit" />
+        </form>
+      </ListGroupItem>
     );
   }
 }

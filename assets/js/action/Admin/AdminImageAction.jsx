@@ -28,7 +28,7 @@ export default class AdminImageAction {
   updateAction() {
     getImages()
       .then( result => {
-        this.emitter.emit('updateImage', result);
+        this.emitter.emit('imageUpdate', result);
       })
       .catch( err => {
         console.log(err);
