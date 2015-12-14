@@ -25,10 +25,12 @@ import AdminImagesComponent from './AdminImagesComponent.jsx';
 // action, stores
 import AdminAction  from '../../action/Admin/AdminAction.jsx';
 import ButtonAction from '../../action/Admin/AdminButtonAction.jsx';
+import ImageAction  from '../../action/Admin/AdminImageAction.jsx';
 import SocketAction from '../../action/Admin/SocketAction.jsx';
 import AdminStore   from '../../store/Admin/AdminStore.jsx';
 import FormStore    from '../../store/Admin/AdminFormStore.jsx';
 import ButtonStore  from '../../store/Admin/AdminButtonStore.jsx';
+import ImageStore   from '../../store/Admin/AdminImageStore.jsx';
 // config
 import { app } from '../../config/config.js';
 
@@ -38,8 +40,10 @@ var Component    = React.Component;
 var adminStore   = new AdminStore(emitter);
 var formStore    = new FormStore(emitter);
 var buttonStore  = new ButtonStore(emitter);
+var imageStore   = new ImageStore(emitter);
 var adminAction  = new AdminAction(emitter);
 var buttonAction = new ButtonAction(emitter);
+var imageAction  = new ImageAction(emitter);
 var socketAction = new SocketAction(socket);
 
 /* commponents */
@@ -287,13 +291,19 @@ class QuestionList extends Component {
 export default class QuestionAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = {questions: []};
+    this.state = {questions: [], images: []};
     this.loadQuestions = this.loadQuestions.bind(this);
+    this.loadImages    = this.loadImages.bind(this);
     adminStore.on('questionChange', this.loadQuestions);
+    imageStore.on('imageChange',    this.loadImages);
   }
 
   loadQuestions() {
     this.setState({questions: adminStore.getQuestions()});
+  }
+
+  loadImages() {
+    this.setState({images: imageStore.get()});
   }
 
   render() {
@@ -307,7 +317,7 @@ export default class QuestionAdmin extends Component {
               <QuestionList questions={this.state.questions}/>
             </Col>
             <Col xs={6}>
-              <AdminImagesComponent images={[]} />
+              <AdminImagesComponent images={this.state.images} />
             </Col>
           </Row>
         </Grid>

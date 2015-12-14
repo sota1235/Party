@@ -15,15 +15,15 @@ export default class AdminImageStore extends EventEmitter2 {
     super();
     this.emitter    = emitter;
     this.EVENT_NAME = 'imageChange';
-    this.images = {};
+    this.images = [];
     // events
-    this.emitter.on('imageDeleted', this.onDelete.bind(this));
+    this.emitter.on('imageUpdate', this.onUpdate.bind(this));
   }
   get() {
     return this.images;
   }
-  onDelete(id) {
-    delete this.images[id];
+  onUpdate(images) {
+    this.images = images;
     this.emit(this.EVENT_NAME);
   }
 }

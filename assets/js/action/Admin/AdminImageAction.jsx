@@ -8,17 +8,29 @@
  *   @sota1235
  */
 
-import { deleteImage } from '../../lib/ajax.jsx';
+import { deleteImage, getImages } from '../../lib/ajax.jsx';
 
 export default class AdminImageAction {
   constructor(emitter) {
     this.emitter = emitter;
+    this.updateAction();
+    // bind
+    this.updateAction = this.updateAction.bind(this);
   }
   deleteAction(id) {
     deleteImage(id)
       .then( result => {
-        this.emitter.emit('imageDeleted', id);
+        this.updateAction();
       }).catch( err => {
+        console.log(err);
+      });
+  }
+  updateAction() {
+    getImages()
+      .then( result => {
+        this.emitter.emit('updateImage', result);
+      })
+      .catch( err => {
         console.log(err);
       });
   }
