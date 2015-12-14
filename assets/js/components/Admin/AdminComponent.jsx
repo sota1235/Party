@@ -27,6 +27,8 @@ import SocketAction from '../../action/Admin/SocketAction.jsx';
 import AdminStore   from '../../store/Admin/AdminStore.jsx';
 import FormStore    from '../../store/Admin/AdminFormStore.jsx';
 import ButtonStore  from '../../store/Admin/AdminButtonStore.jsx';
+// config
+import { app } from '../../config/config.js';
 
 var socket       = io();
 var emitter      = new EventEmitter2();
@@ -295,7 +297,7 @@ export default class QuestionAdmin extends Component {
   render() {
     return (
       <div className='questionAdmin container'>
-        <h1>Hello, question admin</h1>
+        <h1>Admin Page for {app.title}!!</h1>
         <QuestionForm />
         <QuestionList questions={this.state.questions}/>
       </div>
