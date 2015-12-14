@@ -317,7 +317,10 @@ export default class QuestionAdmin extends Component {
               <QuestionList questions={this.state.questions}/>
             </Col>
             <Col xs={6}>
-              <AdminImagesComponent images={this.state.images} />
+              <AdminImagesComponent
+                images={this.state.images}
+                action={imageAction}
+              />
             </Col>
           </Row>
         </Grid>

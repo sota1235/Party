@@ -19,9 +19,10 @@ let Component = React.Component;
 
 export default class AdminImagesComponent extends Component {
   render() {
+    let that = this;
     let imgNodes = this.props.images.map( (image, index) => {
       return (
-        <ImageListItem key={index} image={image} />
+        <ImageListItem key={index} image={image} action={that.props.action} />
       );
     });
     return (
@@ -46,7 +47,7 @@ class ImageListItem extends Component {
         <div className="media">
           <div className="media-body">
             <h4>{/*TODO: info.imgName*/}Image Name</h4>
-            <ImageButtons />
+            <ImageButtons id={info._id} action={this.props.action} />
           </div>
           <div className="media-right">
             <img className="media-object" src={`/uploads/${info.fileName}`} style={this.imgStyle} />
@@ -58,12 +59,19 @@ class ImageListItem extends Component {
 }
 
 class ImageButtons extends Component {
+  constructor(props) {
+    super(props);
+    this.onDeleteClick = this.onDeleteClick.bind(this);
+  }
+  onDeleteClick() {
+    this.props.action.deleteAction(this.props.id);
+  }
   render() {
     return (
       <ButtonToolbar>
         <Button bsStyle="info">公開</Button>
         <Button bsStyle="warning">終了</Button>
-        <Button bsStyle="danger">削除</Button>
+        <Button bsStyle="danger" onClick={this.onDeleteClick}>削除</Button>
       </ButtonToolbar>
     );
   }

@@ -114,7 +114,7 @@ module.exports = function(app) {
   });
 
   app.post('/delete/image', function(req, res, next) {
-    Images.deleteQuestion(req)
+    Images.deleteImage(req)
       .then(function(result) {
         res.json(result);
       })
