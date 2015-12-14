@@ -28,6 +28,7 @@ module.exports = function(app) {
     res.render('admin');
   });
 
+  /* access to models */
   app.post('/upload', upload.single('questionImg'), function(req, res, next) {
     Questions.updateQuestion(req)
       .then(function(result) {;
@@ -38,7 +39,6 @@ module.exports = function(app) {
       });
   });
 
-  /* access to models */
   app.get('/get/questions', function(req, res, next) {
     Questions.findAll()
       .then(function(result) {
