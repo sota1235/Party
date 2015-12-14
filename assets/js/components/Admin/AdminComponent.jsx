@@ -294,7 +294,7 @@ export default class QuestionAdmin extends Component {
 
   render() {
     return (
-      <div className='questionAdmin'>
+      <div className='questionAdmin container'>
         <h1>Hello, question admin</h1>
         <QuestionForm />
         <QuestionList questions={this.state.questions}/>
