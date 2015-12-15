@@ -39,4 +39,11 @@ $(() => {
   // Dynamic routing
   socket.on('open',   () => location.hash = '#/quiz');
   socket.on('finish', () => location.hash = '#/');
+  socket.on('imageEvent', (msg) => {
+    if(msg.type === 'open') {
+      location.href = '#/image';
+    } else if(msg.type === 'close') {
+      location.href = '#/';
+    }
+  });
 });
