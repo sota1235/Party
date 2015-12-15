@@ -47,6 +47,7 @@ export default class QuizStore extends EventEmitter2 {
   }
   // reset data
   reset() {
+    this.updateVote = true;
     this.votes = {
       number: [0, 0, 0, 0],
       disabled: true
