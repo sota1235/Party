@@ -14,6 +14,7 @@ import React                   from 'react';
 import $                       from 'jquery';
 
 import QuizTitleComponent from './components/Quiz/QuizTitleComponent.jsx';
+import QuizImageComponent from './components/Quiz/QuizImageComponent.jsx';
 import QuizComponent      from './components/Quiz/QuizComponent.jsx';
 import Comment            from './lib/comments.jsx';
 
@@ -22,8 +23,9 @@ var socket = io();
 /* React rendering */
 render((
   <Router>
-    <Route path='/'    component={QuizTitleComponent}/>
-    <Route path='quiz' component={QuizComponent}/>
+    <Route path='/'         component={QuizTitleComponent}/>
+    <Route path='image/:id' component={QuizImageComponent}/>
+    <Route path='quiz'      component={QuizComponent}/>
   </Router>
 ),  document.getElementById('answers'));
 
@@ -37,4 +39,11 @@ $(() => {
   // Dynamic routing
   socket.on('open',   () => location.hash = '#/quiz');
   socket.on('finish', () => location.hash = '#/');
+  socket.on('imageEvent', (msg) => {
+    if(msg.type === 'open') {
+      location.href = `#/image/${msg.id}`;
+    } else if(msg.type === 'close') {
+      location.href = '#/';
+    }
+  });
 });

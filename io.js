@@ -53,5 +53,10 @@ module.exports = function(server) {
       console.log('exit time limit of quiz');
       io.emit('timerFinish');
     });
+    // publish image events
+    socket.on('imageEvent', function(msg) {
+      console.log('send image event: ' + JSON.stringify(msg));
+      io.emit('imageEvent', msg);
+    });
   });
 };
