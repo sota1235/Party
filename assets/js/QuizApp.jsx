@@ -23,9 +23,9 @@ var socket = io();
 /* React rendering */
 render((
   <Router>
-    <Route path='/'     component={QuizTitleComponent}/>
-    <Route path='image' component={QuizImageComponent}/>
-    <Route path='quiz'  component={QuizComponent}/>
+    <Route path='/'         component={QuizTitleComponent}/>
+    <Route path='image/:id' component={QuizImageComponent}/>
+    <Route path='quiz'      component={QuizComponent}/>
   </Router>
 ),  document.getElementById('answers'));
 
@@ -41,7 +41,7 @@ $(() => {
   socket.on('finish', () => location.hash = '#/');
   socket.on('imageEvent', (msg) => {
     if(msg.type === 'open') {
-      location.href = '#/image';
+      location.href = `#/image/${msg.id}`;
     } else if(msg.type === 'close') {
       location.href = '#/';
     }

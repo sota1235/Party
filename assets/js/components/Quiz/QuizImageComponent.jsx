@@ -33,9 +33,9 @@ export default class QuizImageComponent extends React.Component {
     }
   }
   componentWillMount() {
-    getImage(this.props.id)
+    getImage(this.props.params.id)
       .then( result => {
-        this.setState({ imgPath: result.fileName });
+        this.setState({ imgPath: result[0].fileName });
       });
   }
   render() {
