@@ -14,19 +14,25 @@ import { EventEmitter2 } from 'eventemitter2';
 // react bootstrap
 import {
   ListGroup, ListGroupItem, Panel,
-  ButtonToolbar, Input, Table
+  ButtonToolbar, Input, Table,
+  Grid, Row, Col
 } from 'react-bootstrap';
 // custom components
 import {
   CreateQuestionButton, QuestionButtons
 } from './AdminButtonComponent.jsx';
+import AdminImagesComponent from './AdminImagesComponent.jsx';
 // action, stores
 import AdminAction  from '../../action/Admin/AdminAction.jsx';
 import ButtonAction from '../../action/Admin/AdminButtonAction.jsx';
+import ImageAction  from '../../action/Admin/AdminImageAction.jsx';
 import SocketAction from '../../action/Admin/SocketAction.jsx';
 import AdminStore   from '../../store/Admin/AdminStore.jsx';
 import FormStore    from '../../store/Admin/AdminFormStore.jsx';
 import ButtonStore  from '../../store/Admin/AdminButtonStore.jsx';
+import ImageStore   from '../../store/Admin/AdminImageStore.jsx';
+// config
+import { app } from '../../config/config.js';
 
 var socket       = io();
 var emitter      = new EventEmitter2();
@@ -34,8 +40,10 @@ var Component    = React.Component;
 var adminStore   = new AdminStore(emitter);
 var formStore    = new FormStore(emitter);
 var buttonStore  = new ButtonStore(emitter);
+var imageStore   = new ImageStore(emitter);
 var adminAction  = new AdminAction(emitter);
 var buttonAction = new ButtonAction(emitter);
+var imageAction  = new ImageAction(emitter);
 var socketAction = new SocketAction(socket);
 
 /* commponents */
@@ -283,21 +291,39 @@ class QuestionList extends Component {
 export default class QuestionAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = {questions: []};
+    this.state = {questions: [], images: []};
     this.loadQuestions = this.loadQuestions.bind(this);
+    this.loadImages    = this.loadImages.bind(this);
     adminStore.on('questionChange', this.loadQuestions);
+    imageStore.on('imageChange',    this.loadImages);
   }
 
   loadQuestions() {
     this.setState({questions: adminStore.getQuestions()});
   }
 
+  loadImages() {
+    this.setState({images: imageStore.get()});
+  }
+
   render() {
     return (
-      <div className='questionAdmin'>
-        <h1>Hello, question admin</h1>
+      <div className='questionAdmin container'>
+        <h1>Admin Page for {app.title}!!</h1>
         <QuestionForm />
-        <QuestionList questions={this.state.questions}/>
+        <Grid>
+          <Row className="show-grid">
+            <Col xs={6}>
+              <QuestionList questions={this.state.questions}/>
+            </Col>
+            <Col xs={6}>
+              <AdminImagesComponent
+                images={this.state.images}
+                actions={ { image: imageAction, socket: socketAction } }
+              />
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }

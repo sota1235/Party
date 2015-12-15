@@ -90,6 +90,10 @@ class ChoiceDisplayList extends Component {
   render() {
     let votes = this.props.votes;
     var displayNodes = this.props.choices.map(function(displays, i) {
+      // do not create component when quiz is empty
+      if(displays.text === "" && displays.img === "") {
+        return;
+      }
       return (
         <div className="col-md-6" key={i}>
           <ChoiceDisplay

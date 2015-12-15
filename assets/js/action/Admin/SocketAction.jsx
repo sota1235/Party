@@ -28,4 +28,8 @@ export default class SocketAction {
   finishQuestion() {
     this.socket.emit('finish');
   }
+  sendImgEvent(type, id) {
+    this.socket.emit('imageEvent', { type: type, id: id });
+    console.log(`SocketAction ${type}`);
+  }
 }

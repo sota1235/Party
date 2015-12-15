@@ -39,12 +39,12 @@ export default class AdminButtonStore extends EventEmitter2 {
     this.emit(this.EVENT_NAME);
   }
   answerCheck() {
-    this.buttonStatus.answer.text = '解答オープン';
+    this.buttonStatus.answer.text     = '解答オープン';
+    this.buttonStatus.finish.disabled = false;
     this.emit(this.EVENT_NAME);
   }
   openAnswer() {
     this.buttonStatus.answer.disabled = true;
-    this.buttonStatus.finish.disabled = false;
     this.emit(this.EVENT_NAME);
   }
   standbyQuestion() {
