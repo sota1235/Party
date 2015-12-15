@@ -21,7 +21,6 @@ export default class QuizStore extends EventEmitter2 {
       number:   [0, 0, 0, 0],
       disabled: true
     };
-    this.defaultVotes = _.clone(this.votes, true);
     // events
     emitter.on('voteQuiz',       this.countUp.bind(this));
     emitter.on('answerCheck',    this.showVoteNum.bind(this));
@@ -43,7 +42,10 @@ export default class QuizStore extends EventEmitter2 {
   }
   // reset data
   reset() {
-    this.votes = _.clone(this.defaultVotes, true);
+    this.votes = {
+      number: [0, 0, 0, 0],
+      disabled: true
+    };
     this.emit(this.EVENT_NAME);
   }
 }
