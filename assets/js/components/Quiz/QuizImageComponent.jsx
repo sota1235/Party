@@ -29,8 +29,9 @@ export default class QuizImageComponent extends React.Component {
       textAlign       : 'center'
     };
     this.imgStyle = {
-      height: '500px'
-    }
+      maxHeight : '540px',
+      maxWidth  : '960px'
+    };
   }
   componentWillMount() {
     getImage(this.props.params.id)
