@@ -41,6 +41,14 @@ $(() => {
     console.log(`send quiz vote for ${target}`);
     socket.emit('vote', target);
   });
+  // button tap
+  $('.choice-form button')
+    .bind('touchstart', () => {
+      $(this).addClass('touch');
+    })
+    .bind('touchend', () => {
+      $(this).removeClass('touch');
+    });
   // send comment
   $('.comment-form button').on('click', (event) => {
     event.preventDefault();
