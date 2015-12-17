@@ -91,7 +91,8 @@ class ChoiceDisplayList extends Component {
     let votes = this.props.votes;
     var displayNodes = this.props.choices.map(function(displays, i) {
       // do not create component when quiz is empty
-      if(displays.text === "" && displays.img === "") {
+      console.log(displays);
+      if(displays.text === "" && displays.img === undefined) {
         return;
       }
       return (
