@@ -26,7 +26,8 @@ module.exports.ImageService = function(app) {
    * @param res {object}
    */
   var createImage = function(req, res) {
-    Images.addImage(req)
+    var fileName = req.file.filename;
+    Images.addImage(fileName)
       .then(function(result) {
         res.json(result);
       })

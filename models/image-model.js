@@ -63,12 +63,10 @@ var Images = function() {
   };
 
   // add image data from request body
-  var addImage = function(req) {
+  var addImage = function(fileName) {
     return new Promise(function(resolve, reject) {
-      var file = req.file.filename;
-      console.log('Adding image: ' + file);
-
-      var addImage = new Images({ fileName: file });
+      console.log('Adding image: ' + fileName);
+      var addImage = new Images({ fileName: fileName });
       addImage.save(function(err, result) {
         if (err) {
           reject({'error': err});
