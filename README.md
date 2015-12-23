@@ -36,6 +36,8 @@ User can vote for question and it is displayed on quiz page in real time.
 
 Also, send comments just like niconico video.
 
+![Index page](https://i.gyazo.com/1739ea278540d0d7884a6e69b6649dbe.gif)
+
 - Quiz page
 
 You can see Question set just now.
@@ -44,11 +46,15 @@ The comments and vote number displayed in real time.
 
 Quiz page has some customize options. (Sounds and styles. It is coming soon...)
 
+![Quiz page](https://i.gyazo.com/2e0c6f3ea2ee199d3e53fa42698e04a5.gif)
+
 - Admin page
 
 Owner of event uses this page.
 
 Add, delete, set questions in this page.
+
+![Admin Page](https://i.gyazo.com/d0440fdcda0d7cef9c659cae554a6a8c.gif)
 
 ### Install
 
