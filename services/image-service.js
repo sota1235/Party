@@ -8,8 +8,6 @@
  *   @sota1235
  */
 
-var path = require('path');
-
 /**
  * クイズ画面に表示する通常画像用サービスクラス
  * @class ImageService
