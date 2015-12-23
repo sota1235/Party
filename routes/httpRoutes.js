@@ -14,7 +14,6 @@ var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, '..', 'public', 'uploads') });
 
 module.exports = function(app) {
-  var Questions = app.get('models').Questions();
   var QuestionService = app.get('services').QuestionService(app);
   var ImageService    = app.get('services').ImageService(app);
 
@@ -33,54 +32,26 @@ module.exports = function(app) {
   /* access to models */
   // Questions
   app.post('/upload', upload.single('questionImg'), function(req, res, next) {
-    Questions.updateQuestion(req)
-      .then(function(result) {;
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    QuestionService.updateImage(req, res);
   });
 
   app.get('/get/questions', function(req, res, next) {
-    Questions.findAll()
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    QuestionService.readAll(res);
   });
 
   app.get('/get/question/:id', function(req, res, next) {
-    Questions.findQuestion(req)
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    QuestionService.read(req, res);
   });
 
   app.post('/add/question', function(req, res, next) {
-    Questions.addQuestion(req)
+    QuestionService.create(req, res)
       .then(function(result) {
-        Questions.findAll()
-          .then(function(data) { res.json(data); });
-      })
-      .catch(function(err) {
-        res.json(err);
+        QuestionService.readAll(res);
       });
   });
 
   app.post('/delete/question', function(req, res, next) {
-    Questions.deleteQuestion(req)
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    QuestionService.delete(req, res);
   });
 
   // Images
