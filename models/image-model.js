@@ -48,9 +48,8 @@ var Images = function() {
   };
 
   // get image by _id
-  var findImage = function(req) {
+  var findImage = function(id) {
     return new Promise(function(resolve, reject) {
-      var id = req.params.id;
       console.log('Getting image that id is ' + id);
       Images.find({ _id: id }, function(err, result) {
         if (err) {

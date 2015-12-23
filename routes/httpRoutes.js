@@ -94,13 +94,7 @@ module.exports = function(app) {
   });
 
   app.get('/get/image/:id', function(req, res, next) {
-    Images.findImage(req)
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    ImageService.read(req, res);
   });
 
   app.post('/delete/image', function(req, res, next) {

@@ -50,8 +50,25 @@ module.exports.ImageService = function(app) {
       });
   };
 
+  /**
+   * 指定されたidの画像情報を取得
+   * @param req {object}
+   * @param res {object}
+   */
+  var getImage = function(req, res) {
+    var imageId = req.params.id;
+    Images.findImage(imageId)
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  };
+
   return {
     create  : createImage,
-    readAll : getAllImages
+    readAll : getAllImages,
+    read    : getImage
   };
 }
