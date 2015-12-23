@@ -1,5 +1,5 @@
 /**
- * Questions.js
+ * question-model.js
  *
  * Description:
  *  data model for questions
