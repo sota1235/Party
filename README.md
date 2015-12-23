@@ -1,6 +1,8 @@
 Party
 ====
 
+[![Build Status](https://travis-ci.org/sota1235/Party.svg)](https://travis-ci.org/sota1235/Party)
+
 Simple quiz system.
 
 ### Description
