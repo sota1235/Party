@@ -19,6 +19,8 @@ The answers is reflected in real-time on 'Questions' screen.
 
 ### Demo
 
+![](https://i.gyazo.com/72c5b6b03b604350759a227247afc75f.gif)
+
 ### Requirement
 
 - node.js v4.1.2
@@ -81,6 +83,8 @@ $ npm start
 ```
 
 ### Contribution
+
+Bug reports and pull requests are welcome on GitHub at [https://github.com/sota1235/Party](https://github.com/sota1235/Party). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
 ### Licence
 
