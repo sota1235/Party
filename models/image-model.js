@@ -1,5 +1,5 @@
 /**
- * Images.js
+ * image-model.js
  *
  * Description:
  *   data model for images

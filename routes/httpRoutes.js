@@ -17,6 +17,8 @@ module.exports = function(app) {
   var Questions = app.get('models').Questions;
   var Images    = app.get('models').Images;
 
+  var ImageService = app.get('services').ImageService(app);
+
   app.get('/', function(req, res, next) {
     res.render('index');
   });
@@ -84,13 +86,7 @@ module.exports = function(app) {
 
   // Images
   app.post('/upload/img', upload.single('normalImg'), function(req, res, next) {
-    Images.addImage(req)
-      .then(function(result) {;
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    ImageService.createImage(req, res);
   });
 
   app.get('/get/images', function(req, res, next) {
