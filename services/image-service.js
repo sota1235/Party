@@ -18,7 +18,7 @@ module.exports.ImageService = function(app) {
   /**
    * 画像モデル
    */
-  var Images = app.get('models').Images;
+  var Images = app.get('models').Images();
 
   /**
    * 画像追加

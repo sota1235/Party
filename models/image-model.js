@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var Schema   = mongoose.Schema;
 
-var Images = function() {
+module.exports.Images = function() {
   var ImagesSchema = new Schema({
     // TODO: imgName: String,
     fileName: String
@@ -99,5 +99,3 @@ var Images = function() {
     deleteImage : deleteImage
   };
 };
-
-module.exports.Images = Images();
