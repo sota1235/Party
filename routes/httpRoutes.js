@@ -86,17 +86,11 @@ module.exports = function(app) {
 
   // Images
   app.post('/upload/img', upload.single('normalImg'), function(req, res, next) {
-    ImageService.createImage(req, res);
+    ImageService.create(req, res);
   });
 
   app.get('/get/images', function(req, res, next) {
-    Images.findAll()
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    ImageService.readAll(res);
   });
 
   app.get('/get/image/:id', function(req, res, next) {

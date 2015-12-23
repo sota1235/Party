@@ -24,7 +24,6 @@ module.exports.ImageService = function(app) {
    * 画像追加
    * @param req {object}
    * @param res {object}
-   * @return {object} Promise object
    */
   var createImage = function(req, res) {
     Images.addImage(req)
@@ -34,9 +33,24 @@ module.exports.ImageService = function(app) {
       .catch(function(err) {
         res.json(err);
       });
-  }
+  };
+
+  /**
+   * 全ての画像を取得
+   * @param res {object}
+   */
+  var getAllImages = function(res) {
+    Images.findAll()
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  };
 
   return {
-    createImage: createImage
+    create  : createImage,
+    readAll : getAllImages
   };
 }
