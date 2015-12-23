@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var Schema   = mongoose.Schema;
 
-var Questions = function() {
+module.exports.Questions = function() {
   var ChoiceSchema = new Schema({
     index: Number,
     text: String,
@@ -141,5 +141,3 @@ var Questions = function() {
     updateQuestion: updateQuestion
   };
 };
-
-module.exports.Questions = Questions();

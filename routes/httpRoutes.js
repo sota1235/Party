@@ -14,8 +14,9 @@ var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, '..', 'public', 'uploads') });
 
 module.exports = function(app) {
-  var Questions = app.get('models').Questions;
-  var ImageService = app.get('services').ImageService(app);
+  var Questions = app.get('models').Questions();
+  var QuestionService = app.get('services').QuestionService(app);
+  var ImageService    = app.get('services').ImageService(app);
 
   app.get('/', function(req, res, next) {
     res.render('index');
