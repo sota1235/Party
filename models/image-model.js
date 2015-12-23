@@ -77,9 +77,8 @@ var Images = function() {
   };
 
   // delete image data by id
-  var deleteImage = function(req) {
+  var deleteImage = function(id) {
     return new Promise(function(resolve, reject) {
-      var id = req.body.id;
       console.log('Delete image id: ' + id);
 
       Images.remove({_id: id}, function(err, result) {

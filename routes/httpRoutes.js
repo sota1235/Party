@@ -98,12 +98,6 @@ module.exports = function(app) {
   });
 
   app.post('/delete/image', function(req, res, next) {
-    Images.deleteImage(req)
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+    ImageService.delete(req, res);
   });
 };

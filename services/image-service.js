@@ -51,7 +51,7 @@ module.exports.ImageService = function(app) {
   };
 
   /**
-   * 指定されたidの画像情報を取得
+   * 指定されたIDの画像情報を取得
    * @param req {object}
    * @param res {object}
    */
@@ -66,9 +66,26 @@ module.exports.ImageService = function(app) {
       });
   };
 
+  /**
+   * 指定されたIDの画像を削除
+   * @param req {object}
+   * @param res {objcet}
+   */
+  var deleteImage = function(req, res) {
+    var imageId = req.body.id;
+    Images.deleteImage(imageId)
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  };
+
   return {
     create  : createImage,
     readAll : getAllImages,
-    read    : getImage
+    read    : getImage,
+    delete  : deleteImage
   };
 }
