@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var Schema   = mongoose.Schema;
 
-var Images = function(app) {
+var Images = function() {
   var ImagesSchema = new Schema({
     // TODO: imgName: String,
     fileName: String

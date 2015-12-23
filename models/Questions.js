@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var Schema   = mongoose.Schema;
 
-var Questions = function(app) {
+var Questions = function() {
   var ChoiceSchema = new Schema({
     index: Number,
     text: String,
