@@ -1,5 +1,5 @@
 /**
- * Images.js
+ * image-model.js
  *
  * Description:
  *   data model for images
@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var Schema   = mongoose.Schema;
 
-var Images = function(app) {
+module.exports.Images = function() {
   var ImagesSchema = new Schema({
     // TODO: imgName: String,
     fileName: String
@@ -48,9 +48,8 @@ var Images = function(app) {
   };
 
   // get image by _id
-  var findImage = function(req) {
+  var findImage = function(id) {
     return new Promise(function(resolve, reject) {
-      var id = req.params.id;
       console.log('Getting image that id is ' + id);
       Images.find({ _id: id }, function(err, result) {
         if (err) {
@@ -63,12 +62,10 @@ var Images = function(app) {
   };
 
   // add image data from request body
-  var addImage = function(req) {
+  var addImage = function(fileName) {
     return new Promise(function(resolve, reject) {
-      var file = req.file.filename;
-      console.log('Adding image: ' + file);
-
-      var addImage = new Images({ fileName: file });
+      console.log('Adding image: ' + fileName);
+      var addImage = new Images({ fileName: fileName });
       addImage.save(function(err, result) {
         if (err) {
           reject({'error': err});
@@ -80,9 +77,8 @@ var Images = function(app) {
   };
 
   // delete image data by id
-  var deleteImage = function(req) {
+  var deleteImage = function(id) {
     return new Promise(function(resolve, reject) {
-      var id = req.body.id;
       console.log('Delete image id: ' + id);
 
       Images.remove({_id: id}, function(err, result) {
@@ -103,5 +99,3 @@ var Images = function(app) {
     deleteImage : deleteImage
   };
 };
-
-module.exports.Images = Images();

@@ -14,8 +14,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// requrie models
-app.set('models', require.all(path.resolve('models')));
+// requrie models and services
+app.set('models',   require.all(path.resolve('models')));
+app.set('services', require.all(path.resolve('services')));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

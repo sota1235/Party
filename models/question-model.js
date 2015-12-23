@@ -1,5 +1,5 @@
 /**
- * Questions.js
+ * question-model.js
  *
  * Description:
  *  data model for questions
@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 
 var Schema   = mongoose.Schema;
 
-var Questions = function(app) {
+module.exports.Questions = function() {
   var ChoiceSchema = new Schema({
     index: Number,
     text: String,
@@ -60,9 +60,8 @@ var Questions = function(app) {
   };
 
   // get question by _id
-  var findQuestion = function(req) {
+  var findQuestion = function(id) {
     return new Promise(function(resolve, reject) {
-      var id = req.params.id;
       console.log('Getting question that id is ' + id);
       Questions.find({ _id: id }, function(err, result) {
         if (err) {
@@ -75,9 +74,8 @@ var Questions = function(app) {
   };
 
   // add question data from request body
-  var addQuestion = function(req) {
+  var addQuestion = function(question) {
     return new Promise(function(resolve, reject) {
-      var question = req.body;
       console.log('Adding question: ' + JSON.stringify(question));
 
       var addQuestion = new Questions(question);
@@ -92,18 +90,15 @@ var Questions = function(app) {
   };
 
   // update question data from request body
-  var updateQuestion = function(req) {
+  var updateQuestion = function(id, index, fileName) {
     return new Promise(function(resolve, reject) {
-      var id    = req.query.id;
-      var index = req.query.index;
-      var file  = req.file.filename;
       console.log('Adding question img id: ' + id);
 
       Questions.findOneAndUpdate(
         { _id: id, "choice.index": index },
         {
           $set: {
-            "choice.$.imgPath": file
+            "choice.$.imgPath": fileName
           }
         },
         function(err, doc) {
@@ -117,9 +112,8 @@ var Questions = function(app) {
   };
 
   // delete question data by id
-  var deleteQuestion = function(req) {
+  var deleteQuestion = function(id) {
     return new Promise(function(resolve, reject) {
-      var id = req.body.id;
       console.log('Delete qustion id: ' + id);
 
       Questions.remove({_id: id}, function(err, result) {
@@ -141,5 +135,3 @@ var Questions = function(app) {
     updateQuestion: updateQuestion
   };
 };
-
-module.exports.Questions = Questions();
