@@ -81,6 +81,11 @@ Start application and access `http://{hostname}:3000`.
 ```shell
 $ npm start
 ```
+### TODO
+
+- **Load measures for Socket.IO**
+- Make admin page more useful
+- Add template for application(style, config)
 
 ### Contribution
 
