@@ -1,5 +1,5 @@
 {
-  "dev": {
+  "development": {
     "driver": "sqlite3",
     "filename": "./database/database_dev.sqlite3"
   },
