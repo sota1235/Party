@@ -6,9 +6,22 @@ var type = dbm.dataType;
 
 exports.up = function(db, callback) {
   db.createTable('images', {
-    image_id: { type: 'int', primarykey: true },
-    name: 'string',
-    file_name: 'string'
+    image_id : {
+      type          : 'int',
+      primarykey    : true,
+      notNull       : true,
+      autoIncrement : true,
+      unique        : true
+    },
+    name : {
+      type    : 'string',
+      notNull : true
+    },
+    file_name : {
+      type    : 'string',
+      notNull : true,
+      unique  : true
+    }
   }, callback);
 };
 
