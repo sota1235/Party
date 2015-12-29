@@ -25,5 +25,5 @@ exports.up = function(db, callback) {
 };
 
 exports.down = function(db, callback) {
-  callback();
+  db.dropTable('question_images', callback);
 };
