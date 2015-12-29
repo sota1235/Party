@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha test/**/*-test.js"
+    "test": "mocha test/**/*-test.js",
+    "migrate": "db-migrate up --config ./config/database.json"
   },
   "repository": {
     "type": "git",
