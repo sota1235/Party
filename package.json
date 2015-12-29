@@ -23,6 +23,7 @@
   "homepage": "https://github.com/sota1235/All-Star-Thanksgiving#readme",
   "dependencies": {
     "animate.css": "^3.4.0",
+    "async": "^1.5.0",
     "basic-auth-connect": "^1.0.0",
     "body-parser": "^1.14.1",
     "bootstrap": "^3.3.6",
