@@ -1,30 +1,29 @@
 /**
- * Create table for images
+ * Create table for questions
  */
 var dbm = global.dbm || require('db-migrate');
 var type = dbm.dataType;
 
 exports.up = function(db, callback) {
-  db.createTable('images', {
-    image_id : {
+  db.createTable('questions', {
+    question_id : {
       type          : 'int',
       primaryKey    : true,
       notNull       : true,
       autoIncrement : true,
       unique        : true
     },
-    name : {
+    text : {
       type    : 'string',
       notNull : true
     },
-    file_name : {
+    answer_index : {
       type    : 'string',
-      notNull : true,
-      unique  : true
+      notNull : true
     }
   }, callback);
 };
 
 exports.down = function(db, callback) {
-  db.dropTable('images', callback);
+  db.dropTable('questions', callback);
 };
