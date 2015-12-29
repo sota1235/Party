@@ -56,6 +56,7 @@
     "babelify": "^7.1.0",
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
+    "db-migrate": "^0.9.23",
     "espower-babel": "^4.0.0",
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
