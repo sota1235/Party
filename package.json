@@ -1,5 +1,5 @@
 {
-  "name": "party",
+  "name": "Party",
   "version": "0.0.1",
   "description": "Real time quiz system.",
   "main": "app.js",
@@ -18,9 +18,9 @@
   "author": "sota1235",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sota1235/All-Star-Thanksgiving/issues"
+    "url": "https://github.com/sota1235/Party/issues"
   },
-  "homepage": "https://github.com/sota1235/All-Star-Thanksgiving#readme",
+  "homepage": "https://github.com/sota1235/Party#readme",
   "dependencies": {
     "animate.css": "^3.4.0",
     "async": "^1.5.0",
