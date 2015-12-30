@@ -70,4 +70,19 @@ Questions.prototype.add = function(data) {
   });
 };
 
+/**
+ * 問題データ更新
+ * TODO
+ */
+Questions.prototype.update = function(id, data) {
+};
+
+/**
+ * 問題削除
+ * TODO
+ * @param questionId {int}
+ */
+Questions.prototype.delete = function(questionId) {
+};
+
 module.exports = Questions;
