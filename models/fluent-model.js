@@ -28,8 +28,19 @@ var FluentModel = function(mode) {
  * @param callback {function}
  * @return {object}
  */
-FluentModel.prototype.run = function(sql, callback) {
-  this.db.all(sql, callback);
+FluentModel.prototype.run = function(sql, params, callback) {
+  return this.db.run(sql, params, callback);
+};
+
+/**
+ * SQLを実行し、結果を返す
+ * @param sql      {string}
+ * @param param    {array}
+ * @param callback {function}
+ * @return {object}
+ */
+FluentModel.prototype.all = function(sql, params, callback) {
+  this.db.all(sql, params, callback);
 };
 
 module.exports = FluentModel;
