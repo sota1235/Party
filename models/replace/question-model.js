@@ -72,9 +72,34 @@ Questions.prototype.add = function(data) {
 
 /**
  * 問題データ更新
- * TODO
+ * @param id          {int}
+ * @param text        {string}
+ * @param answerIndex {int}
+ * @return {object} Promise object
  */
-Questions.prototype.update = function(id, data) {
+Questions.prototype.update = function(id, text, answerIndex) {
+  var setSql = [];
+  var params        = [];
+  if(text) {
+    setSql.push("text = ?");
+    params.push(text);
+  }
+  if(answerIndex) {
+    setSql.push("answer_index = ?");
+    params.push(answerIndex);
+  }
+  var sql =
+    "UPDATE " + this.tableName + " SET " +
+    setSql.join(',') +
+    "WHERE question_id = ?";
+  params.push(id);
+  var connection = this.connection;
+  return new Promise(function(resolve, reject) {
+    connection.run(sql, params, function(err) {
+      if(err) reject(err);
+      resolve(this.lastID);
+    });
+  });
 };
 
 /**
