@@ -15,24 +15,21 @@ var dbConfig = require('../config/database.json');
  * DBアクセス用クラス
  * @class FluentModel
  */
-module.exports = function(mode) {
+var FluentModel = function(mode) {
+  var mode         = mode || sqlite3.OPEN_READWRITE;
   var targetConfig = dbConfig[process.env.NODE_ENV || 'development'];
+  this.db          = new sqlite3.Database(targetConfig.filename, mode);
+};
 
-  /**
-   * SQLを実行する
-   * @param sql      {string}
-   * @param param    {array}
-   * @param callback {function}
-   * @return {object}
-   */
-  var run = function(sql, param, callback) {
-    var db     = new sqlite3.Database(targetConfig.filename, mode);
-    var result = db.run(sql, param, callback);
-    db.close();
-    return result;
-  };
+/**
+ * SQLを実行する
+ * @param sql      {string}
+ * @param param    {array}
+ * @param callback {function}
+ * @return {object}
+ */
+FluentModel.prototype.run = function(sql, callback) {
+  this.db.all(sql, callback);
+};
 
-  return {
-    run : run
-  };
-}
+module.exports = FluentModel;
