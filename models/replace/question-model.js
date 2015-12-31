@@ -97,17 +97,26 @@ Questions.prototype.update = function(id, text, answerIndex) {
   return new Promise(function(resolve, reject) {
     connection.run(sql, params, function(err) {
       if(err) reject(err);
-      resolve(this.lastID);
+      resolve(this.changes);
     });
   });
 };
 
 /**
  * 問題削除
- * TODO
  * @param questionId {int}
  */
 Questions.prototype.delete = function(questionId) {
+  var sql =
+    "DELETE FROM " + this.tableName + " " +
+    "WHERE question_id = ?";
+  var connection = this.connection;
+  return new Promise(function(resolve, reject) {
+    connection.run(sql, [questionId], function(err) {
+      if(err) reject(err);
+      resolve(this.changes);
+    });
+  });
 };
 
 module.exports = Questions;
