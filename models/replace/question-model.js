@@ -24,7 +24,10 @@ var Questions = function() {
  * @return {object} Promise Object
  */
 Questions.prototype.getAll = function() {
-  var sql        = "SELECT * FROM " + this.tableName + ";";
+  var sql =
+    "SELECT * FROM " + this.tableName + " AS q " +
+    "LEFT OUTER JOIN question_choices AS qc " +
+    "ON q.question_id = qc.question_id;";
   var connection = this.connection;
   return new Promise(function(resolve, reject) {
     connection.all(sql, [], function(err, rows) {
